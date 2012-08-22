@@ -47,7 +47,7 @@ class Dendrit {
     else {
       strokeWeight( 1 );
     }
-    println(e );
+    // println(e );
   }
 }
 

@@ -1,0 +1,25 @@
+<head>
+
+<title>Processing.js - jquery.twitterlive - social neuron</title>
+<link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="row">
+    <div class="span2">
+        <button class="btn" id="startviz">Start Viz</button>
+        <button class="btn" id="stopviz">Stop Viz</button>
+    </div>
+    <div class="span8">
+        
+        <canvas id="seuron" data-processing-sources="seuron-twitter.pde ../../Seuron.pde ../../Axon.pde ../../Dendrit.pde ../../Message.pde ../../Transmitter.pde" tabindex="0" width="960" height="550" style="image-rendering: -webkit-optimize-contrast !important; "></canvas>
+        
+    </div>
+</div>
+
+<script src=" http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js "></script>
+<script type="text/javascript" src="jquery.livetwitter.js"></script>
+<script type="text/javascript" src="seuron-twitter.js"></script> 
+<script type="text/javascript" src="processing.js"></script>
+</body/>

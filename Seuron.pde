@@ -80,7 +80,7 @@ class Seuron {
   }
 
   void createAxon() {
-    println(this);
+    // println(this);
 //    a = new Axon(this.parent);
     
   }
