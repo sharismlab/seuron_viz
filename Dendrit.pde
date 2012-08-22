@@ -21,17 +21,15 @@ class Dendrit {
     float e = 0.5; // excitation rate, later should be activate by mouse
     
     // calculate dendrite length 
-    float len = dist(from.cx, from.cy, to.cx, to.cy);
+    // float len = dist(from.cx, from.cy, to.cx, to.cy);
     // scount = 12; //number of sections for this dendrite
   }
 
   void draw() {
-    // go!
-    
     float dst = dist(from.cx, from.cy, to.cx, to.cy);
     stroke(255, 35);
-    scribble(from.cx, from.cy, to.cx, to.cy, scount, e);
-    
+    strokeWeight(dst/50);
+    scribble(from.cx, from.cy, to.ax, to.ay, scount, e);
   }
 
   void excitate() {
@@ -47,7 +45,6 @@ class Dendrit {
     else {
       strokeWeight( 1 );
     }
-    // println(e );
   }
 }
 
@@ -75,4 +72,3 @@ void scribble(float x1, float y1, float x2, float y2, int steps, float scribVal)
     }
   }
 }
-

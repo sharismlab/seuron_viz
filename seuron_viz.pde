@@ -15,7 +15,6 @@ Seuron s1, s2, s3, s4;
 Dendrit d1;
 Transmitter twi, gplus;
 Message m1, m2, m3, m4;
-Axon a1;
 
 Message[] meme = new Message[3];
 
@@ -41,8 +40,7 @@ void setup() {
 //  syn1 = new Synapse(s1, s2);
 
   // build dendrits
-  d1 = new Dendrit(s1, s2, 12.5, 0.5);
-  a1 = new Axon(s1);
+  d1 = new Dendrit(s2, s1, 12.5, 5);
 
   // messages
   m1 = new Message( s1, s2, twi );
@@ -62,15 +60,19 @@ void setup() {
   // m2.init();
 } 
 
+void mouseClicked() {
+  d1.excitate();
+  println(d1.e);
+}
+
 void draw() {  // this is run repeatedly.  
 
   background(0);
+  d1.draw();
   s1.display();
   s2.display();
-  
-  
-//  a1.draw();
 
+  
 /*
   m1.display();
 */
@@ -108,17 +110,5 @@ void draw() {  // this is run repeatedly.
    */
 }
 
-void mouseClicked() {
-  println("clicked");
 
-//  m1.display();
-
-  /*
-  for (int i=0; i<meme.length; i++){
-   meme[i].running=true;
-   meme[i].display();
-   meme[i].running=false;
-   }
-   */
-}
 

@@ -6,13 +6,9 @@ class Seuron {
   float cx, cy, r, opac;
   String name;
   float[] vx, vy; // vertex coordinates
-  //  ArrayList axons;
-  Axon a;
-  ArrayList dendrites;
-
-  /*  float[] n, ra, a;
-   float[] dx, dy; // dendrites coordinates
-   */
+  float ax, ay, e; //axon terminal coordinates
+  ArrayList dendrites; // store all dendrites inside seuron
+  ArrayList terminals; // store all axon terminals also
 
   // default values
   Seuron() {
@@ -56,7 +52,7 @@ class Seuron {
     beginShape();
     for (int i=0; i<v+2; i++) {
       curveVertex( vx[i] - random(10), vy[i] - random(10) );
-      //center
+      // add center
       point( cx, cy );
     }
     endShape(CLOSE);
@@ -67,34 +63,48 @@ class Seuron {
   }
 
 
+  // function to store dendrites inside seuron
   void addDendrites( Dendrit d ) {
     dendrites.add(d);
   }
 
+  // function to store axon terminals inside seuron
+  void addDendrites( AxonTerminal a ) {
+    terminals.add(a);
+  }
 
   void showDendrites() {
     for (int i=0; i< dendrites.size(); i++) {
-      //((Message) meme.get(i)).display();
       ( (Dendrit) dendrites.get(i) ).draw();
     }
   }
 
-  void createAxon() {
-    // println(this);
-//    a = new Axon(this.parent);
+  void drawAxon() {
+    ax = cx + r*2 + random(12);
+    ay = cy + r*2 + random(12);
     
+    // axon excitation : should depend on incoming signals
+    e = 2;
+    
+    stroke(c,75);
+    strokeWeight(5);
+    line(cx,cy,ax,ay);
+    scribble(cx,cy,ax,ay,5,e);
+    
+    // axon terminal
+    fill(c,75);
+    ellipse(ax,ay,20,20);
+    
+    // println(this);
   }
 
-  void showAxon() {
-   // a.draw();
+  void showAvatar() {
+    // this function should return display avatar from Twitter
   }
 
   void display() {
-
-    // drawDendrites();
-    createAxon();
-    showAxon();
     drawNucleus();
+    drawAxon();
   }
 }
 
