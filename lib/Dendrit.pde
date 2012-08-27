@@ -15,7 +15,7 @@ class Dendrit {
   Dendrit(Seuron _from, Seuron _to, float _w, float _e) {
     from = _from;
     to = _to;
-    _w = w; //w eight
+    _w = w; //weight
     _e =e ; //excitation state
 
     float e = 0.5; // excitation rate, later should be activate by mouse

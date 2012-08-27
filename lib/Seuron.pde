@@ -6,9 +6,11 @@ class Seuron {
   float cx, cy, r, opac;
   String name;
   float[] vx, vy; // vertex coordinates
-  float ax, ay, e; //axon terminal coordinates
-  ArrayList dendrites; // store all dendrites inside seuron
-  ArrayList terminals; // store all axon terminals also
+  float ax, ay; //axon terminal coordinates
+  float e= 2;  // axon excitation : should depend on incoming signals
+  ArrayList<Dendrite> dendrites; // store all dendrites inside 
+
+
 
   // default values
   Seuron() {
@@ -45,32 +47,29 @@ class Seuron {
     // begin drawing nucleus
     stroke(c);
     strokeWeight(1);
-    noFill();
     fill(c);
+    ellipse(cx,cy,100,100);
 
     //draw nucleus
-    beginShape();
+    /*beginShape();
     for (int i=0; i<v+2; i++) {
       curveVertex( vx[i] - random(10), vy[i] - random(10) );
       // add center
       point( cx, cy );
     }
     endShape(CLOSE);
+    */
 
     // display name
     fill(0);
-    text(name, cx-10, cy);
+    textAlign(CENTER);
+    text(name, cx, cy);
   }
 
 
   // function to store dendrites inside seuron
   void addDendrites( Dendrit d ) {
     dendrites.add(d);
-  }
-
-  // function to store axon terminals inside seuron
-  void addDendrites( AxonTerminal a ) {
-    terminals.add(a);
   }
 
   void showDendrites() {
@@ -80,16 +79,13 @@ class Seuron {
   }
 
   void drawAxon() {
-    ax = cx + r*2 + random(12);
-    ay = cy + r*2 + random(12);
-    
-    // axon excitation : should depend on incoming signals
-    e = 2;
-    
+    ax = cx + r*2;// + random(12);
+    ay = cy + r*2;// + random(12);
+
     stroke(c,75);
     strokeWeight(5);
     line(cx,cy,ax,ay);
-    scribble(cx,cy,ax,ay,5,e);
+    // scribble(cx,cy,ax,ay,5,20);
     
     // axon terminal
     fill(c,75);
