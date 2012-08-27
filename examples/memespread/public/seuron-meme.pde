@@ -1,6 +1,6 @@
 void setup() {
     background(0);
-    size(500,500);
+    size(window.height,window.width);
 }
 
 void draw() {
