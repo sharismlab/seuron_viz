@@ -22,7 +22,7 @@ $(document).ready(function(){
 
     });
 
-    $('#startviz').click( function(){
+    $('#stopviz').click( function(){
         $(document).each(function(){ this.twitter.stop(); });
     });
     
