@@ -1,12 +1,11 @@
 /*
 SOCIAL NEURON
 example using twitter + jquery for social seurons visualization
-
 */
 
 // contiene l'elenco dei tweets
 ArrayList tweets = new ArrayList();
-ArrayList ats = new ArrayList(); 
+ArrayList ats = new ArrayList();
 ArrayList meme = new ArrayList();
 PFont font = loadFont("Verdana");  
  
