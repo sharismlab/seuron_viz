@@ -4,12 +4,15 @@ class Seuron {
   int v;
   int index;
   float cx, cy, r, opac;
+  HashMap data;
   String name;
+
   float[] vx, vy; // vertex coordinates
   float ax, ay; //axon terminal coordinates
   float e= 2;  // axon excitation : should depend on incoming signals
-  ArrayList<Dendrite> dendrites; // store all dendrites inside 
+  ArrayList<Dendrite> dendrites; // store all dendrites inside
 
+  ArrayList<Messages> atme = new ArrayList(); // list of @
 
 
   // default values
@@ -18,19 +21,20 @@ class Seuron {
     cx = width/2;   // x 
     cy= width/2;    // y
     r= width/4;     // radius
-    v= 13;          //number of vertex
+    v= 13;          // number of vertex
     opac=50;        // base opacity
+    name="name";    // seuron name
   }
 
   //constructor
-  Seuron( float _x, float _y, float tempR, int tempV, color tempC, String _name ) {
+  Seuron( float _x, float _y, float _R, int _V, color _C, HashMap _data) {
 
-    c = tempC;
+    c = _C;
     cx = _x;
     cy = _y; 
-    r= tempR; 
-    v=tempV;
-    name= _name;
+    r = _R; 
+    v = _V;
+    data = _data;
 
     // vertex coordinates
     vx = new float[v+2];  // vertex X
@@ -42,13 +46,19 @@ class Seuron {
     }
   }
 
+  // add a message
+  void addMessage( Message _msg ) {
+    Message msg = _msg;
+    atme.add( msg );
+    console.log(msg);
+  }
 
   void drawNucleus() { 
     // begin drawing nucleus
     stroke(c);
     strokeWeight(1);
     fill(c);
-    ellipse(cx,cy,100,100);
+    ellipse(cx,cy,r,r);
 
     //draw nucleus
     /*beginShape();

@@ -1,8 +1,9 @@
 class Message {
 
-  Seuron to;
   Seuron from;
+  ArrayList to;
   Transmitter service;
+  HashMap data;
 
   boolean running = false;
   float x, y, xx, yy;
@@ -10,25 +11,38 @@ class Message {
   float speed = 16.1;
 
   // constructor
-  Message( Seuron _from, Seuron _to, Transmitter _service ) {
-    to = _to;
-    from = _from;
+  Message( Transmitter _service, HashMap _data ) {
+
     service = _service;
-    xx = x = from.cx;
-    yy = y = from.cy;
+    data = _data;
+    
+    // extract seuron
+    //data.from_user, data.to_user,
+    
   }
 
 
   void init() {
     running = true;
-    
   }
+
+  void checkService() {
+    // Check type of service
+    if( service.name.equals("Twitter") ) {
+        
+        console.log(Seuron);
+        
+    }
+
+  }
+
+
 
   void display() {
     
     init();
 
-    if (running) {
+    /*if (running) {
       noStroke();
       fill(service.c);
       ellipse(x, y, 15, 15);
@@ -41,6 +55,7 @@ class Message {
 
     x += (to.cx - x) / speed;
     y += (to.cy - y) / speed;
+    */
   }
 
 }

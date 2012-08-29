@@ -1,84 +1,51 @@
 /*
-SOCIAL NEURON
-example using twitter + jquery for social seurons visualization
+SOCIAL NEURON visualization
+processing+ twitter + jquery 
+2012
 */
 
-// contiene l'elenco dei tweets
+
+// 
 ArrayList tweets = new ArrayList();
-ArrayList ats = new ArrayList();
-ArrayList meme = new ArrayList();
+ArrayList seurons = new ArrayList();
+
 PFont font = loadFont("Verdana");  
  
 int canvas_x  = 600,
-    canvas_y = 400,
-    box_w = 10, 
-    box_h = 20, 
-    col_gap = 1, 
-    slot_gap = 3, 
-    brick_start = 90, 
-    brick_end = 500;
+    canvas_y = 400;
 
 float gravity = 0.03;
 
 Seuron daddy;
+Seuron friends;
 Message m;
-
-// ------------------------------- TWEET CLASS
-class Tweet{
- 
-  HashMap tweet;
-  int index;
-  Slot slot;
-  float pos_x, vel_x;
-  int slot_index;
-  int col_x, frames;
-  String[] at;
-  Seuron s;
-  Transmitter twi = new Transmitter( "Twitter", color(0, 172, 237) );
-  
-  Tweet(HashMap data, i) { 
-    tweet = data;
-    at = tweet.entities.user_mentions;
-    frames = 0;
-    pos_x = brick_start; 
-    vel_x = 0;
-    if( tweet.entities.user_mentions.length() ) {
-        for(int i=0; i<at.length(); i++) {
-            atname = tweet.entities.user_mentions[i].screen_name
-            s = new Seuron(random(500),random(300), 20, 6, 110, atname);
-            ats.add( s );
-            m = new Message( daddy,s,twi );
-            meme.add( m );
-        }
-    }
-    // console.log
-    index = i;
-  }
-
-}
 
 
 // function to add a new Tweet
-void addTweet(HashMap tweet) { 
-  tweets.add(new Tweet(tweet,tweets.size()));
+void addTweet( HashMap data ) {
+  Transmitter twi = new Transmitter( "Twitter", color(0, 172, 237) );
+  tweets.add( new Message( twi, data ) );
 }
+
+// add a seuron to the global list
+void addSeuron( HashMap userdata ) {
+  seurons.add( new Seuron( random(canvas_x), random(canvas_y), 35, 12, 110, userdata ) );
+}
+
 
 
 // ------------------------------- INIT
 void setup(){
+
   size(600, 400);
   background(0);
   //noStroke();     
   colorMode(HSB, 255);
   frameRate(10);
   smooth();
-  
-  daddy = new Seuron(canvas_x/2,canvas_y/2, 75, 12, 110,username);
-  
-  // add transmitters
-  //twi = new Transmitter( "Twitter", color(0, 172, 237) );
-  //gplus = new Transmitter( "Google+", color(199, 32, 42) );
-  
+
+  daddy = new Seuron(canvas_x/2,canvas_y/2, 75, 12, 110, username);
+
 }
 
 // ------------------------------- MAIN DRAWING FUNCTION
@@ -103,19 +70,24 @@ void draw(){
   // draw main seuron
   daddy.display();
 
+  
   //draw tweets
-  
-  
   for (int i=0; i<tweets.size(); i++) {
+         
+        // daddy.addMessage ( (Tweet) tweets.get(i) );
+        
+        // ((Tweet) tweets.get(i)).checkService();
         //((Tweet) tweets.get(i)).draw(); //call the draw() of each tweet
-        ((Message) meme.get(i)).display();
+        // ((Message) meme.get(i)).display();
         
         //console.log(tweets[i]);
          //m = new Message( );
   }
-  
-  for (int i=0; i<ats.size(); i++) {
-        ((Seuron) ats.get(i)).display(); //call the draw() of each tweet
+
+  for (int i=0; i<seurons.size(); i++) {
+        
+        ((Seuron) seurons.get(i)).display(); //call the draw() of each tweet
+
   }
   
 }
