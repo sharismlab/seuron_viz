@@ -51,6 +51,7 @@ class Seuron {
     // console.log(msg);
   }
 
+
   void drawNucleus() { 
     // begin drawing nucleus
     stroke(c);

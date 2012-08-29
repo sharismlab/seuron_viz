@@ -1,4 +1,4 @@
-class Message {
+class Message {  
 
   Seuron from;
   ArrayList to;
