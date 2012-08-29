@@ -10,9 +10,8 @@ class Seuron {
   float[] vx, vy; // vertex coordinates
   float ax, ay; //axon terminal coordinates
   float e= 2;  // axon excitation : should depend on incoming signals
-  ArrayList<Dendrite> dendrites; // store all dendrites inside
-
-  ArrayList<Messages> atme = new ArrayList(); // list of @
+  ArrayList<Dendrite> dendrites = new ArrayList(); // store all dendrites inside
+  ArrayList<Messages> msgs = new ArrayList(); // list of messages
 
 
   // default values
@@ -46,11 +45,10 @@ class Seuron {
     }
   }
 
-  // add a message
-  void addMessage( Message _msg ) {
-    Message msg = _msg;
-    atme.add( msg );
-    console.log(msg);
+  // add a message into list
+  void addMessage( Message msg ) {
+    msgs.add( msg );
+    // console.log(msg);
   }
 
   void drawNucleus() { 
@@ -58,17 +56,10 @@ class Seuron {
     stroke(c);
     strokeWeight(1);
     fill(c);
-    ellipse(cx,cy,r,r);
+
 
     //draw nucleus
-    /*beginShape();
-    for (int i=0; i<v+2; i++) {
-      curveVertex( vx[i] - random(10), vy[i] - random(10) );
-      // add center
-      point( cx, cy );
-    }
-    endShape(CLOSE);
-    */
+    ellipse(cx,cy,r,r);
 
     // display name
     fill(0);
