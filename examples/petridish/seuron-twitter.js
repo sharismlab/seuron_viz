@@ -1,8 +1,23 @@
 var username = "makio135";
+var messages = [];
 
 $(document).ready(function(){
 
     $('#startviz').click( function(){
+
+    //get all messages
+
+        $.getJSON('../../data/messages_test.json', function(data) {
+        
+            $.each( data, function(key, val) {
+                messages.push('<li id="' + key + '">' + val + '</li>');
+            });
+            
+        }); //End json
+    });
+
+
+/*    $('#startviz').click( function(){
 
         // load data from Twitter
         $(document).liveTwitter(username ,{
@@ -24,6 +39,6 @@ $(document).ready(function(){
 
     $('#stopviz').click( function(){
         $(document).each(function(){ this.twitter.stop(); });
-    });
-    
+    });*/
+
 }); // end document ready
