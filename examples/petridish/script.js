@@ -15,7 +15,6 @@ $(document).ready(function(){
             allMessages.push(item);
 
             // send msg data to processing
-            // console.log(myviz);
             var viz = Processing.getInstanceById("seuron");
 
             if(viz != null) 
@@ -30,10 +29,6 @@ $(document).ready(function(){
 
             allUsers.push( item );
 
-            // send user data to processing
-            var viz = Processing.getInstanceById("seuron");
-            if(viz != null) 
-                setTimeout(function(){ viz.addSeuron( item ) }, 5000);//pourquoi on met du random?
         });
     });
 

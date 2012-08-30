@@ -1,16 +1,15 @@
 class Seuron {
 
-	color couleur;
+	Color couleur;
 	int index;
 	float cx, cy, radius, opac;
-	HashMap data;
-	String name;
-	Boolean hasAvatar = false;
-
+	
 	float ax, ay; //axon terminal coordinates
 	float e= 2;  // axon excitation : should depend on incoming signals
 	ArrayList<Dendrite> dendrites = new ArrayList(); // store all dendrites inside
 	ArrayList<Message> msgs = new ArrayList(); // list of messages
+
+	HashMap data;
 
 
 	// default values
@@ -108,6 +107,9 @@ class Seuron {
 	String timeZone;
 	String description;
 	String id;
+	String name;
+	Boolean hasAvatar = false;
+
 	void splitData() {
 		name = data.name;
 		date = parseTwitterDate(data.created_at);

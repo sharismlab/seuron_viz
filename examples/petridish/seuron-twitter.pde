@@ -4,14 +4,12 @@ processing+ twitter + jquery
 2012
 */
 
-
-// 
 // ArrayList tweets = new ArrayList();
 ArrayList seurons = new ArrayList();
 
 PFont font = loadFont("Verdana");
  
-int canvasWidth	= 1150,
+int canvasWidth	= 1300,
 	canvasHeight = 600;
 
 float gravity = 0.03;
@@ -24,16 +22,32 @@ Message m;
 // function to add a new Tweet
 void analyzeTweet( HashMap data ) {
 
+	boolean exist=false;
 	
+	for (Seuron seuron : seurons){
+		if(seuron.id.equals( seuron.data.from_user_id_str ) == true) {
+			//add message to list
+			seuron.addMessage( new Message (twitterTransmitter , data) );
+			exist=true;
+		}
+	} 
+	
+	if(!exist){
+			// load user 
+			
+			
+			// create new seuron
+			// new Seuron( random(20,canvasWidth-50), random(100, canvasHeight-150), 35, color(random(255),random(255),random(255)), data );
+		}	
 
-	// extract seurons
+	}
+
+	
     // data.user_id
-
     // data.entities
 
     // check if seuron exists
-    
-    
+        
     // if doesnt exists? add seuron : break
     
 	// seuron.tweets.add( new Message( twitterTransmitter, data ) );
@@ -112,7 +126,7 @@ void draw(){
 	drawTimeline();
 
 	for (Seuron s : seurons){ // for notation objet
-		s.display();
+		// s.display();
 	}
 }
 
