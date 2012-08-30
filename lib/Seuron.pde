@@ -1,14 +1,12 @@
 class Seuron {
 
 	color couleur;
-	int v;
 	int index;
 	float cx, cy, radius, opac;
 	HashMap data;
 	String name;
 	Boolean hasAvatar = false;
 
-	float[] vx, vy; // vertex coordinates
 	float ax, ay; //axon terminal coordinates
 	float e= 2;  // axon excitation : should depend on incoming signals
 	ArrayList<Dendrite> dendrites = new ArrayList(); // store all dendrites inside
@@ -21,29 +19,18 @@ class Seuron {
 		cx = width/2;   // x 
 		cy= height/2;   // y
 		radius= 50;	 		// radius
-		v= 13;		  // number of vertex
 		opac=50;		// base opacity
 		name="name";	// seuron name
 	}
 
 	//constructor
-	Seuron( float _x, float _y, float _R, int _V, color _C, HashMap _data) {
+	Seuron( float _x, float _y, float _R, color _C, HashMap _data) {
 		couleur = color(_C);
 		cx = _x;
 		cy = _y; 
 		radius = _R; 
-		v = _V;
 		data = _data;
 		splitData(); //fonction qui assigne les données à des variables de Seuron
-
-		// vertex coordinates
-		vx = new float[v+2];  // vertex X
-		vy = new float[v+2];  // vertex Y
-
-		for (int i=0; i<v+2;i++) {
-			vx[i] =  cos( radians(360/v*i ) )*radius + random(2)+ cx; //cos(radians(a[i]))*radius+ cx;
-			vy[i] =  sin( radians(360/v*i ) )*radius + random(2)+ cy; //sin(radians(a[i]))*radius+ cy;
-		}
 	}
 
 	// add a message into list

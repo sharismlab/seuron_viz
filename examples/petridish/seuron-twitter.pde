@@ -6,10 +6,10 @@ processing+ twitter + jquery
 
 
 // 
-ArrayList tweets = new ArrayList();
+// ArrayList tweets = new ArrayList();
 ArrayList seurons = new ArrayList();
 
-PFont font = loadFont("Verdana");	
+PFont font = loadFont("Verdana");
  
 int canvasWidth	= 1150,
 	canvasHeight = 600;
@@ -23,50 +23,57 @@ Message m;
 
 // function to add a new Tweet
 void addTweet( HashMap data ) {
-	Transmitter twi = new Transmitter( "Twitter", color(0, 172, 237) );
-	tweets.add( new Message( twi, data ) );
 
-	/*console.log("addTweet: ");
-	console.log(data);*/
+	Transmitter twi = new Transmitter( "Twitter", color(0, 172, 237) );
+
+	// extract seurons
+    // data.user_id
+
+    // data.entities
+
+    // check if seuron exists
+    
+    
+    // if doesnt exists? add seuron : break
+    
+	// seuron.tweets.add( new Message( twi, data ) );
+
 }
 
 // add a seuron to the global list
 void addSeuron( HashMap userdata ) {
-	seurons.add( new Seuron( random(20,canvasWidth-50), random(100, canvasHeight-150), 35, 12, color(random(255),random(255),random(255)), userdata ) );
+
+    // check if seuron exists
+    
+    
+    // if doesnt exists? add seuron : break
+	seurons.add( new Seuron( random(20,canvasWidth-50), random(100, canvasHeight-150), 35, color(random(255),random(255),random(255)), userdata ) );
 	
 	console.log("addSeuron: ");
 	console.log(userdata);
 }
-
-
 
 // ------------------------------- INIT
 void setup(){
 
 	size(canvasWidth, canvasHeight);
 	background(255);
-	//noStroke();
+	textFont(font, 12);
+
 	// colorMode(HSB, 255);//On verra ça plus tard
 	frameRate(10);
 	smooth();
 
-	//daddy = new Seuron(canvasWidth/2,canvasHeight/2, 75, 12, 110, username);//username est un String c'est pas un HashMap et 110 c'est pas une color
+	//Daddy 
 	daddy = new Seuron();
 	daddy.r = 75;
-	daddy.v = 12;
 	daddy.c = color(110);
 	daddy.name = username;
 }
 
 // ------------------------------- MAIN DRAWING FUNCTION
 void draw(){
-	////////////////////////////////////////////////////////////////rien à faire dans le draw() -> tout dans le setup()
-	size( canvasWidth, canvasHeight );// <<< Le size dans le draw() !!??
-	textFont(font, 12);//<<<en double
-	textAlign(LEFT);
 
-	//background(30);
-	textFont(font, 12);//<<< en double
 	////////////////////////////////////////////////////////////////
 	var gradient = externals.context.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
 	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
@@ -88,26 +95,22 @@ void draw(){
 
 	
 	//draw tweets
+	/*
 	for (int i=0; i<tweets.size(); i++) {
-				 
-				// daddy.addMessage ( (Tweet) tweets.get(i) );
-				
-				// ((Tweet) tweets.get(i)).checkService();
-				//((Tweet) tweets.get(i)).draw(); //call the draw() of each tweet
-				// ((Message) meme.get(i)).display();
-				
-				//console.log(tweets[i]);
-				 //m = new Message( );
+		 
+		// daddy.addMessage ( (Tweet) tweets.get(i) );
+		
+		// ((Tweet) tweets.get(i)).checkService();
+		//((Tweet) tweets.get(i)).draw(); //call the draw() of each tweet
+		// ((Message) meme.get(i)).display();
+		
+		//console.log(tweets[i]);
+		 //m = new Message( );
 	}
+	*/
 
 	drawTimeline();
 
-	/*
-	for (int i=0; i<seurons.size(); i++) {
-				Seuron s = (Seuron) seurons.get(i);
-				s.display(); //call the draw() of each tweet
-	}
-	*/
 	for (Seuron s : seurons){ // for notation objet
 		s.display();
 	}
