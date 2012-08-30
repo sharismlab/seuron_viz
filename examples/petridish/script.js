@@ -4,11 +4,18 @@ var allUsers= [];
 
 $(document).ready(function(){
 
-    //declare Processing instance to js
-    // var myviz = viz;
+     //get all users
+    $.getJSON('../../data/userdata.json', function(data) {
+        $.each( data, function(key, item) {
+
+            allUsers.push( item );
+            // console.log("nbUsers:" + allUsers.length);
+
+        });
+    });
 
     //get all messages
-    $.getJSON('../../data/messages.json', function(data) {
+    $.getJSON('datasamples/messages2.json', function(data) {
 
         $.each( data, function(key, item) {
             // add tweets into js array
@@ -22,15 +29,5 @@ $(document).ready(function(){
 
         });
     }); 
-
-     //get all users
-    $.getJSON('../../data/userdata.json', function(data) {
-        $.each( data, function(key, item) {
-
-            allUsers.push( item );
-
-        });
-    });
-
 
 }); // end document ready
