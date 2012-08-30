@@ -32,7 +32,7 @@ void addTweet( HashMap data ) {
 
 // add a seuron to the global list
 void addSeuron( HashMap userdata ) {
-	seurons.add( new Seuron( random(20,canvasWidth-50), random(20, canvasHeight-150), 35, 12, color(random(255),random(255),random(255)), userdata ) );
+	seurons.add( new Seuron( random(20,canvasWidth-50), random(100, canvasHeight-150), 35, 12, color(random(255),random(255),random(255)), userdata ) );
 	
 	console.log("addSeuron: ");
 	console.log(userdata);
@@ -70,7 +70,7 @@ void draw(){
 	////////////////////////////////////////////////////////////////
 	var gradient = externals.context.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
 	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
-	gradient.addColorStop(1,'rgba(0, 0, 0, 1)'); 
+	gradient.addColorStop(1,'rgba(10, 10, 10, 1)'); 
 	externals.context.fillStyle = gradient; 
 	externals.context.fillRect( 0, 0, width, height ); 
 
@@ -114,15 +114,14 @@ void draw(){
 }
 
 
-// ArrayList dates;
 int dateMin = (new Date()).getTime(); // Return the number of milliseconds since 1970/01/01:
 int dateMax = 0;
 int seconds;
-float TimelinePosX=0;
+float TimelinePosX=0, TimelinePosY=0;
 void drawTimeline(){
 	externals.context.save();
 	rectMode(CORNER);
-	fill(255,255,0);
+	fill(100);
 	noStroke();
 	externals.context.shadowOffsetX = 0;
 	externals.context.shadowOffsetY = 0;
@@ -140,26 +139,34 @@ void drawTimeline(){
 	text("Timeline",0,0);
 	popMatrix();
 
-	// dates = new ArrayList();
 	for (Seuron s : seurons){
 		seconds = Date.parse(s.date);
 		if(seconds<dateMin){ 
 			dateMin = seconds;
-			println("dateMin: " + dateMin);
+			// println("dateMin: " + dateMin);
 		}
-		if(seconds>dateMax){ 
+		else if(seconds>dateMax){ 
 			dateMax = seconds;
-			println("dateMax: " + dateMax);
+			// println("dateMax: " + dateMax);
 		}
 
-		TimelinePosX = map(seconds,dateMin,dateMax,40,width-20);
+		TimelinePosX = map(seconds,dateMin,dateMax,45,width-25);
+		TimelinePosY = height-75 + map(s.cy,100,canvasHeight-150,5,55);
 		stroke(s.couleur);
 		strokeWeight(2);
 		strokeCap(SQUARE);
-		line(TimelinePosX, height-75, TimelinePosX,height-16);
+		line(TimelinePosX, height-75, TimelinePosX, height-16);
 		fill(s.couleur);
-		ellipse(TimelinePosX,height-75,8,8);
+		ellipse(TimelinePosX,TimelinePosY,8,8);
 
-		if(dist(mouseX, mouseY, TimelinePosX, height-75)<8) line(TimelinePosX, height-75, s.cx, s.cy);
+		if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<8 || dist(mouseX, mouseY, s.cx, s.cy)<s.radius) {
+			line(TimelinePosX, TimelinePosY, s.cx, s.cy);
+			fill(0,150);
+			noStroke();
+			rect(15,15,460,65);
+			fill(255);
+			textAlign(LEFT);
+			text("User: "+s.name+"\nDate: "+s.date+"\nDescription: "+s.description,20,20,450,55);
+		}
 	}
 }

@@ -3,7 +3,7 @@ class Seuron {
 	color couleur;
 	int v;
 	int index;
-	float cx, cy, r, opac;
+	float cx, cy, radius, opac;
 	HashMap data;
 	String name;
 	Boolean hasAvatar = false;
@@ -20,7 +20,7 @@ class Seuron {
 		couleur = color(255); // color
 		cx = width/2;   // x 
 		cy= height/2;   // y
-		r= 50;	 		// radius
+		radius= 50;	 		// radius
 		v= 13;		  // number of vertex
 		opac=50;		// base opacity
 		name="name";	// seuron name
@@ -31,7 +31,7 @@ class Seuron {
 		couleur = color(_C);
 		cx = _x;
 		cy = _y; 
-		r = _R; 
+		radius = _R; 
 		v = _V;
 		data = _data;
 		splitData(); //fonction qui assigne les données à des variables de Seuron
@@ -41,8 +41,8 @@ class Seuron {
 		vy = new float[v+2];  // vertex Y
 
 		for (int i=0; i<v+2;i++) {
-			vx[i] =  cos( radians(360/v*i ) )*r + random(2)+ cx; //cos(radians(a[i]))*r+ cx;
-			vy[i] =  sin( radians(360/v*i ) )*r + random(2)+ cy; //sin(radians(a[i]))*r+ cy;
+			vx[i] =  cos( radians(360/v*i ) )*radius + random(2)+ cx; //cos(radians(a[i]))*radius+ cx;
+			vy[i] =  sin( radians(360/v*i ) )*radius + random(2)+ cy; //sin(radians(a[i]))*radius+ cy;
 		}
 	}
 
@@ -59,7 +59,7 @@ class Seuron {
 		strokeWeight(1);
 		fill(couleur);
 		//draw nucleus
-		ellipse(cx,cy,r,r);
+		ellipse(cx,cy,radius,radius);
 
 		if(hasAvatar) showAvatar();
 
@@ -67,10 +67,10 @@ class Seuron {
 		rectMode(CENTER);
 		fill(0,80);
 		noStroke();
-		rect(cx,hasAvatar?cy+r-4:cy-4,textWidth(name)+10, 16);
+		rect(cx,hasAvatar?cy+radius-4:cy-4,textWidth(name)+10, 16);
 		fill(255);
 		textAlign(CENTER);
-		text(name, cx, hasAvatar?cy+r:cy);
+		text(name, cx, hasAvatar?cy+radius:cy);
 	}
 
 
@@ -86,8 +86,8 @@ class Seuron {
 	}
 
 	void drawAxon() {
-		ax = cx + r*2;// + random(12);
-		ay = cy + r*2;// + random(12);
+		ax = cx + radius*2;// + random(12);
+		ay = cy + radius*2;// + random(12);
 
 		stroke(couleur,75);
 		strokeWeight(5);
@@ -105,7 +105,7 @@ class Seuron {
 		// this function should return display avatar from Twitter
 		imageMode(CENTER);
 		if(avatar.width>1){
-			image(avatar,cx,cy,r-10,r-10);
+			image(avatar,cx,cy,radius-10,radius-10);
 		}
 	}
 
