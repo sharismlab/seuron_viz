@@ -22,7 +22,7 @@ Message m;
 // function to add a new Tweet
 void analyzeTweet( HashMap data ) {
 
-	boolean exist=false;
+	boolean exist = false;
 	
 	for (Seuron seuron : seurons){
 		if(seuron.id.equals( seuron.data.from_user_id_str ) == true) {
@@ -30,17 +30,18 @@ void analyzeTweet( HashMap data ) {
 			seuron.addMessage( new Message (twitterTransmitter , data) );
 			exist=true;
 		}
-	} 
+	}
 	
-	if(!exist){
+	
+	if( !exist ){
 			// load user 
-			
+			console.log('bla');
 			
 			// create new seuron
 			// new Seuron( random(20,canvasWidth-50), random(100, canvasHeight-150), 35, color(random(255),random(255),random(255)), data );
 		}	
 
-	}
+
 
 	
     // data.user_id

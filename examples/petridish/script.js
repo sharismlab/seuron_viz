@@ -15,8 +15,8 @@ $(document).ready(function(){
             allMessages.push(item);
 
             // send msg data to processing
-            var viz = Processing.getInstanceById("seuron");
 
+            var viz = Processing.getInstanceById("seuron");
             if(viz != null) 
                 setTimeout(function(){ viz.analyzeTweet(item) }, 5000);
 
