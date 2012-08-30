@@ -1,3 +1,5 @@
+Transmitter twitterTransmitter = new Transmitter( "Twitter", color(0, 172, 237) );
+
 class Transmitter {
 
 	color c;
