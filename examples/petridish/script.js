@@ -2,13 +2,13 @@ var username = "makio135";
 var messages = [];
 var users= [];
 var viz;
+
 $(document).ready(function(){
 
     //declare Processing instance to js
-
     viz = Processing.getInstanceById("seuron");
 
-     //get all messages
+    //get all messages
     $.getJSON('datasamples/messages.json', function(data) {
 
         $.each( data, function(key, item) {
@@ -18,7 +18,7 @@ $(document).ready(function(){
             // send msg data to processing
             var viz = Processing.getInstanceById("seuron");
             if(viz != null) 
-                setTimeout(function(){ viz.addTweet(item) }, Math.random()*10000 + 1000);
+                setTimeout(function(){ viz.addTweet(item) }, Math.random()*10000 + 1000);//pourquoi on met du random?
 
         });
     }); 
@@ -32,19 +32,21 @@ $(document).ready(function(){
             // send user data to processing
             var viz = Processing.getInstanceById("seuron");
             if(viz != null) 
-                setTimeout(function(){ viz.addSeuron( item ) }, Math.random()*10000 + 1000);
+                setTimeout(function(){ viz.addSeuron( item ) }, Math.random()*10000 + 1000);//pourquoi on met du random?
         });
     });
 
 
-
+    //////////////////////////////////////////c'est quoi cette fonction?
     // pass some tweets to processing
     for (i=0; i<5; i++) {
         if(viz != null) {
             console.log('b');
-                tweets.addTweet(messages[i]);
-            }
+            tweets.addTweet(messages[i]);//d'où sort la var globale tweets?
+        }
     }
+    //////////////////////////////////////////
+
 
     $('#startviz').click( function(){
         // console.log(messages);

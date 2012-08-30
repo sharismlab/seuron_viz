@@ -1,20 +1,33 @@
-<head>
-<title>Processing.js - jquery.twitterlive - social neuron</title>
-</head>
-<body>
+<!doctype html>
+<html>
+	<head>
+		<title>Processing.js - jquery.twitterlive - social neuron</title>
+	</head>
+	<body style="text-align: center; padding:20px;">
 
-<div>
-    <div>
-        <button class="btn" id="startviz">Start Viz</button>
-        <button class="btn" id="stopviz">Stop Viz</button>
-    </div>
-    <div>
-        <canvas id="seuron" data-processing-sources="seuron-twitter.pde ../../lib/Seuron.pde ../../lib/Dendrit.pde ../../lib/Message.pde ../../lib/Transmitter.pde" tabindex="0" width="960" height="550" style="image-rendering: -webkit-optimize-contrast !important; "></canvas>
-    </div>
-</div>
+		<div>
+			<!-- 
+			<div>
+				<button class="btn" id="startviz">Start Viz</button>
+				<button class="btn" id="stopviz">Stop Viz</button>
+			</div>
+			 -->
+			<div>
+				<canvas id="seuron" data-processing-sources="seuron-twitter.pde ../../lib/Seuron.pde ../../lib/Dendrit.pde ../../lib/Message.pde ../../lib/Transmitter.pde" tabindex="0" style="image-rendering: -webkit-optimize-contrast !important; margin: auto;"></canvas>
+			</div>
+		</div>
 
-<script src=" http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js "></script>
-<script type="text/javascript" src="jquery.livetwitter.js"></script>
-<script type="text/javascript" src="script.js"></script> 
-<script type="text/javascript" src="processing.js"></script>
-</body/>
+		<script src=" http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js "></script>
+		<script type="text/javascript" src="jquery.livetwitter.js"></script>
+		<script type="text/javascript" src="script.js"></script> 
+		<script type="text/javascript" src="processing.js"></script>
+
+		<!-- Check Sources // Refresh page on save -->
+		<script type="text/javascript">
+			var checkedFiles = [ "index.html", "seuron-twitter.pde", "../../lib/Seuron.pde", "../../lib/Dendrit.pde", "../../lib/Message.pde", "../../lib/Transmitter.pde" ];//pass the list of files you want to check
+		</script>
+		<script type="text/javascript" src="../../CheckSources/checkSources.js"></script>
+		<!--  -->
+
+	</body/>
+</html>
