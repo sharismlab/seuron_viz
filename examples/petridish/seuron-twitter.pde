@@ -5,12 +5,12 @@ processing+ twitter + jquery
 */
 
 // ArrayList tweets = new ArrayList();
-ArrayList seurons = new ArrayList();
+ArrayList<Seuron> seurons = new ArrayList();
 
 PFont font = loadFont("Verdana");
  
-int canvasWidth	= 1300,
-	canvasHeight = 600;
+int canvasWidth	= screenWidth,
+	canvasHeight = screenHeight;
 
 float gravity = 0.03;
 
@@ -20,12 +20,11 @@ Message m;
 
 
 // function to add a new Tweet
+int count;
 void analyzeTweet( HashMap data ) {
-
 	boolean exist = false;
-	
 	for (Seuron seuron : seurons){
-		if(seuron.id.equals( seuron.data.from_user_id_str ) == true) {
+		if(seuron.id.equals( data.from_user_id_str ) == true) {
 			//add message to list
 			seuron.addMessage( new Message (twitterTransmitter , data) );
 			exist=true;
@@ -34,24 +33,18 @@ void analyzeTweet( HashMap data ) {
 	
 	
 	if( !exist ){
-			// load user 
-			console.log('bla');
-			
-			// create new seuron
-			// new Seuron( random(20,canvasWidth-50), random(100, canvasHeight-150), 35, color(random(255),random(255),random(255)), data );
-		}	
+		// load user 
+		if(count==0) console.log(allUsers[0]);
+		for (int i = 0; i<allUsers.length; i++){
+			if(str(allUsers[i].id_str).equals(str(data.from_user_id_str)) == true) {
+				// create new seuron
+				addSeuron(data);
+			}
+		}
+	}
 
-
-
-	
-    // data.user_id
-    // data.entities
-
-    // check if seuron exists
-        
-    // if doesnt exists? add seuron : break
-    
-	// seuron.tweets.add( new Message( twitterTransmitter, data ) );
+				count++;
+				console.log(count);
 
 }
 
@@ -88,7 +81,7 @@ void setup(){
 
 // ------------------------------- MAIN DRAWING FUNCTION
 void draw(){
-
+	// println(seurons.length);
 	////////////////////////////////////////////////////////////////
 	var gradient = externals.context.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
 	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
@@ -127,7 +120,8 @@ void draw(){
 	drawTimeline();
 
 	for (Seuron s : seurons){ // for notation objet
-		// s.display();
+		 s.display();
+		 console.log(s);
 	}
 }
 
