@@ -8,7 +8,7 @@ $(document).ready(function(){
     // var myviz = viz;
 
     //get all messages
-    $.getJSON('../data/messages.json', function(data) {
+    $.getJSON('../../data/messages.json', function(data) {
 
         $.each( data, function(key, item) {
             // add tweets into js array
@@ -25,7 +25,7 @@ $(document).ready(function(){
     }); 
 
      //get all users
-    $.getJSON('../data/userdata.json', function(data) {
+    $.getJSON('../../data/userdata.json', function(data) {
         $.each( data, function(key, item) {
 
             allUsers.push( item );
