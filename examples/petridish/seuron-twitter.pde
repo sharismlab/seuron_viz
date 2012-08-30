@@ -132,13 +132,13 @@ void drawTimeline(){
 
 	fill(0,80);
 	rect(15,height-75,20,60);
+	externals.context.restore();
 	pushMatrix();
 	translate(29,height-45);
 	rotate(-Math.PI/2);
 	fill(255);
 	text("Timeline",0,0);
 	popMatrix();
-	externals.context.restore();
 
 	// dates = new ArrayList();
 	for (Seuron s : seurons){
@@ -158,8 +158,8 @@ void drawTimeline(){
 		strokeCap(SQUARE);
 		line(TimelinePosX, height-75, TimelinePosX,height-16);
 		fill(s.couleur);
-		ellipse(TimelinePosX+1,height-75,8,8);
+		ellipse(TimelinePosX,height-75,8,8);
 
-		if(dist(mouseX, mouseY, TimelinePosX+1, height-75)<8) line(TimelinePosX+1, height-75, s.cx, s.cy);
+		if(dist(mouseX, mouseY, TimelinePosX, height-75)<8) line(TimelinePosX, height-75, s.cx, s.cy);
 	}
 }
