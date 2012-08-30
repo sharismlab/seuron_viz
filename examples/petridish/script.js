@@ -19,7 +19,7 @@ $(document).ready(function(){
             var viz = Processing.getInstanceById("seuron");
 
             if(viz != null) 
-                setTimeout(function(){ viz.addTweet(item) }, 5000);
+                setTimeout(function(){ viz.analyzeTweet(item) }, 5000);
 
         });
     }); 

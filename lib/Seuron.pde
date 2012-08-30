@@ -107,6 +107,7 @@ class Seuron {
 	PImage avatar;
 	String timeZone;
 	String description;
+	String id;
 	void splitData() {
 		name = data.name;
 		date = parseTwitterDate(data.created_at);

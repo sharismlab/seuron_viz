@@ -22,9 +22,9 @@ Message m;
 
 
 // function to add a new Tweet
-void addTweet( HashMap data ) {
+void analyzeTweet( HashMap data ) {
 
-	Transmitter twi = new Transmitter( "Twitter", color(0, 172, 237) );
+	
 
 	// extract seurons
     // data.user_id
@@ -36,7 +36,7 @@ void addTweet( HashMap data ) {
     
     // if doesnt exists? add seuron : break
     
-	// seuron.tweets.add( new Message( twi, data ) );
+	// seuron.tweets.add( new Message( twitterTransmitter, data ) );
 
 }
 
@@ -65,10 +65,10 @@ void setup(){
 	smooth();
 
 	//Daddy 
-	daddy = new Seuron();
+	/*daddy = new Seuron();
 	daddy.r = 75;
 	daddy.c = color(110);
-	daddy.name = username;
+	daddy.name = username;*/
 }
 
 // ------------------------------- MAIN DRAWING FUNCTION
@@ -91,7 +91,7 @@ void draw(){
 	*/
 
 	// draw main seuron
-	daddy.display();
+	// daddy.display();
 
 	
 	//draw tweets
