@@ -111,15 +111,25 @@ class Seuron {
 	Boolean hasAvatar = false;
 
 	void splitData() {
-		name = data.name;
+
+		if(data.isProfile) {
+			d=data;
+		} else {
+			d=data.user;
+		}
+		
+		
+
+		name = d.name;
+		id=d.id;
 		date = parseTwitterDate(data.created_at);
 		// println(data.created_at);
 		// println(date);
 		// println(Date.parse(date));
-		avatar = requestImage(data.profile_image_url);
-		timeZone = data.time_zone;
-		description = data.description;
-		if(data.profile_image_url != null) hasAvatar = true;
+		avatar = requestImage(d.profile_image_url);
+		timeZone = d.time_zone;
+		description = d.description;
+		if(d.profile_image_url != null) hasAvatar = true;
 	}
 
 	void parseTwitterDate(String twitterDate) {

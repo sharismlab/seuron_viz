@@ -1,87 +1,26 @@
 /*
 SOCIAL NEURON visualization
-processing+ twitter + jquery 
+processing + twitter + jquery 
 2012
 */
 
-// ArrayList tweets = new ArrayList();
-ArrayList<Seuron> seurons = new ArrayList();
-
-PFont font = loadFont("Verdana");
+PFont font = loadFont("Comic Sans");
  
 int canvasWidth	= screenWidth,
 	canvasHeight = screenHeight;
 
-float gravity = 0.03;
-
-Seuron daddy;
-Seuron friends;
-Message m;
-
-
-// function to add a new Tweet
-int count;
-void analyzeTweet( HashMap data ) {
-	boolean exist = false;
-	for (Seuron seuron : seurons){
-		if(seuron.id.equals( data.from_user_id_str ) == true) {
-			//add message to list
-			seuron.addMessage( new Message (twitterTransmitter , data) );
-			exist=true;
-		}
-	}
-	
-	
-	if( !exist ){
-		// load user 
-		if(count==0) console.log(allUsers[0]);
-		for (int i = 0; i<allUsers.length; i++){
-			if(str(allUsers[i].id_str).equals(str(data.from_user_id_str)) == true) {
-				// create new seuron
-				addSeuron(data);
-			}
-		}
-	}
-
-				count++;
-				console.log(count);
-
-}
-
-// add a seuron to the global list
-void addSeuron( HashMap userdata ) {
-
-    // check if seuron exists
-    
-    
-    // if doesnt exists? add seuron : break
-	seurons.add( new Seuron( random(20,canvasWidth-50), random(100, canvasHeight-150), 35, color(random(255),random(255),random(255)), userdata ) );
-	
-	console.log("addSeuron: ");
-	console.log(userdata);
-}
 
 // ------------------------------- INIT
 void setup(){
-	
 	size(canvasWidth, canvasHeight);
 	background(255);
 	textFont(font, 12);
-
-	// colorMode(HSB, 255);//On verra ça plus tard
 	frameRate(10);
 	smooth();
-
-	//Daddy 
-	/*daddy = new Seuron();
-	daddy.r = 75;
-	daddy.c = color(110);
-	daddy.name = username;*/
 }
 
 // ------------------------------- MAIN DRAWING FUNCTION
 void draw(){
-	// println(seurons.length);
 	////////////////////////////////////////////////////////////////
 	var gradient = externals.context.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
 	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
@@ -89,39 +28,10 @@ void draw(){
 	externals.context.fillStyle = gradient; 
 	externals.context.fillRect( 0, 0, width, height ); 
 
-	// draw legend
-	/*
-		fill(twi.c);
-		text(twi.name,350, 30);
-
-		fill(gplus.c);
-		text(gplus.name,350, 50);
-	*/
-
-	// draw main seuron
-	// daddy.display();
-
-	
-	//draw tweets
-	/*
-	for (int i=0; i<tweets.size(); i++) {
-		 
-		// daddy.addMessage ( (Tweet) tweets.get(i) );
-		
-		// ((Tweet) tweets.get(i)).checkService();
-		//((Tweet) tweets.get(i)).draw(); //call the draw() of each tweet
-		// ((Message) meme.get(i)).display();
-		
-		//console.log(tweets[i]);
-		 //m = new Message( );
-	}
-	*/
-
 	drawTimeline();
 
 	for (Seuron s : seurons){ // for notation objet
-		 s.display();
-		 console.log(s);
+		s.display();
 	}
 }
 
@@ -153,7 +63,7 @@ void drawTimeline(){
 
 	for (Seuron s : seurons){
 		seconds = Date.parse(s.date);
-		if(seconds<dateMin){ 
+		if(seconds<dateMin){
 			dateMin = seconds;
 			// println("dateMin: " + dateMin);
 		}
