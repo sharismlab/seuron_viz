@@ -32,7 +32,7 @@ void addTweet( HashMap data ) {
 
 // add a seuron to the global list
 void addSeuron( HashMap userdata ) {
-	seurons.add( new Seuron( random(20,canvasWidth-50), random(20, canvasHeight-150), 35, 12, 110, userdata ) );
+	seurons.add( new Seuron( random(20,canvasWidth-50), random(20, canvasHeight-150), 35, 12, color(random(255),random(255),random(255)), userdata ) );
 	
 	console.log("addSeuron: ");
 	console.log(userdata);
@@ -100,21 +100,27 @@ void draw(){
 				 //m = new Message( );
 	}
 
+	drawTimeline();
+
 	/*
 	for (int i=0; i<seurons.size(); i++) {
 				Seuron s = (Seuron) seurons.get(i);
 				s.display(); //call the draw() of each tweet
 	}
 	*/
-
 	for (Seuron s : seurons){ // for notation objet
 		s.display();
 	}
-
-	drawTimeline();
 }
 
+
+// ArrayList dates;
+int dateMin = (new Date()).getTime(); // Return the number of milliseconds since 1970/01/01:
+int dateMax = 0;
+int seconds;
+float TimelinePosX=0;
 void drawTimeline(){
+	externals.context.save();
 	rectMode(CORNER);
 	fill(255,255,0);
 	noStroke();
@@ -122,10 +128,38 @@ void drawTimeline(){
 	externals.context.shadowOffsetY = 0;
 	externals.context.shadowBlur = 10;
 	externals.context.shadowColor = "black";
-	rect(15,height-65,width-30,50,5,5);
+	rect(15,height-75,width-30,60);
+
+	fill(0,80);
+	rect(15,height-75,20,60);
+	pushMatrix();
+	translate(29,height-45);
+	rotate(-Math.PI/2);
+	fill(255);
+	text("Timeline",0,0);
+	popMatrix();
 	externals.context.restore();
 
-	/*for (Seuron s : seurons){
-		float timeX = map(s.date)			
-	}*/
+	// dates = new ArrayList();
+	for (Seuron s : seurons){
+		seconds = Date.parse(s.date);
+		if(seconds<dateMin){ 
+			dateMin = seconds;
+			println("dateMin: " + dateMin);
+		}
+		if(seconds>dateMax){ 
+			dateMax = seconds;
+			println("dateMax: " + dateMax);
+		}
+
+		TimelinePosX = map(seconds,dateMin,dateMax,40,width-20);
+		stroke(s.couleur);
+		strokeWeight(2);
+		strokeCap(SQUARE);
+		line(TimelinePosX, height-75, TimelinePosX,height-16);
+		fill(s.couleur);
+		ellipse(TimelinePosX+1,height-75,8,8);
+
+		if(dist(mouseX, mouseY, TimelinePosX+1, height-75)<8) line(TimelinePosX+1, height-75, s.cx, s.cy);
+	}
 }

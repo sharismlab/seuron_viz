@@ -1,6 +1,6 @@
 class Seuron {
 
-	color c;
+	color couleur;
 	int v;
 	int index;
 	float cx, cy, r, opac;
@@ -17,7 +17,7 @@ class Seuron {
 
 	// default values
 	Seuron() {
-		c = color(255); // color
+		couleur = color(255); // color
 		cx = width/2;   // x 
 		cy= height/2;   // y
 		r= 50;	 		// radius
@@ -28,7 +28,7 @@ class Seuron {
 
 	//constructor
 	Seuron( float _x, float _y, float _R, int _V, color _C, HashMap _data) {
-		c = _C;
+		couleur = color(_C);
 		cx = _x;
 		cy = _y; 
 		r = _R; 
@@ -55,9 +55,9 @@ class Seuron {
 
 	void drawNucleus() { 
 		// begin drawing nucleus
-		stroke(c);
+		stroke(couleur);
 		strokeWeight(1);
-		fill(c);
+		fill(couleur);
 		//draw nucleus
 		ellipse(cx,cy,r,r);
 
@@ -89,13 +89,13 @@ class Seuron {
 		ax = cx + r*2;// + random(12);
 		ay = cy + r*2;// + random(12);
 
-		stroke(c,75);
+		stroke(couleur,75);
 		strokeWeight(5);
 		line(cx,cy,ax,ay);
 		// scribble(cx,cy,ax,ay,5,20);
 		
 		// axon terminal
-		fill(c,75);
+		fill(couleur,75);
 		ellipse(ax,ay,20,20);
 		
 		// println(this);
@@ -123,9 +123,9 @@ class Seuron {
 	void splitData() {
 		name = data.name;
 		date = parseTwitterDate(data.created_at);
-		println(data.created_at);
-		println(date);
-		println(Date.parse(date));
+		// println(data.created_at);
+		// println(date);
+		// println(Date.parse(date));
 		avatar = requestImage(data.profile_image_url);
 		timeZone = data.time_zone;
 		description = data.description;
