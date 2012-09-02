@@ -39,6 +39,7 @@ void draw(){
 int dateMin = (new Date()).getTime(); // Return the number of milliseconds since 1970/01/01:
 int dateMax = 0;
 int seconds;
+float descHeight;
 float TimelinePosX=0, TimelinePosY=0;
 void drawTimeline(){
 	externals.context.save();
@@ -81,14 +82,16 @@ void drawTimeline(){
 		fill(s.couleur);
 		ellipse(TimelinePosX,TimelinePosY,8,8);
 
-		if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<8 || dist(mouseX, mouseY, s.cx, s.cy)<s.radius) {
+		if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<8 || dist(mouseX, mouseY, s.cx, s.cy)<s.radius/2) {
 			line(TimelinePosX, TimelinePosY, s.cx, s.cy);
-			fill(0,150);
+			if(textWidth(s.description)>10) descHeight=1+floor(textWidth("Description: "+s.description)/400);
+			else descHeight=0;
+			fill(255,255,0,150);
 			noStroke();
-			rect(15,15,460,65);
+			rect(15,15,460,33+descHeight*14);
 			fill(255);
 			textAlign(LEFT);
-			text("User: "+s.name+"\nDate: "+s.date+"\nDescription: "+s.description,20,20,450,55);
+			text("User: "+s.name+"\nDate: "+s.date+"\nDescription: "+s.description,20,20,400,30+descHeight*14);
 		}
 	}
 }
