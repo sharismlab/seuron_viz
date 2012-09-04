@@ -32,7 +32,7 @@ void analyzeTimeline( Object data ) {
 
 	if(data.entities.user_mentions.length>0){
 		// console.log(data.entities.user_mentions.length);
-		for (int i = 0; i<data.entities.user_mentions.length; i++){
+		for (int i = 0; data.entities.user_mentions[i]; i++){
 			//console.log(data.entities.user_mentions[i]);
 
 			int index2 = seuronId.indexOf(data.entities.user_mentions[i].id);
