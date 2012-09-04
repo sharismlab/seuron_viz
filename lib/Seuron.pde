@@ -4,13 +4,12 @@ class Seuron {
 	int index;
 	float cx, cy, radius, opac;
 	
-	float ax, ay; //axon terminal coordinates
+	int level;
+
+	// float ax, ay; //axon terminal coordinates
 	float e= 2;  // axon excitation : should depend on incoming signals
-	ArrayList<Dendrite> dendrites = new ArrayList(); // store all dendrites inside
+	// ArrayList<Dendrite> dendrites = new ArrayList(); // store all dendrites inside
 	ArrayList<Message> msgs = new ArrayList(); // list of messages
-
-	HashMap data;
-
 
 	// default values
 	Seuron() {
@@ -23,13 +22,13 @@ class Seuron {
 	}
 
 	//constructor
-	Seuron( float _x, float _y, float _R, color _C, HashMap _data) {
+	Seuron( float _x, float _y, float _R, color _C, Object data) {
 		couleur = color(_C);
 		cx = _x;
 		cy = _y; 
 		radius = _R; 
-		data = _data;
-		splitData(); //fonction qui assigne les données à des variables de Seuron
+		//data = _data;
+		splitData(data); //fonction qui assigne les données à des variables de Seuron
 	}
 
 	// add a message into list
@@ -37,7 +36,6 @@ class Seuron {
 		msgs.add( msg );
 		// console.log(msg);
 	}
-
 
 	void drawNucleus() { 
 		// begin drawing nucleus
@@ -61,6 +59,7 @@ class Seuron {
 
 
 	// function to store dendrites inside seuron
+	/*
 	void addDendrites( Dendrit d ) {
 		dendrites.add(d);
 	}
@@ -85,7 +84,7 @@ class Seuron {
 		ellipse(ax,ay,20,20);
 		
 		// println(this);
-	}
+	}*/
 
 	void showAvatar() {
 		// this function should return display avatar from Twitter
@@ -97,39 +96,45 @@ class Seuron {
 
 	void display() {
 		drawNucleus();
-		drawAxon();
+		//drawAxon();
 	}
 
 
 	//////////////////////////////////Méthode pour récupérer les données JSon
-	String date;
+	
+	String name, screen_name, location, description, url;
+
+	boolean hasAvatar = false;
 	PImage avatar;
-	String timeZone;
-	String description;
-	String id;
-	String name;
-	Boolean hasAvatar = false;
 
-	void splitData() {
+	String date, timeZone;
+	int utc_offset;
+	boolean geo_unable;
+	
+	int id, friends_count, followers_count, statuses_count;
+	
+	void splitData( Object d ) {
 
-		if(data.isProfile) {
-			d=data;
-		} else {
-			d=data.user;
-		}
-		
-		
-
+		id = d.id;
 		name = d.name;
-		id=d.id;
-		date = parseTwitterDate(data.created_at);
-		// println(data.created_at);
-		// println(date);
-		// println(Date.parse(date));
-		avatar = requestImage(d.profile_image_url);
-		timeZone = d.time_zone;
+		screen_name = d.screen_name;
+		location = d.location;
 		description = d.description;
+		url = d.url;
+
 		if(d.profile_image_url != null) hasAvatar = true;
+		avatar = requestImage(d.profile_image_url);
+		 
+		date = parseTwitterDate(data.created_at);
+		utc_offset = d.utc_offset;
+		timeZone = d.time_zone;
+
+		followers_count = d.followers_count;
+		friends_count = d.friends_count;
+		statuses_count = d.statuses_count;
+
+		geo_unable = d.geo_unable;
+
 	}
 
 	void parseTwitterDate(String twitterDate) {

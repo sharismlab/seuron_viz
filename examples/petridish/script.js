@@ -4,10 +4,17 @@ var allUsers= [];
 
 var viz = Processing.getInstanceById("seuron");
 
+$(window).load(function() {
 
-$(document).ready(function(){
+    $.getJSON('../../data/makio135_profile.json', function(data) {
+        
+        // create daddy
+        viz.addSeuron(data);
 
-     //get all users
+
+    });
+
+    //get all users
     /*$.getJSON('../../data/userdata.json', function(data) {
         $.each( data, function(key, item) {
 
@@ -16,8 +23,10 @@ $(document).ready(function(){
 
         });
     });*/
-
+    
+    
     //get all messages
+    /*
     $.getJSON('datasamples/makio135_timeline.json', function(data) {
 
         $.each( data, function(key, item) {
@@ -26,13 +35,13 @@ $(document).ready(function(){
 
             // send msg data to processing
 
-            var viz = Processing.getInstanceById("seuron");
             //viz.check();
             if(viz != null) 
                 setTimeout(function(){ viz.analyzeTweet(item) }, 5000);
 
         });
-    }); 
+    }); */
+
 
 
 

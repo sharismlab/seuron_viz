@@ -3,8 +3,13 @@ ArrayList<String> seuronId = new ArrayList();
 ArrayList<String> lookup = new ArrayList();
 
 
+// create seurons
+void addSeuron( Object data ) {
+	
+}
+
 // function to add a new Tweet
-void analyzeTweet( Object data ) {
+void analyzeTimeline( Object data ) {
 	
 
 	// check if seurons already exists
