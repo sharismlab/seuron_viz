@@ -9,14 +9,22 @@ PFont font = loadFont("Comic Sans");
 int canvasWidth	= screenWidth,
 	canvasHeight = screenHeight;
 
+ArrayList<Seuron> seurons = new ArrayList();
+ArrayList<int> seuronIds = new ArrayList();
+ArrayList<int> lookup = new ArrayList();
 
 // ------------------------------- INIT
 void setup(){
-	size(canvasWidth, canvasHeight);
+	size(screenWidth, screenHeight);
 	background(255);
 	textFont(font, 12);
 	frameRate(10);
 	smooth();
+	addSeuron(getProfile("makio135"));
+	( seurons.get(0) ).addFriends( getFriends("makio135") );
+	( seurons.get(0) ).addFollowers( getFollowers("makio135") );
+	analyzeTimeline( getTimeline( "makio135" ) );
+
 }
 
 // ------------------------------- MAIN DRAWING FUNCTION
@@ -62,7 +70,8 @@ void drawTimeline(){
 	text("Timeline",0,0);
 	popMatrix();
 
-	for (Seuron s : seurons){
+	for (int i= 1; i<seurons.size(); i++){
+		Seuron s = seurons.get(i);
 		seconds = Date.parse(s.date);
 		if(seconds<dateMin){
 			dateMin = seconds;

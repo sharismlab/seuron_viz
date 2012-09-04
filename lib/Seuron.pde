@@ -2,40 +2,59 @@ class Seuron {
 
 	Color couleur;
 	int index;
-	float cx, cy, radius, opac;
+	float cx, cy, radius;
 	
-	int level;
+	int level; //Daddy:0, Friend&Follow:1 , friend:2, follow3, noName:4
 
 	// float ax, ay; //axon terminal coordinates
-	float e= 2;  // axon excitation : should depend on incoming signals
+	// float e= 2;  // axon excitation : should depend on incoming signals
 	// ArrayList<Dendrite> dendrites = new ArrayList(); // store all dendrites inside
+	SeuronTmp[] friends;
+	SeuronTmp[] followers;
+	SeuronTmp[] noNames;
 	ArrayList<Message> msgs = new ArrayList(); // list of messages
 
-	// default values
-	Seuron() {
-		couleur = color(255); // color
-		cx = width/2;   // x 
-		cy= height/2;   // y
-		radius= 50;	 		// radius
-		opac=50;		// base opacity
-		name="name";	// seuron name
-	}
 
-	//constructor
 	Seuron( float _x, float _y, float _R, color _C, Object data) {
+		// console.log(data);
 		couleur = color(_C);
 		cx = _x;
 		cy = _y; 
 		radius = _R; 
-		//data = _data;
+
 		splitData(data); //fonction qui assigne les données à des variables de Seuron
+
 	}
+
+
+	void addFriends(Object data){
+		friends=  new SeuronTmp[ data.ids.length ];
+
+		for (int i = 0; i<data.ids.length; i++){
+			friends[i]=new SeuronTmp(data.ids[i], 2);
+		}
+
+		console.log( "friends : " + friends.length);
+	}
+
+
+	void addFollowers(Object data){
+		followers=new SeuronTmp[data.ids.length];
+
+		for (int i = 0; i<data.ids.length; i++){
+			followers[i]=new SeuronTmp(data.ids[i], 3);
+		}
+
+		console.log("followers : " + followers.length);
+	}
+
 
 	// add a message into list
 	void addMessage( Message msg ) {
-		msgs.add( msg );
 		// console.log(msg);
+		msgs.add( msg );
 	}
+
 
 	void drawNucleus() { 
 		// begin drawing nucleus
@@ -60,31 +79,32 @@ class Seuron {
 
 	// function to store dendrites inside seuron
 	/*
-	void addDendrites( Dendrit d ) {
-		dendrites.add(d);
-	}
-
-	void showDendrites() {
-		for (int i=0; i< dendrites.size(); i++) {
-			( (Dendrit) dendrites.get(i) ).draw();
+		void addDendrites( Dendrit d ) {
+			dendrites.add(d);
 		}
-	}
 
-	void drawAxon() {
-		ax = cx + radius*2;// + random(12);
-		ay = cy + radius*2;// + random(12);
+		void showDendrites() {
+			for (int i=0; i< dendrites.size(); i++) {
+				( (Dendrit) dendrites.get(i) ).draw();
+			}
+		}
 
-		stroke(couleur,75);
-		strokeWeight(5);
-		line(cx,cy,ax,ay);
-		// scribble(cx,cy,ax,ay,5,20);
-		
-		// axon terminal
-		fill(couleur,75);
-		ellipse(ax,ay,20,20);
-		
-		// println(this);
-	}*/
+		void drawAxon() {
+			ax = cx + radius*2;// + random(12);
+			ay = cy + radius*2;// + random(12);
+
+			stroke(couleur,75);
+			strokeWeight(5);
+			line(cx,cy,ax,ay);
+			// scribble(cx,cy,ax,ay,5,20);
+			
+			// axon terminal
+			fill(couleur,75);
+			ellipse(ax,ay,20,20);
+			
+			// println(this);
+		}
+	*/
 
 	void showAvatar() {
 		// this function should return display avatar from Twitter
@@ -93,6 +113,7 @@ class Seuron {
 			image(avatar,cx,cy,radius-10,radius-10);
 		}
 	}
+
 
 	void display() {
 		drawNucleus();
@@ -125,7 +146,7 @@ class Seuron {
 		if(d.profile_image_url != null) hasAvatar = true;
 		avatar = requestImage(d.profile_image_url);
 		 
-		date = parseTwitterDate(data.created_at);
+		date = parseTwitterDate(d.created_at);
 		utc_offset = d.utc_offset;
 		timeZone = d.time_zone;
 
@@ -141,4 +162,22 @@ class Seuron {
 		var tmp=twitterDate.substr(-4,4) +' . '+ twitterDate.substr(4,15);
 		return tmp;
 	}
+
+	
+}
+
+class SeuronTmp{
+	int id, level=4;
+	ArrayList<Message> msgsTmp;
+
+	SeuronTmp(int _id, int _level) {
+		id=_id;
+		level=_level;
+	}
+
+	void addMessage( Message msg ) {
+		// console.log(msg);
+		msgsTmp.add( msg );
+	}
+
 }
