@@ -13,6 +13,7 @@ PFont font = loadFont("Comic Sans");
 ArrayList<Seuron> seurons = new ArrayList();
 ArrayList<int> seuronIds = new ArrayList();
 ArrayList<int> lookup = new ArrayList();
+Seuron daddy;
 
 // ------------------------------- INIT
 void setup(){
@@ -22,8 +23,10 @@ void setup(){
 	frameRate(10);
 	smooth();
 	addSeuron(getProfile("makio135"));
-	( seurons.get(0) ).addFriends( getFriends("makio135") );
-	( seurons.get(0) ).addFollowers( getFollowers("makio135") );
+	daddy = seurons.get(0);
+	daddy.addFriends( getFriends("makio135") );
+	daddy.addFollowers( getFollowers("makio135") );
+	daddy.findCloseFriends();
 	analyzeTimeline( getTimeline( "makio135" ) );
 
 }
