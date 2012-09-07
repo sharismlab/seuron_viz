@@ -12,7 +12,8 @@ class Seuron {
 	SeuronTmp[] friends;
 	SeuronTmp[] followers;
 	ArrayList unknowns;
-	// ArrayList closeFriends;
+	ArrayList closeFriendsIds; // ids of close friends array
+	ArrayList closeFriendsPos; // position of close friends in friends Array 
 	ArrayList<Message> msgs = new ArrayList(); // list of messages
 
 
@@ -22,7 +23,11 @@ class Seuron {
 		cx = _x;
 		cy = _y; 
 		radius = _R; 
-		unknowns = new ArrayList;
+		unknowns = new ArrayList();
+		closeFriendsIds = new ArrayList();
+		closeFriendsPos = new ArrayList();
+		msgs = new ArrayList();
+
 
 		splitData(data); //fonction qui assigne les données à des variables de Seuron
 
@@ -52,16 +57,22 @@ class Seuron {
 	// find if a seuronTmp is friend & follower and give him level 1
 	void findCloseFriends() {
 
-		for (int i = 0; i<friends.length; i++){
-			if( followers.indexOf(friends[i]) != -1 ) {
-				friends[i].level = 1;
-				console.log("friend "+ friends[i].id + " is a close friend." );
+		for (int i = 0; friends[i]; i++){
+			for (int j = 0; followers[j]; j++){
+			
+				if( followers[j].id == friends[i].id ) {
+					friends[i].level = 1;
+					closeFriendsPos.add( i );
+					closeFriendsIds.add( friends[i].id );
+					//console.log("friend "+ friends[i].id + " is a close friend." );
+				}
 			}
 		}
 	}
 
 	void addUnknown(Object data){
 		// unknown = new SeuronTmp[data.ids.length];
+		
 		unknowns.add( new SeuronTmp(data.id, 4) );
 
 		console.log("unknowns size changed : " + unknowns.size() );
@@ -69,9 +80,9 @@ class Seuron {
 
 	
 	// add a message into list
-	void addMessage( Message msg ) {
+	void addMessage( Transmitter trans, Object data, int type ) {
 		// console.log(msg);
-		msgs.add( msg );
+		msgs.add( new Message(trans, data, type) );
 	}
 
 

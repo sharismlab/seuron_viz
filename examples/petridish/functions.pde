@@ -11,10 +11,9 @@ void addSeuron( Object data ) {
 
 // analyze daddy's timeline
 void analyzeTimeline( Object timeline ) {
-	
+	// console.log(daddy);
 	for(int i; i < timeline.length; i++ ) {
-		loading =true;
-		analyzeTimelineTweet( timeline[i] );
+		 analyzeTimelineTweet( timeline[i] );
 	}
 	
 	// lookup users 
@@ -30,46 +29,99 @@ void analyzeTimeline( Object timeline ) {
 void analyzeTimelineTweet( Object tweet ) {
 	
 	if ( tweet.retweeted_status ) {
+		console.log ('RT');
 		// RT
-		int rtfriend = (daddy.friends).indexOf(tweet.retweeted_status.user.id);
-		int rtfollow = (daddy.followers).indexOf(tweet.retweeted_status.user.id);
+		int rtclose, rtfriend, rtfollow, rtunknown;
 
-		if(  rtfriend != -1 ) {
+		rtclose = (daddy.closeFriendsIds).indexOf(tweet.retweeted_status.user.id);
+		if ( rtclose == -1 ) rtfriend = (daddy.friends).indexOf(tweet.retweeted_status.user.id);
+		else if( rtfriend == -1 ) rtfollow = (daddy.followers).indexOf(tweet.retweeted_status.user.id);
+		else if( rtfollow == -1 ) rtunknown = (daddy.unknowns).indexOf( tweet.retweeted_status.user.id ); 
+
+		if ( rtclose != -1 ){
+			// @ is Friend & Follwoer
+			int posF = daddy.closeFriendsPos[rtclose];
+			SeuronTmp s = daddy.friends[posF];
+			s.addMessage( twitterTransmitter, tweet, 1 );
+		}
+		else if( rtfriend != -1 ) {
 			// @ is a friend !
 			SeuronTmp s = daddy.friends[ rtfriend ];
-			s.addMessage( tweet,  );
+			s.addMessage( twitterTransmitter, tweet, 1 );
 
 		} 
 		else if( rtfollow != -1 ) {
 			// @ is a follower !
 			SeuronTmp s = daddy.followers[ rtfollow ];
-			s.addMessage( tweet );
+			s.addMessage( twitterTransmitter, tweet, 1 );
 
 		} 
 		else {
 			// @ is unknown !
-			SeuronTmp s = daddy.followers[ rtfollow ];
-			s.addMessage( tweet );	
+			if( rtunknown =-1 ) {
+				daddy.addUnknown(tweet);
+				SeuronTmp s = (Seuron)(daddy.unknowns).get((daddy.unknowns).size()-1);
+				s.addMessage( twitterTransmitter, tweet, 1 );	
+			} 
+			else {
+				SeuronTmp s = (Seuron)(daddy.unknowns).get( rtunknown );
+				s.addMessage( twitterTransmitter, tweet, 1 );
+			}
 
 		}
 
 	} else {
+		console.log("daddy's message");
+
 		// from daddy
+		daddy.addMessage( twitterTransmitter, tweet, 0 );
+		int mentions = tweet.entities.user_mentions ;
 
-		daddy.addMessage( tweet );
+		if( mentions.length >0 ){
+			
+			int atclose, atfriend, atfollow, atunknown;
 
-		if( tweet.entities.user_mentions.length>0 ){
-			// there is @
-			if((daddy.friends).indexOf(tweet.entities.user_mentions.id) != -1 ) {
-				// @ is a friend !
-				daddy.
-			} 
-			else if((daddy.followers).indexOf(tweet.entities.user_mentions.id) != -1 ) {
-				// @ is a follower !
+			for (int i = 0; i<mentions.length; i++){
+
+				atclose = (daddy.closeFriendsIds).indexOf(mentions[i].id);
+				if ( atclose == -1 ) atfriend = (daddy.friends).indexOf(mentions[i].id);
+				else if( atfriend == -1 ) atfollow = (daddy.followers).indexOf(mentions[i].id);
+				else if( atfollow == -1 ) atunknown = (daddy.unknowns).indexOf( mentions[i].id ); 
+
+				if ( atclose != -1 ){
+					// @ is Friend & Follwoer
+					int posF = daddy.closeFriendsPos[atclose];
+					SeuronTmp s = daddy.friends[posF];
+					s.addMessage( twitterTransmitter, tweet, 1 );
+				}
+				else if( atfriend != -1 ) {
+					// @ is a friend !
+					SeuronTmp s = daddy.friends[ atfriend ];
+					s.addMessage( twitterTransmitter, tweet, 1 );
+
+				} 
+				else if( atfollow != -1 ) {
+					// @ is a follower !
+					SeuronTmp s = daddy.followers[ atfollow ];
+					s.addMessage( twitterTransmitter, tweet, 1 );
+
+				} 
+				else {
+					
+					// @ is unknown !
+					if( atunknown =-1 ) {
+						daddy.addUnknown(tweet);
+						SeuronTmp s = (Seuron)(daddy.unknowns).get((daddy.unknowns).size()-1);
+						s.addMessage( twitterTransmitter, tweet, 1 );	
+					} 
+					else {
+						SeuronTmp s = (Seuron)(daddy.unknowns).get( atunknown );
+						s.addMessage( twitterTransmitter, tweet, 1 );
+					}
+
+				}
 
 			}
-
-
 		}
 
 	}

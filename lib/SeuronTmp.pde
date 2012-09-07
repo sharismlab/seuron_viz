@@ -6,12 +6,15 @@ class SeuronTmp {
 	SeuronTmp(int _id, int _level) {
 		id=_id;
 		level=_level;
+		msgsTmp = new ArrayList();
 	}
 
-	
-	void addMessage( Message msg, int type ) {
-		// console.log(msg);
-		msgsTmp.add( msg );
+
+// add a message into list
+	void addMessage( Transmitter trans, Object data, int type ) {
+		//console.log(msg);
+		msgsTmp.add( new Message(trans, data, type) );
+		//console.log(msgsTmp.get( msgsTmp.size() -1 ));
 	}
 
 }
