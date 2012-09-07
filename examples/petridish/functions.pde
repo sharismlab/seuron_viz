@@ -27,9 +27,10 @@ void analyzeTimeline( Object timeline ) {
 // No interaction:0, RT:1 , @:2
 
 void analyzeTimelineTweet( Object tweet ) {
-	console.log(tweet);
+
+	//console.log(tweet);
 	if ( tweet.retweeted_status ) {
-		// console.log ('RT');
+		//console.log ('RT');
 		
 		// RT
 		int rtclose, rtfriend, rtfollow, rtunknown;
@@ -74,17 +75,34 @@ void analyzeTimelineTweet( Object tweet ) {
 	} 
 	else {
 
-		console.log("daddy's message");
+		// console.log("daddy's message");
+		
 		// from daddy
 		daddy.addMessage( twitterTransmitter, tweet, 0 );
 		var mentions = tweet.entities.user_mentions ;
-		console.log(mentions);
+
 		if( mentions.length >0 ){
 			
 
 			for (int i = 0; i<mentions.length; i++){
 
-			int atclose, atfriend, atfollow, atunknown;
+				//check if user already exists
+				int index = seuronIds.indexOf( tweet.user.id );
+
+				if( index!=-1 ) {
+						// get existing Seuron
+						SeuronTmp s = seurons.get(index);
+					
+						//add message to 
+						// s.addMessage( new Message (twitterTransmitter , tweet) );
+						// exist=true;
+				} 
+				else {
+					// create new seuron
+					addSeuron(tweet);
+				}
+
+				int atclose, atfriend, atfollow, atunknown;
 				atclose = (daddy.closeFriendsIds).indexOf(mentions[i].id);
 				// console.log(atclose);
 				if ( atclose == -1 ){ 
@@ -128,7 +146,6 @@ void analyzeTimelineTweet( Object tweet ) {
 				}
 				else {
 					console.log(tweet);
-					console.log(mentions[i]);
 					// @ is unknown !
 					if( atunknown != -1 ) {
 						SeuronTmp s = daddy.unknowns[atunknown];
@@ -136,10 +153,10 @@ void analyzeTimelineTweet( Object tweet ) {
 						s.addMessage( twitterTransmitter, tweet, 1 );	
 					} 
 					else {
-						console.log(mentions[i].id );
+						// console.log(mentions[i].id );
 						daddy.addUnknown( mentions[i].id );
 						int mypos = daddy.unknowns.length-1;
-						console.log(daddy.unknowns.length);
+						// console.log(daddy.unknowns.length);
 						SeuronTmp s = daddy.unknowns[mypos];
 						s.addMessage( twitterTransmitter, tweet, 1 );
 					}
@@ -150,8 +167,8 @@ void analyzeTimelineTweet( Object tweet ) {
 		}
 
 	}
-	 
-	/*
+	
+	/* 
 	// check if seuron already exists
 	int index = seuronIds.indexOf( tweet.user.id );
 
@@ -169,6 +186,7 @@ void analyzeTimelineTweet( Object tweet ) {
 		addSeuron(tweet);
 	}
 
+	
 	// create users from mentions
 	if(tweet.entities.user_mentions.length>0){
 		// console.log(tweet.entities.user_mentions.length);
@@ -188,10 +206,9 @@ void analyzeTimelineTweet( Object tweet ) {
 		}
 	}*/
 
-
-
 }
 
+// 
 void addToLookup( int id ) {
 	lookup.add( id );
 

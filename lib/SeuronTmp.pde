@@ -7,10 +7,11 @@ class SeuronTmp {
 		id=_id;
 		level=_level;
 		msgsTmp = new ArrayList();
+		addToLookup(id);
+		seuronsIds.add(id);
 	}
 
-
-// add a message into list
+	// add a message into list
 	void addMessage( Transmitter trans, Object data, int type ) {
 		//console.log(msg);
 		msgsTmp.add( new Message(trans, data, type) );
