@@ -27,7 +27,7 @@ void analyzeTimeline( Object timeline ) {
 // No interaction:0, RT:1 , @:2
 
 void analyzeTimelineTweet( Object tweet ) {
-	
+	console.log(tweet);
 	if ( tweet.retweeted_status ) {
 		// console.log ('RT');
 		
@@ -71,23 +71,34 @@ void analyzeTimelineTweet( Object tweet ) {
 
 		}
 
-	} else {
+	} 
+	else {
 
-		// console.log("daddy's message");
+		console.log("daddy's message");
 		// from daddy
 		daddy.addMessage( twitterTransmitter, tweet, 0 );
-		int mentions = tweet.entities.user_mentions ;
-
+		var mentions = tweet.entities.user_mentions ;
+		console.log(mentions);
 		if( mentions.length >0 ){
 			
-			int atclose, atfriend, atfollow, atunknown;
 
 			for (int i = 0; i<mentions.length; i++){
 
+			int atclose, atfriend, atfollow, atunknown;
 				atclose = (daddy.closeFriendsIds).indexOf(mentions[i].id);
-				if ( atclose == -1 ) atfriend = (daddy.friends).indexOf(mentions[i].id);
-				else if( atfriend == -1 ) atfollow = (daddy.followers).indexOf(mentions[i].id);
-				else if( atfollow == -1 ) atunknown = (daddy.unknowns).indexOf( mentions[i].id ); 
+				// console.log(atclose);
+				if ( atclose == -1 ){ 
+					atfriend = (daddy.friends).indexOf(mentions[i].id);
+					// console.log(atfriend);
+				}
+				else if( atfriend == -1 ){ 
+					atfollow = (daddy.followers).indexOf(mentions[i].id);
+					 // console.log(atfollow);
+				}
+				else if( atfollow == -1 ){ 
+					atunknown = (daddy.unknowns).indexOf( mentions[i].id ); 
+					// console.log(atunknown);
+				}
 
 				 // console.log("atclose" + atclose);
 				 // console.log("atfollow" + atfollow);
@@ -119,16 +130,17 @@ void analyzeTimelineTweet( Object tweet ) {
 					console.log(tweet);
 					console.log(mentions[i]);
 					// @ is unknown !
-					if( atunknown == -1 ) {
+					if( atunknown != -1 ) {
+						SeuronTmp s = daddy.unknowns[atunknown];
+						console.log(s);
+						s.addMessage( twitterTransmitter, tweet, 1 );	
+					} 
+					else {
 						console.log(mentions[i].id );
 						daddy.addUnknown( mentions[i].id );
 						int mypos = daddy.unknowns.length-1;
 						console.log(daddy.unknowns.length);
 						SeuronTmp s = daddy.unknowns[mypos];
-						s.addMessage( twitterTransmitter, tweet, 1 );	
-					} 
-					else {
-						SeuronTmp s = daddy.unknowns[atunknown];
 						s.addMessage( twitterTransmitter, tweet, 1 );
 					}
 

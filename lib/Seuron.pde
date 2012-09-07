@@ -9,10 +9,10 @@ class Seuron {
 	// float ax, ay; //axon terminal coordinates
 	// float e= 2;  // axon excitation : should depend on incoming signals
 	// ArrayList<Dendrite> dendrites = new ArrayList(); // store all dendrites inside
-	SeuronTmp[] friends;
-	SeuronTmp[] followers;
+	
+	var friends=[];
+	var followers=[];
 	var unknowns =[];
-
 	var closeFriendsIds = []; // ids of close friends array
 	var closeFriendsPos = []; // position of close friends in friends Array 
 	
