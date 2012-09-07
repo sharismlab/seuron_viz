@@ -11,7 +11,7 @@ void addSeuron( Object data ) {
 
 // analyze daddy's timeline
 void analyzeTimeline( Object timeline ) {
-	// console.log(daddy);
+	console.log(daddy);
 	for(int i; i < timeline.length; i++ ) {
 		 analyzeTimelineTweet( timeline[i] );
 	}
@@ -29,7 +29,8 @@ void analyzeTimeline( Object timeline ) {
 void analyzeTimelineTweet( Object tweet ) {
 	
 	if ( tweet.retweeted_status ) {
-		console.log ('RT');
+		// console.log ('RT');
+		
 		// RT
 		int rtclose, rtfriend, rtfollow, rtunknown;
 
@@ -59,8 +60,8 @@ void analyzeTimelineTweet( Object tweet ) {
 		else {
 			// @ is unknown !
 			if( rtunknown =-1 ) {
-				daddy.addUnknown(tweet);
-				SeuronTmp s = (Seuron)(daddy.unknowns).get((daddy.unknowns).size()-1);
+				daddy.addUnknown( tweet.retweeted_status.user.id );
+				SeuronTmp s = (Seuron)(daddy.unknowns).get((daddy.unknowns).length-1);
 				s.addMessage( twitterTransmitter, tweet, 1 );	
 			} 
 			else {
@@ -71,8 +72,8 @@ void analyzeTimelineTweet( Object tweet ) {
 		}
 
 	} else {
-		console.log("daddy's message");
 
+		// console.log("daddy's message");
 		// from daddy
 		daddy.addMessage( twitterTransmitter, tweet, 0 );
 		int mentions = tweet.entities.user_mentions ;
@@ -88,9 +89,18 @@ void analyzeTimelineTweet( Object tweet ) {
 				else if( atfriend == -1 ) atfollow = (daddy.followers).indexOf(mentions[i].id);
 				else if( atfollow == -1 ) atunknown = (daddy.unknowns).indexOf( mentions[i].id ); 
 
+				 // console.log("atclose" + atclose);
+				 // console.log("atfollow" + atfollow);
+				 // console.log("atfriend" + atfriend);
+				 // console.log("atunknown" + atunknown);
+
 				if ( atclose != -1 ){
+
 					// @ is Friend & Follwoer
 					int posF = daddy.closeFriendsPos[atclose];
+					// console.log(posF);
+					// console.log(daddy.friends[posF]);
+
 					SeuronTmp s = daddy.friends[posF];
 					s.addMessage( twitterTransmitter, tweet, 1 );
 				}
@@ -104,18 +114,21 @@ void analyzeTimelineTweet( Object tweet ) {
 					// @ is a follower !
 					SeuronTmp s = daddy.followers[ atfollow ];
 					s.addMessage( twitterTransmitter, tweet, 1 );
-
-				} 
+				}
 				else {
-					
+					console.log(tweet);
+					console.log(mentions[i]);
 					// @ is unknown !
-					if( atunknown =-1 ) {
-						daddy.addUnknown(tweet);
-						SeuronTmp s = (Seuron)(daddy.unknowns).get((daddy.unknowns).size()-1);
+					if( atunknown == -1 ) {
+						console.log(mentions[i].id );
+						daddy.addUnknown( mentions[i].id );
+						int mypos = daddy.unknowns.length-1;
+						console.log(daddy.unknowns.length);
+						SeuronTmp s = daddy.unknowns[mypos];
 						s.addMessage( twitterTransmitter, tweet, 1 );	
 					} 
 					else {
-						SeuronTmp s = (Seuron)(daddy.unknowns).get( atunknown );
+						SeuronTmp s = daddy.unknowns[atunknown];
 						s.addMessage( twitterTransmitter, tweet, 1 );
 					}
 
@@ -125,11 +138,6 @@ void analyzeTimelineTweet( Object tweet ) {
 		}
 
 	}
-
-
-
-
-
 	 
 	/*
 	// check if seuron already exists

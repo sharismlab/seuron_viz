@@ -11,9 +11,11 @@ class Seuron {
 	// ArrayList<Dendrite> dendrites = new ArrayList(); // store all dendrites inside
 	SeuronTmp[] friends;
 	SeuronTmp[] followers;
-	ArrayList unknowns;
-	ArrayList closeFriendsIds; // ids of close friends array
-	ArrayList closeFriendsPos; // position of close friends in friends Array 
+	var unknowns =[];
+
+	var closeFriendsIds = []; // ids of close friends array
+	var closeFriendsPos = []; // position of close friends in friends Array 
+	
 	ArrayList<Message> msgs = new ArrayList(); // list of messages
 
 
@@ -23,9 +25,7 @@ class Seuron {
 		cx = _x;
 		cy = _y; 
 		radius = _R; 
-		unknowns = new ArrayList();
-		closeFriendsIds = new ArrayList();
-		closeFriendsPos = new ArrayList();
+		//unknowns = new ArrayList();
 		msgs = new ArrayList();
 
 
@@ -62,20 +62,31 @@ class Seuron {
 			
 				if( followers[j].id == friends[i].id ) {
 					friends[i].level = 1;
-					closeFriendsPos.add( i );
-					closeFriendsIds.add( friends[i].id );
-					//console.log("friend "+ friends[i].id + " is a close friend." );
+					// console.log(i);
+					// console.log(closeFriendsIds);
+					// int o = i;
+					closeFriendsPos.push( i );
+					closeFriendsIds.push( friends[i].id );
+					// console.log(closeFriendsPos);
+					// console.log(closeFriendsIds);	
+					// console.log("friend "+ friends[i].id + " is a close friend." );
+			
+
 				}
 			}
 		}
+		// console.log(closeFriendsPos);
+		// console.log(closeFriendsIds);			
 	}
 
 	void addUnknown(Object data){
 		// unknown = new SeuronTmp[data.ids.length];
 		
-		unknowns.add( new SeuronTmp(data.id, 4) );
+		unknowns.push( new SeuronTmp(data.id, 4) );
 
-		console.log("unknowns size changed : " + unknowns.size() );
+		console.log("unknowns size changed : " + unknowns.length );
+		console.log(unknowns);
+
 	}
 
 	
