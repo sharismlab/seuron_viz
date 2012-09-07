@@ -74,18 +74,21 @@ void analyzeTimelineTweet( Object tweet ) {
 
 	} 
 	else {
+<<<<<<< HEAD
 
 		// console.log("daddy's message");
 		
+=======
+		console.log("daddy's message");
+>>>>>>> b4b8ac1b8595bc473cd419cd7b74535bab40535a
 		// from daddy
 		daddy.addMessage( twitterTransmitter, tweet, 0 );
 		var mentions = tweet.entities.user_mentions ;
 
 		if( mentions.length >0 ){
-			
-
 			for (int i = 0; i<mentions.length; i++){
 
+<<<<<<< HEAD
 				//check if user already exists
 				int index = seuronIds.indexOf( tweet.user.id );
 
@@ -102,6 +105,8 @@ void analyzeTimelineTweet( Object tweet ) {
 					addSeuron(tweet);
 				}
 
+=======
+>>>>>>> b4b8ac1b8595bc473cd419cd7b74535bab40535a
 				int atclose, atfriend, atfollow, atunknown;
 				atclose = (daddy.closeFriendsIds).indexOf(mentions[i].id);
 				// console.log(atclose);
@@ -167,8 +172,13 @@ void analyzeTimelineTweet( Object tweet ) {
 		}
 
 	}
+<<<<<<< HEAD
 	
 	/* 
+=======
+	 
+/*
+>>>>>>> b4b8ac1b8595bc473cd419cd7b74535bab40535a
 	// check if seuron already exists
 	int index = seuronIds.indexOf( tweet.user.id );
 
@@ -204,7 +214,8 @@ void analyzeTimelineTweet( Object tweet ) {
 				// println("seuronIds.size(): "+ seuronIds.size());
 			}
 		}
-	}*/
+	}
+*/
 
 }
 
