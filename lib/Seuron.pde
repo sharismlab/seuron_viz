@@ -1,6 +1,6 @@
 class Seuron {
 
-	Color couleur;
+	color couleur;
 	int index;
 	float cx, cy, radius;
 	
@@ -19,6 +19,18 @@ class Seuron {
 	ArrayList<Message> msgs = new ArrayList(); // list of messages
 
 
+	Seuron(int _id, int _level){
+		id =_id;
+		level = _level;
+		cx=random(level(screenWidth/6)+(screenWidth/6)/2);
+		cy=random(100, 350);
+		radius=35;
+		couleur=color(255,0,0);
+
+		addToLookup(id);
+	}
+
+
 	Seuron( float _x, float _y, float _R, color _C, Object data) {
 		// console.log(data);
 		couleur = color(_C);
@@ -26,32 +38,36 @@ class Seuron {
 		cy = _y; 
 		radius = _R; 
 		//unknowns = new ArrayList();
-		msgs = new ArrayList();
-
+		// msgs = new ArrayList();
 
 		splitData(data); //fonction qui assigne les données à des variables de Seuron
 
 	}
 
 	void addFriends(Object data){
-		friends=  new SeuronTmp[ data.ids.length ];
+		// friends = new Seuron[ data.ids.length ];
 
 		for (int i = 0; i<data.ids.length; i++){
-			friends[i]=new SeuronTmp(data.ids[i], 2);
+			// friends[i]=new Seuron(data.ids[i], 2);
+			seurons.add(new Seuron(data.ids[i], 2));
 		}
-
-		console.log( "friends : " + friends.length);
+		// console.log( "friends : " + friends.length);
 	}
 
 
 	void addFollowers(Object data){
-		followers=new SeuronTmp[data.ids.length];
+		// followers=new SeuronTmp[data.ids.length];
 
 		for (int i = 0; i<data.ids.length; i++){
-			followers[i]=new SeuronTmp(data.ids[i], 3);
+			// followers[i]=new SeuronTmp(data.ids[i], 3);
+
+			// check if already friend boolean isCloseFriend(id){}
+			// if false:
+			seurons.add(new Seuron(data.ids[i], 3));
+			// else: seurons.get(?).level=1
 		}
 
-		console.log("followers : " + followers.length);
+		// console.log("followers : " + followers.length);
 	}
 
 	// find if a seuronTmp is friend & follower and give him level 1

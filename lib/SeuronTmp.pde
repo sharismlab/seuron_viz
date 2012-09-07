@@ -7,6 +7,7 @@ class SeuronTmp {
 		id=_id;
 		level=_level;
 		msgsTmp = new ArrayList();
+		addToLookup(id);
 	}
 
 

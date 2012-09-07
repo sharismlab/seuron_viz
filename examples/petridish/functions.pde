@@ -73,18 +73,15 @@ void analyzeTimelineTweet( Object tweet ) {
 
 	} 
 	else {
-
 		console.log("daddy's message");
 		// from daddy
 		daddy.addMessage( twitterTransmitter, tweet, 0 );
 		var mentions = tweet.entities.user_mentions ;
 		console.log(mentions);
 		if( mentions.length >0 ){
-			
-
 			for (int i = 0; i<mentions.length; i++){
 
-			int atclose, atfriend, atfollow, atunknown;
+				int atclose, atfriend, atfollow, atunknown;
 				atclose = (daddy.closeFriendsIds).indexOf(mentions[i].id);
 				// console.log(atclose);
 				if ( atclose == -1 ){ 
@@ -151,7 +148,7 @@ void analyzeTimelineTweet( Object tweet ) {
 
 	}
 	 
-	/*
+/*
 	// check if seuron already exists
 	int index = seuronIds.indexOf( tweet.user.id );
 
@@ -186,7 +183,8 @@ void analyzeTimelineTweet( Object tweet ) {
 				// println("seuronIds.size(): "+ seuronIds.size());
 			}
 		}
-	}*/
+	}
+*/
 
 
 
