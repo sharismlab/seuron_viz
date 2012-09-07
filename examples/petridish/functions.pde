@@ -12,11 +12,15 @@ void addSeuron( Object data ) {
 void analyzeTimeline( Object timeline ) {
 	// console.log(timeline);
 
+	
+
 	for(int i; i < timeline.length; i++ ) {
-		
+		loading =true;
 		analyzeTweet( timeline[i] );
 
 	}
+	loading = false;
+
 }
 
 // function to add a new Tweet
@@ -35,9 +39,8 @@ void analyzeTweet( Object tweet ) {
 			exist=true;
 	} 
 	else {
-
+		// create new seuron
 		addSeuron(tweet);
-
 	}
 
 	// 
@@ -85,7 +88,7 @@ void loadLookup() {
 
 			item.isProfile =true;
 			// allUsers.push( item );
-			seurons.add( new Seuron( random(20,canvasWidth-50), random(100, canvasHeight-150), 35, color(random(255),random(255),random(255)), item ) );
+			seurons.add( new Seuron( random(20,screenWidth-50), random(100, screenHeight-150), 35, color(random(255),random(255),random(255)), item ) );
 
 		});
 	});

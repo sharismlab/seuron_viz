@@ -23,8 +23,8 @@ class Message {
 	}
 
 	void analyzeTweet( Object data ) {
-		console.log( "this is a tweet! " );
-		console.log( data ) ;
+		// console.log( "this is a tweet! " );
+		// console.log( data ) ;
 
 	}
 

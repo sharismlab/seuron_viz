@@ -6,8 +6,9 @@ processing + twitter + jquery
 
 PFont font = loadFont("Comic Sans");
  
-int canvasWidth	= screenWidth,
+/*int canvasWidth	= screenWidth,
 	canvasHeight = screenHeight;
+*/
 
 ArrayList<Seuron> seurons = new ArrayList();
 ArrayList<int> seuronIds = new ArrayList();
@@ -35,6 +36,15 @@ void draw(){
 	gradient.addColorStop(1,'rgba(10, 10, 10, 1)'); 
 	externals.context.fillStyle = gradient; 
 	externals.context.fillRect( 0, 0, width, height ); 
+
+	/*
+	// add a loader to screen
+	if(loading) {
+		console.log(loading)
+		textAlign(CENTER);
+		text(isLoading, width/2, height/2);		
+
+	}*/
 
 	drawTimeline();
 
@@ -83,7 +93,7 @@ void drawTimeline(){
 		}
 
 		TimelinePosX = map(seconds,dateMin,dateMax,45,width-25);
-		TimelinePosY = height-75 + map(s.cy,100,canvasHeight-150,5,55);
+		TimelinePosY = height-75 + map(s.cy,100,screenHeight-150,5,55);
 		stroke(s.couleur);
 		strokeWeight(2);
 		strokeCap(SQUARE);

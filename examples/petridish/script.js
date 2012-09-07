@@ -1,7 +1,8 @@
+var loading = null;
 var viz = Processing.getInstanceById("seuron");
 	
 function getProfile( username ) {
-	var d;
+
 	$.ajax({
 		url: 'datasamples/makio135_profile.json',
 		dataType: 'json',
@@ -10,6 +11,7 @@ function getProfile( username ) {
 			d=result;
 		}
 	});
+	
 	return d;
 }
 
