@@ -10,9 +10,25 @@ PFont font = loadFont("Comic Sans");
 	canvasHeight = screenHeight;
 */
 
-ArrayList<Seuron> seurons = new ArrayList();
-ArrayList<int> seuronIds = new ArrayList();
+// A global array to store all seurons
+var seurons = [];
+
+// A simple array storing only ids for all seurons
+var seuronIds = [];
+
+// Array to store all ids that needs to be looked up through twitter API
 ArrayList<int> lookup = new ArrayList();
+
+// all our messages Ids
+var messageIds = [];
+
+// all our messages 
+var messages = [];
+
+// messages to be looked up
+var messagesLookup = [];
+
+// THE Only boss of all.
 Seuron daddy;
 
 // ------------------------------- INIT
@@ -22,13 +38,102 @@ void setup(){
 	textFont(font, 12);
 	frameRate(10);
 	smooth();
-	addSeuron(getProfile("makio135"));
-	daddy = seurons.get(0);
-	daddy.addFriends( getFriends("makio135") );
-	daddy.addFollowers( getFollowers("makio135") );
-	daddy.findCloseFriends();
-	analyzeTimeline( getTimeline( "makio135" ) );
+	
+	
 
+	// create daddy 
+	daddyData = getProfile("makio135");
+	daddy = createSeuron( daddyData.id, daddyData, false );
+
+	daddy.cx = 30;
+	daddy.cy = screenWidth/2;
+
+
+	// FRIENDS & FOLLOWERS 
+	// ------------------------------
+	// they are empty seurons just storing existing relationships
+	// they won't be displayed on the screen
+	// we will be get their profile data only if they interact with daddy	
+
+	// create daddy's friends 	
+	daddyFriends = getFriends("makio135");	
+	
+	for (int i = 0; i< daddyFriends.ids.length; i++){
+		// check if the friend already exists
+	
+		friend = seuronExists( daddyFriends.ids[i] );
+		
+		// console.log(friend);
+		if( friend ) {
+			daddy.addFriend( friend );
+		} else {
+			friend = createSeuron( daddyFriends.ids[i], null, false ); 	
+			daddy.addFriend( friend );
+		}
+	}
+	
+	// create daddy's followers
+	daddyFollowers = getFollowers("makio135");
+	for (int i = 0; i< daddyFollowers.ids.length; i++){
+
+		follower = seuronExists	( daddyFollowers.ids[i] );
+		
+		if( follower != false  ) {
+			
+			// seurons already exists, so it is a closeFriend
+			synapse = daddy.getSynapse( follower.id );
+			
+			// check if 
+			// console.log(synapse);
+
+			synapse.level = 1;
+
+		} else {
+			// console.log(follower);
+			// console.loopg('create new');
+			follower = createSeuron( daddyFollowers.ids[i], null, false );
+
+			daddy.addFollower( follower );
+		}
+
+	}
+	console.log("------- before loop into messages --------");
+	console.log( "created seurons : " + seurons.length );
+	console.log( "daddy's close Friends : " + daddy.getCloseFriends().length );
+	console.log( "daddy's Friends : " + daddy.getFriends().length );
+	console.log( "daddy's Followers : " + daddy.getFollowers().length );
+	console.log( "daddy's Unrelated : " + daddy.getUnrelated().length );
+
+
+	// THE TIMELINE
+	// ------------------------------------------
+	// Now let's check the timeline 
+	// To extract messages and quoted people from it
+
+	// we should also extract statuses/mentions to have the whole conversation !
+
+	daddyTimeline = getTimeline( "makio135" );
+	analyzeTimeline( daddyTimeline );
+
+	console.log("------- after loop into messages --------");
+	console.log( "created seurons : " + seurons.length );
+	console.log( "daddy's close Friends : " + daddy.getCloseFriends().length );
+	console.log( "daddy's Friends : " + daddy.getFriends().length );
+	console.log( "daddy's Followers : " + daddy.getFollowers().length );
+	console.log( "daddy's Unrelated : " + daddy.getUnrelated().length );
+
+	console.log(daddy);
+	
+	console.log(messages.length);
+	
+	// for (int i = 0; messages[i]; i++){
+		
+	// 	// if( messages[i].synapse != 'undefined') 
+	// 	// messages[i].display();
+	// 	console.log(messages[i].synapse);
+	// 	console.log(messages[i].action);
+
+	//  }
 }
 
 // ------------------------------- MAIN DRAWING FUNCTION
@@ -51,9 +156,42 @@ void draw(){
 
 	drawTimeline();
 
-	for (Seuron s : seurons){ // for notation objet
-		s.display();
+	// drawSeurons
+	for (int i = 0; seurons[i]; i++){
+
+		// console.log(daddy);
+		s =  seurons[i];
+
+		if( s.data != null ) {
+			
+			int level =  daddy.getSynapse(s.id).level;
+
+			// console.log(level);
+
+			float y = (level+1)*( (screenHeight-230 ) /4 );
+			s.cy = y;
+			
+			s.display();
+
+		}
+		
 	}
+	daddy.cy =50;
+	daddy.cx =screenWidth/2;
+	daddy.display();
+
+	//draw dendrites
+
+	for (int i = 0; messages[i]; i++){
+		
+		// if( messages[i].synapse != 'undefined') 
+		// messages[i].display();
+		messages[i].display();
+
+	 }
+
+
+
 }
 
 
@@ -83,8 +221,9 @@ void drawTimeline(){
 	text("Timeline",0,0);
 	popMatrix();
 
-	for (int i= 1; i<seurons.size(); i++){
-		Seuron s = seurons.get(i);
+	for (int i= 1; seurons[i]; i++){
+
+		Seuron s = seurons[i];
 		seconds = Date.parse(s.date);
 		if(seconds<dateMin){
 			dateMin = seconds;

@@ -2,4 +2,7 @@
 *.*~
 applet/
 examples/memespread/node_modules/
+scripts/
+data/
+Twitter_exponentialTimeRequest/
 

@@ -1,36 +1,71 @@
-class Seuron {
+/*
+This is the seuron class
+A Seuron intends to store info about a specific user from different social networks.
 
-	color couleur;
-	int index;
-	float cx, cy, radius;
+All relationships are stored in an Array of Synapses that connects it to other seurons.
+
+*/
+
+class Seuron {
 	
-	int level; //Daddy:0, Friend&Follow:1 , friend:2, follow3, noName:4
+	// int level; 
 
 	// float ax, ay; //axon terminal coordinates
 	// float e= 2;  // axon excitation : should depend on incoming signals
 	// ArrayList<Dendrite> dendrites = new ArrayList(); // store all dendrites inside
 	
-	var friends=[];
-	var followers=[];
-	var unknowns =[];
-	var closeFriendsIds = []; // ids of close friends array
-	var closeFriendsPos = []; // position of close friends in friends Array 
+	// var friends = [];
+	// var followers = [];
+	// var unknowns = [];
+	// var closeFriendsIds = []; // ids of close friends array
+	// var closeFriendsPos = []; // position of close friends in friends Array 
 	
+
+	int id;
+	boolean lookup = false ; // by default, Seuron should not be looked up
+	Object data;
+
+	// drawings var
+	color couleur;
+	int index;
+	float cx, cy, radius;
+
 	ArrayList<Message> msgs = new ArrayList(); // list of messages
 
+	var synapses = []; // here are stored all relationships
 
-	Seuron(int _id, int _level){
-		id =_id;
-		level = _level;
-		cx=random(level(screenWidth/6)+(screenWidth/6)/2);
-		cy=random(100, 350);
+	// ghost constructor
+	Seuron( int _id, Object _data, boolean _lookup  ){
+
+		id =_id;  // id from twitter
+
+		if ( _data != null ) data = _data; // add data from twitter 
+		// else console.log( data);
+		
+		
+		// lookup = false;
+		// console.log(_lookup);
+
+		// erase default value if specified
+		// if( _lookup ) lookup = _lookup
+		lookup = _lookup;
+		// console.log(lookup);
+
+
+		//fonction qui assigne les données à des variables de Seuron
+		if( data != null ) splitData(data); 
+
+		// default vars for display
+		cx = random(20,screenWidth-50)
+		cy = random(100, screenHeight-150)
+		// cx=random(screenWidth);
+		// cy=random(100, 350);
 		radius=35;
 		couleur=color(255,0,0);
-
-		addToLookup(id);
+		
 	}
 
-
+	// constructor for drawing purposes
 	Seuron( float _x, float _y, float _R, color _C, Object data) {
 		// console.log(data);
 		couleur = color(_C);
@@ -41,36 +76,143 @@ class Seuron {
 		// msgs = new ArrayList();
 
 		splitData(data); //fonction qui assigne les données à des variables de Seuron
-
 	}
 
-	void addFriends(Object data){
-		// friends = new Seuron[ data.ids.length ];
-
-		for (int i = 0; i<data.ids.length; i++){
-			// friends[i]=new Seuron(data.ids[i], 2);
-			seurons.add(new Seuron(data.ids[i], 2));
+	// create a synapse between this seuron and the Seuron passed, adding to friendship level
+	// add the created synapse into this seuron synapses list
+	void createSynapse( Seuron s, int level ) {
+		// console.log ("synapse created for Seuron : " + this.id);
+		Synapse syn;
+		syn = new Synapse(this, s, level);
+		synapses.push(syn);	
+		return syn;
+	}
+ 
+	// check if a seuron is already a friend or follower
+	boolean isCloseFriend( Seuron s ) {
+		boolean isCloseFriend = false;
+		// console.log(s);
+		for (int i = 0; synapses[i]; i++){
+			// check if seurons is already a friend or a follower 
+			if( synapses[i].seuronA.id == s.id || synapses[i].seuronB.id == s.id ) {
+				return true;
+			}
 		}
-		// console.log( "friends : " + friends.length);
 	}
 
-
-	void addFollowers(Object data){
-		// followers=new SeuronTmp[data.ids.length];
-
-		for (int i = 0; i<data.ids.length; i++){
-			// followers[i]=new SeuronTmp(data.ids[i], 3);
-
-			// check if already friend boolean isCloseFriend(id){}
-			// if false:
-			seurons.add(new Seuron(data.ids[i], 3));
-			// else: seurons.get(?).level=1
+	// check if a seuron is a friend of mine
+	boolean isFriend( Seuron s ) {
+		for (int i = 0; synapses[i]; i++){
+			// check if seurons is my friend  
+			if( synapses[i].seuronB.id == s.id && synapses[i].level == 2 ) {
+				return true;
+			}
 		}
+	}
 
-		// console.log("followers : " + followers.length);
+	// check if a seuron is one of my followers
+	boolean isFollower( Seuron s ) {
+		for (int i = 0; synapses[i]; i++){
+			// check if seurons is my follower 
+			if( synapses[i].seuronB.id == s.id && synapses[i].level == 3 ) {
+				return true;
+			}
+		}
+	}
+
+	boolean isUnrelated ( Seuron s ){
+		for (int i = 0; synapses[i]; i++){
+			// check if seurons is my follower 
+			if( synapses[i].seuronB.id != s.id ) {
+				return true;
+			}
+		}
+	}
+
+	void addFriend( Seuron friend ) {
+
+		// check if he is a follower
+		if ( isCloseFriend( friend ) ) createSynapse(friend, 1);
+		else createSynapse(friend, 2);		
+	}
+
+	void addFollower( Seuron follower ) {
+		// check if he is a follower
+		// console.log(follower);
+		if ( isCloseFriend( follower ) ) createSynapse(follower, 1);
+
+		else createSynapse(follower, 3);
+	}
+
+	// void addUnrelated( Seuron unrelated  ) {
+	// 	createSynapse(unrelated, 4);
+	// }
+	
+	void getCloseFriends() {
+		friends = [];
+		for (int i = 0; synapses[i]; i++){
+			if (synapses[i].level == 1){
+				friends.push( synapses[i].seuronB );
+			}
+		}
+		return friends;
+	}
+
+	void getFriends() {
+		friends = [];
+		for (int i = 0; synapses[i]; i++){
+			if (synapses[i].level == 2){
+				friends.push( synapses[i].seuronB );
+			}
+		}
+		return friends;
+	}
+
+	void getFollowers() {
+		followers = [];
+		for (int i = 0; synapses[i]; i++){
+			if (synapses[i].level == 3){
+				followers.push( synapses[i].seuronB );
+			}
+		}
+		return followers;
+	}
+
+	void getUnrelated() {
+		unrelated = [];
+		for (int i = 0; synapses[i]; i++){
+			if (synapses[i].level == 4){
+				unrelated.push( synapses[i].seuronB );
+			}
+		}
+		return unrelated;
+	}
+
+	// return friendship (Synapse) based on an id
+	void getSynapse( int id ) {
+		for (int i = 0; synapses[i]; i++){
+			if(synapses[i].seuronB.id == id) return synapses[i];
+		};
+		return false;
+	}
+
+	// return friendship level (int) based on an existing seuron 
+	void getFriendshipLevel( Seuron s ) {
+		if( isFriend(s) ) return 2
+		else if( isFollower(s) ) return 3
+		else if( isUnrelated(s) ) return 0
+		else return 1
+	}
+
+	// add data to seuron, then convert and store it
+	void populate( Object _data ) {
+		data = _data;
+		splitData( _data );
+		this.lookup = false; 
 	}
 
 	// find if a seuronTmp is friend & follower and give him level 1
+	/*
 	void findCloseFriends() {
 
 		for (int i = 0; friends[i]; i++){
@@ -94,18 +236,10 @@ class Seuron {
 		// console.log(closeFriendsPos);
 		// console.log(closeFriendsIds);			
 	}
-
-	void addUnknown(Object data){
-		// unknown = new SeuronTmp[data.ids.length];
-		
-		unknowns.push( new SeuronTmp(data.id, 4) );
-
-		console.log("unknowns size changed : " + unknowns.length );
-		console.log(unknowns);
-
-	}
-
+	*/
 	
+
+
 	// add a message into list
 	void addMessage( Transmitter trans, Object data, int type ) {
 		// console.log(msg);
@@ -178,7 +312,7 @@ class Seuron {
 	}
 
 
-	//////////////////////////////////Méthode pour récupérer les données JSon
+	////////////////////////////////// Méthode pour récupérer les données JSon
 	
 	String name, screen_name, location, description, url;
 
