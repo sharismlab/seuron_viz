@@ -5,9 +5,10 @@ A visualization library for social brain and social neuron
 developed with Processing
 
 
-## Available examples
-* Petridish : Live extraction of a user social graph using jQuery.twitterlive library
-* Memespread : Track keywords through the social web and generate dynamic graph
+## Available example
+   
+   examples/petridish/index.html
+
 
 
 ## Vocabulary
