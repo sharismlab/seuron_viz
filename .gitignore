@@ -1,6 +1,8 @@
 *~
 *.*~
 applet/
+docs/
+examples/memespread/
 examples/memespread/node_modules/
 scripts/
 data/
