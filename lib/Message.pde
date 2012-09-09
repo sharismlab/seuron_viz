@@ -16,6 +16,7 @@ class Message {
 	Object data;
 	// Dendrit dendrit;
 	Synapse synapse;
+	color[] colors = [ color(255, 255, 255), color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(102, 85, 100) ];
 
 	// boolean running = false;
 	// float x, y, xx, yy;
@@ -44,7 +45,9 @@ class Message {
 
 	void display() {
 
-		stroke( color(action*20, action*30, action*50) );
+		strokeWeight(action);
+		stroke( colors[action] );
+		
 		line( synapse.seuronA.cx, synapse.seuronA.cy, synapse.seuronB.cx, synapse.seuronB.cy);
 	}
 

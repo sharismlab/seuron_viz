@@ -25,6 +25,7 @@ class Synapse {
 	Seuron seuronA; 
 	Seuron seuronB; 
 	int level;
+	color[] colors = [ color(255, 255, 255), color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(102, 85, 100) ];
 
 
 	Synapse(Seuron _seuronA, Seuron _seuronB, int _level) {
@@ -33,6 +34,12 @@ class Synapse {
 		seuronB = _seuronB;
 		level = _level;
 
+	}
+
+	void display() {
+		stroke(colors[level]);
+		line(seuronA.cx, seuronA.cy, seuronB.cx,seuronB.cy);
+		
 	}
 
 

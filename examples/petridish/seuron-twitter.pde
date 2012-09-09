@@ -31,6 +31,9 @@ var messagesLookup = [];
 // THE Only boss of all.
 Seuron daddy;
 
+// to dispaly messages
+boolean showMessage = false;
+
 // ------------------------------- INIT
 void setup(){
 	size(screenWidth, screenHeight);
@@ -38,7 +41,16 @@ void setup(){
 	textFont(font, 12);
 	frameRate(10);
 	smooth();
-	
+
+	// for the caption
+	colors = [ color(255, 255, 255), color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(102, 85, 100) ];
+	captions = [
+		"Unknown",
+		"Friend & Follow", 
+		"is Friend of", 
+		"is Followed by",
+		"No existing relationship"
+		];
 	
 
 	// create daddy 
@@ -169,8 +181,11 @@ void draw(){
 			// console.log(level);
 
 			float y = (level+1)*( (screenHeight-230 ) /4 );
-			s.cy = y;
+			float x = i*(screenWidth/seurons.length);
 			
+			s.cy = y;
+			s.cx = x;
+
 			s.display();
 
 		}
@@ -180,19 +195,43 @@ void draw(){
 	daddy.cx =screenWidth/2;
 	daddy.display();
 
-	//draw dendrites
+	//draw synapses
+	for (int i = 0; daddy.synapses[i]; i++){
 
-	for (int i = 0; messages[i]; i++){
-		
-		// if( messages[i].synapse != 'undefined') 
-		// messages[i].display();
-		messages[i].display();
+		if(daddy.synapses[i].seuronB.data != null)
+			daddy.synapses[i].display();
+	}
 
+
+
+	//draw messages
+	if(showMessage) {
+		for (int i = 0; messages[i]; i++){
+			 	
+			messages[i].display();
+	
+		 }
+	}
+
+	 // draw caption
+	 color(65);
+	 text("PRESS MOUSE BUTTON TO SHOW MESSAGES", screenWidth-300,40);
+	 text("Caption", screenWidth-100,60);
+	 for (int i = 0; colors[i]; i++){
+	 	fill( colors[i] ) ;
+	 	text( captions[i], screenWidth-100, i*15+90 ) ;
 	 }
 
-
-
+	 if(mousePressed) {
+	 	showMessage = true;
+	 } else {
+	 	showMessage = false;
+	 }
+	 
 }
+
+
+
 
 
 int dateMin = (new Date()).getTime(); // Return the number of milliseconds since 1970/01/01:
