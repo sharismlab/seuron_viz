@@ -28,7 +28,6 @@ function getFriends( username ) {
 	return d;
 }
 
-
 function getFollowers( username ) {
 	var d;
 	$.ajax({

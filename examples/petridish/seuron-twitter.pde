@@ -52,63 +52,29 @@ void setup(){
 		"No existing relationship"
 		];
 	
-
-	// create daddy 
-	daddyData = getProfile("makio135");
-	daddy = createSeuron( daddyData.id, daddyData, false );
-
-	daddy.cx = 30;
-	daddy.cy = screenWidth/2;
-
-
 	// FRIENDS & FOLLOWERS 
 	// ------------------------------
 	// they are empty seurons just storing existing relationships
 	// they won't be displayed on the screen
 	// we will be get their profile data only if they interact with daddy	
 
+	// create daddy 
+	daddyData = getProfile("makio135");
+	daddy = createDaddy(daddyData);
+
+	console.log(daddy);
+
+	// FRIENDS & FOLLOWERS 
+
 	// create daddy's friends 	
 	daddyFriends = getFriends("makio135");	
-	
-	for (int i = 0; i< daddyFriends.ids.length; i++){
-		// check if the friend already exists
-	
-		friend = seuronExists( daddyFriends.ids[i] );
-		
-		// console.log(friend);
-		if( friend ) {
-			daddy.addFriend( friend );
-		} else {
-			friend = createSeuron( daddyFriends.ids[i], null, false ); 	
-			daddy.addFriend( friend );
-		}
-	}
+	createFriends( daddy, daddyFriends);
 	
 	// create daddy's followers
 	daddyFollowers = getFollowers("makio135");
-	for (int i = 0; i< daddyFollowers.ids.length; i++){
+	createFollowers( daddy, daddyFollowers);
 
-		follower = seuronExists	( daddyFollowers.ids[i] );
-		
-		if( follower != false  ) {
-			
-			// seurons already exists, so it is a closeFriend
-			synapse = daddy.getSynapse( follower.id );
-			
-			// check if 
-			// console.log(synapse);
 
-			synapse.level = 1;
-
-		} else {
-			// console.log(follower);
-			// console.loopg('create new');
-			follower = createSeuron( daddyFollowers.ids[i], null, false );
-
-			daddy.addFollower( follower );
-		}
-
-	}
 	console.log("------- before loop into messages --------");
 	console.log( "created seurons : " + seurons.length );
 	console.log( "daddy's close Friends : " + daddy.getCloseFriends().length );
@@ -121,7 +87,6 @@ void setup(){
 	// ------------------------------------------
 	// Now let's check the timeline 
 	// To extract messages and quoted people from it
-
 	// we should also extract statuses/mentions to have the whole conversation !
 
 	daddyTimeline = getTimeline( "makio135" );
