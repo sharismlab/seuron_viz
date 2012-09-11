@@ -176,7 +176,7 @@ void draw(){
 	 }
 
 	// draw daddy
-	// daddy.cx =screenWidth/2;// c'était inversé et c'est pas normal qu'on est à mettre ça à chaque draw...
+	// daddy.cx =screenWidth/2;// c'était inversé mais c'est pas normal qu'on ait à mettre ça à chaque draw...
 	// daddy.cy =screenHeight/2;
 	daddy.display();
 
