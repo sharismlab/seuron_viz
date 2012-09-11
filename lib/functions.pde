@@ -3,8 +3,8 @@ void createDaddy( Object daddyData ){
 	daddy = createSeuron( daddyData.id, daddyData, true );
 	// Seuron daddy = new Seuron( daddyData.id, daddyData, true );
 	// seurons = []; // reset seurons to remove daddy
-	daddy.cx = 30;
-	daddy.cy = screenWidth/2;
+	daddy.cx = screenWidth/2;
+	daddy.cy = screenHeight/2;
 	console.log("daddy was created;");
 	return daddy;
 }
@@ -245,9 +245,9 @@ void analyzeTweet( Object tweet ) {
 	console.log("---- TWEET --------------------------------");
 
 	// Get the tweet owner (should be equal to daddy)
-	Seuron boss; 
+	Seuron boss; // boss est un Seuron
 	boss = seuronExists( tweet.user.id );
-	if( boss == false ) createSeuron( tweet.user.id, tweet.user, false );
+	if( boss == false ) createSeuron( tweet.user.id, tweet.user, false ); // boss ne peut pas être égal à false, c'est un Seuron pas un boolean
 	// console.log(boss);
 
 	// our tweet is a reply

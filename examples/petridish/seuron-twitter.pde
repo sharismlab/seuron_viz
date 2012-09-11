@@ -4,12 +4,7 @@ processing + twitter + jquery
 2012
 */
 
-PFont font = loadFont("Comic Sans");
- 
-/*int canvasWidth	= screenWidth,
-	canvasHeight = screenHeight;
-*/
-
+PFont font;
 
 // set a environment var for local development
 // useful for loading local data
@@ -46,6 +41,8 @@ boolean displaySeuron = false; // just turn this on to show seuron
 void setup(){
 	size(screenWidth, screenHeight);
 	background(255);
+	// console.log(PFont.list());
+	font = loadFont("cursive");// BIM! de la Comic Sans pour un peu de fun
 	textFont(font, 12);
 	frameRate(10);
 	smooth();
@@ -117,9 +114,11 @@ void setup(){
 	console.log("total number of messages :" + messages.length);
 
 	var m = 0;
-	
-	for (int i = 0; i<seurons.length; i++){
-		if( s.lookup == false ) m++;
+	for (int i = 1; i<seurons.length; i++){// pour daddy on a déjà fait le lookup
+		if( s.lookup == false ) m++; // c'est quoi ce s ?? seurons[i]?
+		// et pour tous les seurons, lookup est false de base dans notre classe donc pas besoin de faire ça
+		// et en plus c'est lookedUp...
+		// et à quoi sert le m? je vois pas où on le réutilise
 	}
 
 	console.log("------- load data --------");
@@ -135,6 +134,8 @@ void setup(){
 	//  }
 }
 
+
+// daddy est le premier seuron qu'on crée donc daddy est toujours seurons[0], non?
 void getDaddy() {
 	for (int i = 0; i<seurons.length; i++){
 		if( seurons[i].id == daddy.id ) {
@@ -142,6 +143,7 @@ void getDaddy() {
 		}
 	}
 }
+
 
 // ------------------------------- MAIN DRAWING FUNCTION
 void draw(){
@@ -174,12 +176,12 @@ void draw(){
 	 }
 
 	// draw daddy
-	daddy.cx =screenHeight/2;
-	daddy.cy =screenWidth/2;
+	// daddy.cx =screenWidth/2;// c'était inversé et c'est pas normal qu'on est à mettre ça à chaque draw...
+	// daddy.cy =screenHeight/2;
 	daddy.display();
 
 	// DISPLAY OUR GUYS
-	if( displaySeuron == true) display();
+	// if( displaySeuron == true) display();
 }
 
 void display(){
@@ -300,6 +302,8 @@ void display(){
 		showMessage = false;
 	}
 }
+
+
 // ------------------------------- LOOKUP LOCAL DATA
 void lookupUsers() {
 	// parse twitter url
