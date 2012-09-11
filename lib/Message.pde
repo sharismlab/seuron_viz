@@ -45,7 +45,7 @@ class Message {
 
 	void display() {
 
-		strokeWeight(action);
+		strokeWeight(1);
 		stroke( colors[action] );
 		
 		line( synapse.seuronA.cx, synapse.seuronA.cy, synapse.seuronB.cx, synapse.seuronB.cy);

@@ -22,7 +22,7 @@ class Seuron {
 	
 
 	int id;
-	boolean lookup = false ; // by default, Seuron should not be looked up
+	boolean lookedUp = false ; // by default, Seuron should be looked up
 	Object data;
 
 	// drawings var
@@ -49,7 +49,7 @@ class Seuron {
 		// erase default value if specified
 		// if( _lookup ) lookup = _lookup
 
-		lookup = _lookup;
+		lookedUp = _lookup;
 
 		// console.log(lookup);
 
@@ -210,7 +210,8 @@ class Seuron {
 	// add data to seuron, then convert and store it
 	void populate( Object _data ) {
 		data = _data;
-		splitData( _data );
+		// console.log ( data );
+		splitData( data );
 	}
 
 	// find if a seuronTmp is friend & follower and give him level 1
@@ -329,6 +330,8 @@ class Seuron {
 	
 	void splitData( Object d ) {
 
+		// console.log ( d.id );
+
 		id = d.id;
 		name = d.name;
 		screen_name = d.screen_name;
@@ -349,8 +352,7 @@ class Seuron {
 
 		geo_unable = d.geo_unable;
 
-		lookup = false; 
-
+		lookedUp = true; 
 	}
 
 	void parseTwitterDate(String twitterDate) {

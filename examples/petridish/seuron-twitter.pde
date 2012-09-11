@@ -39,6 +39,8 @@ Seuron daddy;
 
 // to dispaly messages
 boolean showMessage = false;
+boolean displaySeuron = false; // just turn this on to show seuron
+
 
 // ------------------------------- INIT
 void setup(){
@@ -58,6 +60,7 @@ void setup(){
 		"No existing relationship"
 		];
 	
+
 	// FRIENDS & FOLLOWERS 
 	// ------------------------------
 	// they are empty seurons just storing existing relationships
@@ -98,8 +101,8 @@ void setup(){
 	daddyTimeline = getTimeline( "makio135" );
 	analyzeTimeline( daddyTimeline );
 	
-	console.log("this is local dev example, so load local files");
-	lookupLocalData();
+	
+	// lookupLocalData();
 
 	console.log("------- after loop into messages --------");
 	console.log( "created seurons : " + seurons.length );
@@ -110,21 +113,17 @@ void setup(){
 
 	// console.log(daddy);
 
-	console.log( "total of seurons created :" + seurons.length );
-	var n = 0;
-	for (int i = 0; i<seurons.length; i++){
-		if( s.hasAvatar == true ) n++;
-	}
-
-	console.log( "total of seurons that should be displayed :" + (seurons.length - n) );
-	
+	console.log( "total of seurons created :" + seurons.length );	
 	console.log("total number of messages :" + messages.length);
 
 	var m = 0;
+	
 	for (int i = 0; i<seurons.length; i++){
-		if( s.lookup == true ) m++;
+		if( s.lookup == false ) m++;
 	}
-	console.log("to be looked up :" + m );
+
+	console.log("------- load data --------");
+	console.log("this is local dev example, so load local files");
 	
 	// for (int i = 0; messages[i]; i++){
 		
@@ -136,9 +135,17 @@ void setup(){
 	//  }
 }
 
+void getDaddy() {
+	for (int i = 0; i<seurons.length; i++){
+		if( seurons[i].id == daddy.id ) {
+			return seurons[i];
+		}
+	}
+}
+
 // ------------------------------- MAIN DRAWING FUNCTION
 void draw(){
-	////////////////////////////////////////////////////////////////
+	// DRAW BACKGROUND
 	var gradient = externals.context.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
 	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
 	gradient.addColorStop(1,'rgba(10, 10, 10, 1)'); 
@@ -147,76 +154,17 @@ void draw(){
 
 	/*
 	// add a loader to screen
-	if(loading) {
+	if( loading ) {
 		console.log(loading)
 		textAlign(CENTER);
 		text(isLoading, width/2, height/2);		
 
 	}*/
 
+	// DRAW TIMELINE
 	drawTimeline();
-	var ll;
 
-	// drawSeurons
-	// console.log("total number of suerons loading for display : " + seurons.length);
-
-	for (int i = 0; i< daddy.getCloseFriends().length; i++){
-
-		
-	}
-	for (int i = 0; i<seurons.length; i++){
-
-		// console.log(daddy);
-		s =  seurons[i];
-
-		if( s.hasAvatar == true ) {
-			
-			int level =  daddy.getSynapse(s.id).level;
-
-			// console.log(level);
-
-			float y = (level)*( ((screenHeight-230 ) /5 ) );
-			float x = i*(screenWidth/seurons.length);
-			
-			s.cy = y;
-			s.cx = x;
-
-			// s.display();
-			// console.log("displayed");
-
-			ll++;
-		} else {
-			// console.log("not displayed");
-			// console.log s;
-		}
-	}
-
-	// console.log("number of seurons actually displayed : " + ll );
-
-	daddy.cy =50;
-	daddy.cx =screenWidth/2;
-	daddy.display();
-
-	//draw synapses
-	// for (int i = 0; daddy.synapses[i]; i++){
-
-	// 	if(daddy.synapses[i].seuronB.hasAvatar != false)
-
-	// 		daddy.synapses[i].display();
-	// }
-
-
-
-	//draw messages
-	if(showMessage) {
-		for (int i = 0; messages[i]; i++){
-			 	
-			messages[i].display();
-	
-		 }
-	}
-
-	 // draw caption
+	// draw caption
 	 color(65);
 	 text("PRESS MOUSE BUTTON TO SHOW MESSAGES", screenWidth-300,40);
 	 text("Caption", screenWidth-100,60);
@@ -225,35 +173,172 @@ void draw(){
 	 	text( captions[i], screenWidth-100, i*15+90 ) ;
 	 }
 
-	 if(mousePressed) {
-	 	showMessage = true;
-	 } else {
-	 	showMessage = false;
-	 } 
+	// draw daddy
+	daddy.cx =screenHeight/2;
+	daddy.cy =screenWidth/2;
+	daddy.display();
+
+	// DISPLAY OUR GUYS
+	if( displaySeuron == true) display();
 }
 
+void display(){
+
+	// drawSeurons
+	friends = daddy.getFriends();
+	followers = daddy.getFollowers();
+	close  = daddy.getCloseFriends();
+
+	unknown = daddy.getUnrelated();
+
+	float cx = screenWidth/2;
+	float cy = screenHeight/2;
+	
+	// hack to fix a strange thing about the other daddy (???) 
+	// myDad = getDaddy();
+
+	// draw close friends
+	for (int i = 0; close[i]; i++){
+
+		// console.log(friends[i]);
+
+		float r = 100;
+
+		float angle = i * TWO_PI / close.length;
+
+  		float x = cx + cos(angle) * r;
+  		float y = cy + sin(angle) * r;
+			
+		close[i].cy = y;
+		close[i].cx = x;
+
+		close[i].couleur= color(255,200,200);
+
+		close[i].display();
+	} 
+
+	// draw friends
+	for (int i = 0; friends[i]; i++){
+
+		// console.log(friends[i]);
+
+		float r = 200;
+
+		float angle = i * TWO_PI / friends.length;
+
+  		float x = cx + cos(angle) * r;
+  		float y = cy + sin(angle) * r;
+			
+		friends[i].cy = y;
+		friends[i].cx = x;
+		
+		friends[i].couleur = color(127,0,0);
+
+		friends[i].display();
+	} 
+	
+	// draw followers
+	for (int i = 0; followers[i]; i++){
+
+		// console.log(friends[i]);
+
+		float r = 250;
+
+		float angle = i * TWO_PI / followers.length;
+
+  		float x = cx + cos(angle) * r*1.5;
+  		float y = cy + sin(angle) * r;
+			
+		followers[i].cy = y;
+		followers[i].cx = x;
+		followers[i].couleur = color(127,130,0);
+
+		followers[i].display();
+	} 
+
+	// draw unknown
+	for (int i = 0; unknown[i]; i++){
+
+		float r = 250;
+
+		float angle = i * TWO_PI / unknown.length;
+
+  		float x = cx + cos(angle) * r*3;
+  		float y = cy + sin(angle) * r;
+			
+		unknown[i].cy = y;
+		unknown[i].cx = x;
+
+		unknown[i].display();
+	}
+
+
+	// // here comes the dad
+	// myDad.cx =screenHeight/2;
+	// myDad.cy =screenWidth/2;
+	// myDad.display;
+
+	//draw synapses
+	/*
+	for (int i = 0; daddy.synapses[i]; i++){
+		if(daddy.synapses[i].seuronB.data != null)
+			daddy.synapses[i].display();
+	}
+	*/
+
+
+	//draw messages
+	if( showMessage ) {
+		for (int i = 0; messages[i]; i++){
+			messages[i].display();
+		 }
+	}
+
+	if(mousePressed) {
+		showMessage = true;
+	} else {
+		showMessage = false;
+	}
+}
 // ------------------------------- LOOKUP LOCAL DATA
-void lookupLocalData() {
+void lookupUsers() {
 	// parse twitter url
-	// String url = "https://api.twitter.com/1/users/lookup.json?include_entities=true";
-	// url += "&user_id=";
-	// for (int i = 0; i<lookup.size()-1; i++){
-	// 	url += lookup.get(i) + ",";
-	// }
-	// url += lookup.get( lookup.size()-1 );
+	
+	String url = "https://api.twitter.com/1/users/lookup.json?include_entities=true";
+	url += "&user_id=";
+	for (int i = 0; i<toLookup.length-1; i++){
+		url += toLookup[i] + ",";
+	}
+	url += toLookup[ toLookup.length-1 ];
 
-	// console.log( lookup );
+	// console.log( url );
 
-	String url="datasamples/makio135_lookup.json";
+	console.log("looking for users : " + toLookup.length);
 
+	// console.log(toLookup);
+	var aaa;
+	if(toLookup.length == 100 ){
+
+		url="datasamples/makio135_lookup.json";
+	} else {
+
+		url="datasamples/makio135_lookup2.json";
+		aaa  =1 ;
+	}
 
 	$.getJSON(url, function(data) {
-		console.log("numbers of profiles : " + data.length)
+		console.log("JSON LOOKUP : got " + data.length + " users profiles")
 		$.each( data, function(key, item) {
 			//populate seurons with twitter data
 			parseUser( item );
-
 		});
+		
+		if( aaa ==1 ) {
+			console.log("------ go go go, VIZ !");
+			displaySeuron = true; 
+			
+			// checkData();
+		}
 	});
 }
 
@@ -288,6 +373,7 @@ void drawTimeline(){
 		Seuron s = seurons[i];
 
 		// if(s.hasAvatar ==true) {
+			// console.log(s);
 
 
 
