@@ -1,33 +1,34 @@
 // create daddy
-void createDaddy( Object data ){
+void createDaddy( Object daddyData ){
 	daddy = createSeuron( daddyData.id, daddyData, false );
 	daddy.cx = 30;
 	daddy.cy = screenWidth/2;
-	return daddy
+	console.log("daddy was created;");
+	return daddy;
 }
 
 // create daddy's friends 	
-void createFriends( Seuron daddy, Object daddyFriends) {
-	for (int i = 0; i< daddyFriends.ids.length; i++){
+void createFriends( Seuron daddy, Array daddyFriends) {
+	for (int i = 0; i< daddyFriends.length; i++){
 		
 		// check if the friend already exists
-		friend = seuronExists( daddyFriends.ids[i] );
+		friend = seuronExists( daddyFriends[i] );
 		
 		// console.log(friend);
 		if( friend ) {
 			daddy.addFriend( friend );
 		} else {
-			friend = createSeuron( daddyFriends.ids[i], null, false ); 	
+			friend = createSeuron( daddyFriends[i], null, false ); 	
 			daddy.addFriend( friend );
 		}
 	}
 }
 
 // create daddy's followers
-void createFollowers( Seuron daddy, Object daddyFollowers) {
-	for (int i = 0; i< daddyFollowers.ids.length; i++){
+void createFollowers( Seuron daddy, Array daddyFollowers) {
+	for (int i = 0; i< daddyFollowers.length; i++){
 
-		follower = seuronExists	( daddyFollowers.ids[i] );
+		follower = seuronExists	( daddyFollowers[i] );
 		
 		if( follower != false  ) {
 			
@@ -39,14 +40,13 @@ void createFollowers( Seuron daddy, Object daddyFollowers) {
 		} else {
 			// console.log(follower);
 			// console.loopg('create new');
-			follower = createSeuron( daddyFollowers.ids[i], null, false );
+			follower = createSeuron( daddyFollowers[i], null, false );
 
 			daddy.addFollower( follower );
 		}
 
 	}
 }
-
 
 // create a new seuron with minimum data
 // and add it to a global array containing all seurons
@@ -84,19 +84,29 @@ void seuronExists( int id ) {
 // add seuron to lookup list
 void addToLookup( int id ) {
 	// console.log(id);
+	toLookup.push( id );
+
+	// requests users from quotes
+	if( toLookup.length == 100 ) {
+		lookupUsers( toLookup );
+		toLookup = new Array;
+	}
+}
+
+// DEPRECIATED // function to add seuron to lookup list
+void oldAddToLookup( int id ) {
+	// console.log(id);
 	lookup.add( id );
 
 	// requests users from quotes
 	if( lookup.size() == 100 ) {
-		loadLookup();
+		oldLoadLookup();
 		lookup = new ArrayList;
 	}
 }
 
-// always checking if array is == 100
-
-// call Twitter API to get user data
-void loadLookup() {
+// DEPRECIATED // function to call Twitter API to get user data
+void oldLoadLookup() {
 
 	// parse twitter url
 	String url = "https://api.twitter.com/1/users/lookup.json?include_entities=true";
@@ -136,6 +146,40 @@ void loadLookup() {
 	});
 }
 
+// always checking if array is == 100
+
+// call Twitter API to get user data
+// void loadLookup() {
+// 	lookupUsers(lookup);
+// }
+
+void parseLookup( Object data ) {
+
+	$.each( data, function(key, item) {
+
+		// console.log( seuronIds );
+		// console.log( item );
+		// id = item.id;
+
+		i = seuronIds.indexOf( item.id );
+		
+		// console.log(i);
+		if( i != -1  ) {
+
+			// get existing seuron
+			s = seurons[i]; 
+
+			// tell seuron parser that data is a user profile
+			item.isProfile =true;
+
+			// populate seuron with data
+			s.populate( item );
+
+		}
+
+	});
+}
+
 // create a message then lookup into 
 void createMessage( Transmitter service, Synpase syn, int action, Object data ) {
 
@@ -157,13 +201,15 @@ void messageExists( int messageID ) {
 
 // analyze daddy's timeline
 // and lookup users
-void analyzeTimeline( Object timeline ) {
+void analyzeTimeline( Array timeline ) {
 	for(int i; i < timeline.length; i++ ) {
 		 analyzeTweet( timeline[i] );
 	}
 	// lookup users 
 	// console.log(lookup.size());
-	if(lookup.size() != 0) loadLookup();
+	if( toLookup.length != 0) {
+		lookupUsers( toLookup );
+	}
 }
 
 /*
@@ -270,7 +316,7 @@ void analyzeRT( Seuron boss, Object tweet ){
 	// so we create the synapse with value of 4
 	if( !synapse ) synapse = boss.createSynapse( our_guy, 4 ) ;
 
-	console.log(synapse);
+	// console.log(synapse);
 
 	// now create the message 
 	createMessage( twitterTransmitter, synapse, 2, tweet );
