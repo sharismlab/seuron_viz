@@ -88,62 +88,47 @@ void addToLookup( int id ) {
 
 	// requests users from quotes
 	if( toLookup.length == 100 ) {
-		lookupUsers( toLookup );
+
+		// check if we are on local or prod environment
+		if( ENV == "dev" ) lookupLocalData();
+		else lookupUsers( toLookup );
+
 		toLookup = new Array;
 	}
 }
 
 // DEPRECIATED // function to add seuron to lookup list
-void oldAddToLookup( int id ) {
-	// console.log(id);
-	lookup.add( id );
+// void oldAddToLookup( int id ) {
+// 	// console.log(id);
+// 	lookup.add( id );
 
-	// requests users from quotes
-	if( lookup.size() == 100 ) {
-		oldLoadLookup();
-		lookup = new ArrayList;
-	}
-}
+// 	// requests users from quotes
+// 	if( lookup.size() == 100 ) {
+// 		oldLoadLookup();
+// 		lookup = new ArrayList;
+// 	}
+// }
 
-// DEPRECIATED // function to call Twitter API to get user data
-void oldLoadLookup() {
 
-	// parse twitter url
-	String url = "https://api.twitter.com/1/users/lookup.json?include_entities=true";
-	url += "&user_id=";
-	for (int i = 0; i<lookup.size()-1; i++){
-		url += lookup.get(i) + ",";
-	}
-	url += lookup.get( lookup.size()-1 );
+void parseUser( Object userData) {
 
-	console.log( lookup );
-	url="datasamples/makio135_lookup.json";
+	// console.log( seuronIds );
+	// console.log( item );
+	// id = item.id;
+
+	i = seuronIds.indexOf( userData.id );
 	
+	// console.log(i);
+	if( i != -1  ) {
 
-	$.getJSON(url, function(data) {
-		$.each( data, function(key, item) {
+		// get existing seuron
+		s = seurons[i]; 
 
-			// console.log( seuronIds );
-			// console.log( item );
-			// id = item.id;
-
-			i = seuronIds.indexOf( item.id );
-			
-			// console.log(i);
-			if( i != -1  ) {
-
-				// get existing seuron
-				s = seurons[i]; 
-
-				// tell seuron parser that data is a user profile
-				item.isProfile =true;
-	
-				// populate seuron with data
-				s.populate( item );
-
-			}
-		});
-	});
+		// tell seuron parser that data is a user profile
+		userData.isProfile =true;
+		// populate seuron with data
+		s.populate( userData );
+	}
 }
 
 // always checking if array is == 100
@@ -152,33 +137,6 @@ void oldLoadLookup() {
 // void loadLookup() {
 // 	lookupUsers(lookup);
 // }
-
-void parseLookup( Object data ) {
-
-	$.each( data, function(key, item) {
-
-		// console.log( seuronIds );
-		// console.log( item );
-		// id = item.id;
-
-		i = seuronIds.indexOf( item.id );
-		
-		// console.log(i);
-		if( i != -1  ) {
-
-			// get existing seuron
-			s = seurons[i]; 
-
-			// tell seuron parser that data is a user profile
-			item.isProfile =true;
-
-			// populate seuron with data
-			s.populate( item );
-
-		}
-
-	});
-}
 
 // create a message then lookup into 
 void createMessage( Transmitter service, Synpase syn, int action, Object data ) {
@@ -205,10 +163,18 @@ void analyzeTimeline( Array timeline ) {
 	for(int i; i < timeline.length; i++ ) {
 		 analyzeTweet( timeline[i] );
 	}
+	
 	// lookup users 
-	// console.log(lookup.size());
+	// console.log(toLookup.size());
+
 	if( toLookup.length != 0) {
-		lookupUsers( toLookup );
+		//just to load local data in example
+		if( ENV == "dev" ) {
+			console.log("this is local dev example, so load local files");
+			lookupLocalData();
+		} else {
+			lookupUsers( toLookup );
+		}
 	}
 }
 

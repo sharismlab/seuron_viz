@@ -10,6 +10,12 @@ PFont font = loadFont("Comic Sans");
 	canvasHeight = screenHeight;
 */
 
+
+// set a environment var for local development
+// useful for loading local data
+var ENV = "dev";
+
+
 // A global array to store all seurons
 var seurons = [];
 
@@ -17,7 +23,7 @@ var seurons = [];
 var seuronIds = [];
 
 // Array to store all ids that needs to be looked up through twitter API
-ArrayList<int> lookup = new ArrayList();
+toLookup = [];
 
 // all our messages Ids
 var messageIds = [];
@@ -68,11 +74,11 @@ void setup(){
 
 	// create daddy's friends 	
 	daddyFriends = getFriends("makio135");	
-	createFriends( daddy, daddyFriends);
+	createFriends( daddy, daddyFriends.ids);
 	
 	// create daddy's followers
 	daddyFollowers = getFollowers("makio135");
-	createFollowers( daddy, daddyFollowers);
+	createFollowers( daddy, daddyFollowers.ids);
 
 
 	console.log("------- before loop into messages --------");
@@ -191,12 +197,33 @@ void draw(){
 	 	showMessage = true;
 	 } else {
 	 	showMessage = false;
-	 }
-	 
+	 } 
 }
 
+// ------------------------------- LOOKUP LOCAL DATA
+void lookupLocalData() {
+	// parse twitter url
+	// String url = "https://api.twitter.com/1/users/lookup.json?include_entities=true";
+	// url += "&user_id=";
+	// for (int i = 0; i<lookup.size()-1; i++){
+	// 	url += lookup.get(i) + ",";
+	// }
+	// url += lookup.get( lookup.size()-1 );
+
+	// console.log( lookup );
+
+	String url="datasamples/makio135_lookup.json";
 
 
+	$.getJSON(url, function(data) {
+		$.each( data, function(key, item) {
+
+			//populate seurons with twitter data
+			parseUser( item );
+
+		});
+	});
+}
 
 
 int dateMin = (new Date()).getTime(); // Return the number of milliseconds since 1970/01/01:
