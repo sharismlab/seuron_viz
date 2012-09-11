@@ -48,7 +48,9 @@ class Seuron {
 
 		// erase default value if specified
 		// if( _lookup ) lookup = _lookup
+
 		lookup = _lookup;
+
 		// console.log(lookup);
 
 
@@ -132,7 +134,8 @@ class Seuron {
 	void addFriend( Seuron friend ) {
 
 		// check if he is a follower
-		if ( isCloseFriend( friend ) ) createSynapse(friend, 1);
+		// if ( isCloseFriend( friend ) ) createSynapse(friend, 1);
+		if ( isFriend( friend ) && isFollower( friend ) ) createSynapse(friend, 1);
 		else createSynapse(friend, 2);		
 	}
 
@@ -208,7 +211,6 @@ class Seuron {
 	void populate( Object _data ) {
 		data = _data;
 		splitData( _data );
-		this.lookup = false; 
 	}
 
 	// find if a seuronTmp is friend & follower and give him level 1
@@ -346,6 +348,8 @@ class Seuron {
 		statuses_count = d.statuses_count;
 
 		geo_unable = d.geo_unable;
+
+		lookup = false; 
 
 	}
 

@@ -117,6 +117,9 @@ void parseUser( Object userData) {
 	// id = item.id;
 
 	i = seuronIds.indexOf( userData.id );
+
+	// console.log (i);
+
 	
 	// console.log(i);
 	if( i != -1  ) {
@@ -128,6 +131,9 @@ void parseUser( Object userData) {
 		userData.isProfile =true;
 		// populate seuron with data
 		s.populate( userData );
+		s.lookup=false;
+
+		// console.log ("lookup : "+ i.lookup);
 	}
 }
 
@@ -163,19 +169,19 @@ void analyzeTimeline( Array timeline ) {
 	for(int i; i < timeline.length; i++ ) {
 		 analyzeTweet( timeline[i] );
 	}
-	
+
 	// lookup users 
 	// console.log(toLookup.size());
 
-	if( toLookup.length != 0) {
-		//just to load local data in example
-		if( ENV == "dev" ) {
-			console.log("this is local dev example, so load local files");
-			lookupLocalData();
-		} else {
-			lookupUsers( toLookup );
-		}
-	}
+	// if( toLookup.length != 0) {
+	// 	//just to load local data in example
+	// 	if( ENV == "dev" ) {
+	// 		console.log("this is local dev example, so load local files");
+	// 		lookupLocalData();
+	// 	} else {
+	// 		lookupUsers( toLookup );
+	// 	}
+	// }
 }
 
 /*
@@ -269,7 +275,7 @@ void analyzeRT( Seuron boss, Object tweet ){
 
 	// console.log(our_guy);
 	// if our guy is not a seuron, then create it
-	if( !our_guy  ) our_guy = createSeuron( tweet.retweeted_status.user.id, tweet.retweeted_status.user, true )
+	if( our_guy == null  ) our_guy = createSeuron( tweet.retweeted_status.user.id, tweet.retweeted_status.user, true )
 	// console.log(our_guy);
 
 	// add our guy to the lookup
@@ -280,7 +286,7 @@ void analyzeRT( Seuron boss, Object tweet ){
 
 	// if synapse doesnt already exist, then it means that the guy is unknown
 	// so we create the synapse with value of 4
-	if( !synapse ) synapse = boss.createSynapse( our_guy, 4 ) ;
+	if( synapse == null ) synapse = boss.createSynapse( our_guy, 4 ) ;
 
 	// console.log(synapse);
 
@@ -324,8 +330,10 @@ void analyzeReply(  Seuron boss, Object tweet ){
 	// get the guy from the reply
 	reply_guy = seuronExists( tweet.in_reply_to_user_id );
 
+	// console.log(reply_guy);
+
 	// if reply_guy is not a seuron, then create it
-	if( !reply_guy  ) reply_guy = createSeuron( tweet.in_reply_to_user_id, null, true )
+	if( reply_guy == false ) reply_guy = createSeuron( tweet.in_reply_to_user_id, null, true )
 
 	// add our guy to the lookup
 	reply_guy.lookup = true;
@@ -335,7 +343,7 @@ void analyzeReply(  Seuron boss, Object tweet ){
 
 	// if synapse doesnt already exist, then it means that the guy is unknown
 	// so we create the synapse with value of 4
-	if( !synapse ) synapse = boss.createSynapse( reply_guy, 4 ) ;
+	if( synapse== null ) synapse = boss.createSynapse( reply_guy, 4 ) ;
 
 	// now create the message 
 	createMessage( twitterTransmitter, synapse, 3, tweet );
@@ -365,7 +373,7 @@ void analyzeMentions( Seuron boss, Object mentions, int exclude_id, Object data 
 
 				// if synapse doesnt already exist, then it means that the guy is unknown
 				// so we create the synapse with value of 4
-				if( !synapse ) synapse = boss.createSynapse( seuron, 4 ) ;
+				if( synapse== null ) synapse = boss.createSynapse( seuron, 4 ) ;
 
 				// create message
 				createMessage( twitterTransmitter, synapse, 3, data );

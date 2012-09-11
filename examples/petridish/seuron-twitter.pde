@@ -97,6 +97,9 @@ void setup(){
 
 	daddyTimeline = getTimeline( "makio135" );
 	analyzeTimeline( daddyTimeline );
+	
+	console.log("this is local dev example, so load local files");
+	lookupLocalData();
 
 	console.log("------- after loop into messages --------");
 	console.log( "created seurons : " + seurons.length );
@@ -108,7 +111,7 @@ void setup(){
 	// console.log(daddy);
 
 	console.log( "total of seurons created :" + seurons.length );
-	var n;
+	var n = 0;
 	for (int i = 0; i<seurons.length; i++){
 		if( s.hasAvatar == true ) n++;
 	}
@@ -116,6 +119,12 @@ void setup(){
 	console.log( "total of seurons that should be displayed :" + (seurons.length - n) );
 	
 	console.log("total number of messages :" + messages.length);
+
+	var m = 0;
+	for (int i = 0; i<seurons.length; i++){
+		if( s.lookup == true ) m++;
+	}
+	console.log("to be looked up :" + m );
 	
 	// for (int i = 0; messages[i]; i++){
 		
@@ -149,7 +158,12 @@ void draw(){
 	var ll;
 
 	// drawSeurons
-	console.log("total number of suerons loading for display : " + seurons.length);
+	// console.log("total number of suerons loading for display : " + seurons.length);
+
+	for (int i = 0; i< daddy.getCloseFriends().length; i++){
+
+		
+	}
 	for (int i = 0; i<seurons.length; i++){
 
 		// console.log(daddy);
@@ -161,34 +175,35 @@ void draw(){
 
 			// console.log(level);
 
-			float y = (level+1)*( (screenHeight-230 ) /4 );
+			float y = (level)*( ((screenHeight-230 ) /5 ) );
 			float x = i*(screenWidth/seurons.length);
 			
 			s.cy = y;
 			s.cx = x;
 
-			s.display();
+			// s.display();
 			// console.log("displayed");
 
 			ll++;
 		} else {
-			console.log("not displayed");
-			console.log s;
+			// console.log("not displayed");
+			// console.log s;
 		}
 	}
 
-	console.log("number of seurons actually displayed : " + ll );
+	// console.log("number of seurons actually displayed : " + ll );
 
 	daddy.cy =50;
 	daddy.cx =screenWidth/2;
 	daddy.display();
 
 	//draw synapses
-	for (int i = 0; daddy.synapses[i]; i++){
+	// for (int i = 0; daddy.synapses[i]; i++){
 
-		if(daddy.synapses[i].seuronB.data != null)
-			daddy.synapses[i].display();
-	}
+	// 	if(daddy.synapses[i].seuronB.hasAvatar != false)
+
+	// 		daddy.synapses[i].display();
+	// }
 
 
 
@@ -233,8 +248,8 @@ void lookupLocalData() {
 
 
 	$.getJSON(url, function(data) {
+		console.log("numbers of profiles : " + data.length)
 		$.each( data, function(key, item) {
-
 			//populate seurons with twitter data
 			parseUser( item );
 
@@ -270,37 +285,43 @@ void drawTimeline(){
 	popMatrix();
 
 	for (int i= 1; seurons[i]; i++){
-
 		Seuron s = seurons[i];
-		seconds = Date.parse(s.date);
-		if(seconds<dateMin){
-			dateMin = seconds;
-			// println("dateMin: " + dateMin);
-		}
-		else if(seconds>dateMax){ 
-			dateMax = seconds;
-			// println("dateMax: " + dateMax);
-		}
 
-		TimelinePosX = map(seconds,dateMin,dateMax,45,width-25);
-		TimelinePosY = height-75 + map(s.cy,100,screenHeight-150,5,55);
-		stroke(s.couleur);
-		strokeWeight(2);
-		strokeCap(SQUARE);
-		line(TimelinePosX, height-75, TimelinePosX, height-16);
-		fill(s.couleur);
-		ellipse(TimelinePosX,TimelinePosY,8,8);
+		// if(s.hasAvatar ==true) {
 
-		if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<8 || dist(mouseX, mouseY, s.cx, s.cy)<s.radius/2) {
-			line(TimelinePosX, TimelinePosY, s.cx, s.cy);
-			if(textWidth(s.description)>10) descHeight=1+floor(textWidth("Description: "+s.description)/400);
-			else descHeight=0;
-			fill(255,255,0,150);
-			noStroke();
-			rect(15,15,460,33+descHeight*14);
-			fill(255);
-			textAlign(LEFT);
-			text("User: "+s.name+"\nDate: "+s.date+"\nDescription: "+s.description,20,20,400,30+descHeight*14);
-		}
+
+
+			
+			seconds = Date.parse(s.date);
+			if(seconds<dateMin){
+				dateMin = seconds;
+				// println("dateMin: " + dateMin);
+			}
+			else if(seconds>dateMax){ 
+				dateMax = seconds;
+				// println("dateMax: " + dateMax);
+			}
+
+			TimelinePosX = map(seconds,dateMin,dateMax,45,width-25);
+			TimelinePosY = height-75 + map(s.cy,100,screenHeight-150,5,55);
+			stroke(s.couleur);
+			strokeWeight(2);
+			strokeCap(SQUARE);
+			line(TimelinePosX, height-75, TimelinePosX, height-16);
+			fill(s.couleur);
+			ellipse(TimelinePosX,TimelinePosY,8,8);
+
+			if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<8 || dist(mouseX, mouseY, s.cx, s.cy)<s.radius/2) {
+				line(TimelinePosX, TimelinePosY, s.cx, s.cy);
+				if(textWidth(s.description)>10) descHeight=1+floor(textWidth("Description: "+s.description)/400);
+				else descHeight=0;
+				fill(255,255,0,150);
+				noStroke();
+				rect(15,15,460,33+descHeight*14);
+				fill(255);
+				textAlign(LEFT);
+				text("User: "+s.name+"\nDate: "+s.date+"\nDescription: "+s.description,20,20,400,30+descHeight*14);
+			}
+		// }
 	}
 }
