@@ -105,9 +105,17 @@ void setup(){
 	console.log( "daddy's Followers : " + daddy.getFollowers().length );
 	console.log( "daddy's Unrelated : " + daddy.getUnrelated().length );
 
-	console.log(daddy);
+	// console.log(daddy);
+
+	console.log( "total of seurons created :" + seurons.length );
+	var n;
+	for (int i = 0; i<seurons.length; i++){
+		if( s.hasAvatar == true ) n++;
+	}
+
+	console.log( "total of seurons that should be displayed :" + (seurons.length - n) );
 	
-	console.log(messages.length);
+	console.log("total number of messages :" + messages.length);
 	
 	// for (int i = 0; messages[i]; i++){
 		
@@ -138,14 +146,16 @@ void draw(){
 	}*/
 
 	drawTimeline();
+	var ll;
 
 	// drawSeurons
-	for (int i = 0; seurons[i]; i++){
+	console.log("total number of suerons loading for display : " + seurons.length);
+	for (int i = 0; i<seurons.length; i++){
 
 		// console.log(daddy);
 		s =  seurons[i];
 
-		if( s.data != null ) {
+		if( s.hasAvatar == true ) {
 			
 			int level =  daddy.getSynapse(s.id).level;
 
@@ -158,10 +168,17 @@ void draw(){
 			s.cx = x;
 
 			s.display();
+			// console.log("displayed");
 
+			ll++;
+		} else {
+			console.log("not displayed");
+			console.log s;
 		}
-		
 	}
+
+	console.log("number of seurons actually displayed : " + ll );
+
 	daddy.cy =50;
 	daddy.cx =screenWidth/2;
 	daddy.display();
