@@ -113,6 +113,9 @@ void setup(){
 	console.log( "total of seurons created :" + seurons.length );	
 	console.log("total number of messages :" + messages.length);
 
+	
+	// tout ce truc là ne sert à rien, c'était pour le débugage
+	/*
 	var m = 0;
 	for (int i = 1; i<seurons.length; i++){// pour daddy on a déjà fait le lookup
 		if( s.lookup == false ) m++; // c'est quoi ce s ?? seurons[i]?
@@ -120,9 +123,11 @@ void setup(){
 		// et en plus c'est lookedUp...
 		// et à quoi sert le m? je vois pas où on le réutilise
 	}
+	*/
 
 	console.log("------- load data --------");
 	console.log("this is local dev example, so load local files");
+
 	
 	// for (int i = 0; messages[i]; i++){
 		
@@ -144,7 +149,19 @@ void getDaddy() {
 	}
 }
 
+void hasSeuronNull() {
+	nulls = [];
+	
+	for (int i = 0; i<seurons.length; i++){
+		if( seurons[i].data == null ) {
+			nulls.push( seurons[i] );
+		}
+	}
+	console.log("------- Seuron Null --------");
+	console.log ( "Seurons nulls :" + nulls.length );
 
+	return nulls;
+}
 // ------------------------------- MAIN DRAWING FUNCTION
 void draw(){
 	// DRAW BACKGROUND
@@ -181,7 +198,8 @@ void draw(){
 	daddy.display();
 
 	// DISPLAY OUR GUYS
-	// if( displaySeuron == true) display();
+	// hasSeuronNull();
+	if( displaySeuron == true) display();
 }
 
 void display(){
@@ -190,7 +208,6 @@ void display(){
 	friends = daddy.getFriends();
 	followers = daddy.getFollowers();
 	close  = daddy.getCloseFriends();
-
 	unknown = daddy.getUnrelated();
 
 	float cx = screenWidth/2;
@@ -376,7 +393,7 @@ void drawTimeline(){
 	for (int i= 1; seurons[i]; i++){
 		Seuron s = seurons[i];
 
-		// if(s.hasAvatar ==true) {
+		if(s.hasAvatar ==true) {
 			// console.log(s);
 
 
@@ -412,6 +429,6 @@ void drawTimeline(){
 				textAlign(LEFT);
 				text("User: "+s.name+"\nDate: "+s.date+"\nDescription: "+s.description,20,20,400,30+descHeight*14);
 			}
-		// }
+		}
 	}
 }

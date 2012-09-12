@@ -196,16 +196,19 @@ class Seuron {
 		for (int i = 0; synapses[i]; i++){
 			if(synapses[i].seuronB.id == id) return synapses[i];
 		};
-		return false;
+		return null;
 	}
 
 	// return friendship level (int) based on an existing seuron 
+	// not working !
+	/*
 	void getFriendshipLevel( Seuron s ) {
 		if( isFriend(s) ) return 2
 		else if( isFollower(s) ) return 3
 		else if( isUnrelated(s) ) return 0
 		else return 1
 	}
+	*/
 
 	// add data to seuron, then convert and store it
 	void populate( Object _data ) {

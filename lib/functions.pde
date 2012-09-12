@@ -1,6 +1,6 @@
 // create daddy
 void createDaddy( Object daddyData ){
-	daddy = createSeuron( daddyData.id, daddyData, true );
+	Seuron daddy = createSeuron( daddyData.id, daddyData, true );
 	// Seuron daddy = new Seuron( daddyData.id, daddyData, true );
 	// seurons = []; // reset seurons to remove daddy
 	daddy.cx = screenWidth/2;
@@ -14,10 +14,10 @@ void createFriends( Seuron daddy, Array daddyFriends) {
 	for (int i = 0; i< daddyFriends.length; i++){
 		
 		// check if the friend already exists
-		friend = seuronExists( daddyFriends[i] );
+		Seuron friend = seuronExists( daddyFriends[i] );
 		
 		// console.log(friend);
-		if( friend ) {
+		if( friend != null ) {
 			daddy.addFriend( friend );
 		} else {
 			friend = createSeuron( daddyFriends[i], null, false ); 	
@@ -30,12 +30,12 @@ void createFriends( Seuron daddy, Array daddyFriends) {
 void createFollowers( Seuron daddy, Array daddyFollowers) {
 	for (int i = 0; i< daddyFollowers.length; i++){
 
-		follower = seuronExists	( daddyFollowers[i] );
+		Seuron follower = seuronExists	( daddyFollowers[i] );
 		
-		if( follower != false  ) {
+		if( follower != null  ) {
 			
 			// seurons already exists, so it is a closeFriend
-			synapse = daddy.getSynapse( follower.id );
+			Synapse synapse = daddy.getSynapse( follower.id );
 			
 			// check if 
 			synapse.level = 1;
@@ -43,7 +43,6 @@ void createFollowers( Seuron daddy, Array daddyFollowers) {
 			// console.log(follower);
 			// console.loopg('create new');
 			follower = createSeuron( daddyFollowers[i], null, false );
-
 			daddy.addFollower( follower );
 		}
 
@@ -71,11 +70,11 @@ void createSeuron( int id, Object data, boolean lookup ) {
 
 // check if a seuron exists
 void seuronExists( int id ) {
-	var existence;
+	Seuron existence;
 
 	// if it doesn't exists return false
 	if( seuronIds.indexOf( id ) == -1) {
-		existence = false
+		existence = null
 	} else {
 		// console.log("this seuron already exists");
 		i = seuronIds.indexOf( id );
@@ -130,7 +129,7 @@ void parseUser( Object userData) {
 		// console.log ("user really parsed")
 
 		// get existing seuron
-		s = seurons[i]; 
+		Seuron s = seurons[i]; 
 
 		// tell seuron parser that data is a user profile
 		userData.isProfile =true;
@@ -161,10 +160,10 @@ void createMessage( Transmitter service, Synpase syn, int action, Object data ) 
 void messageExists( int messageID ) {
 	int i = messageIds.indexOf(messageID);
 	if ( i != -1 ) {
-		message = messages[i];
+		Message message = messages[i];
 		return message;
 	} else {
-		return false;
+		return null;
 	}	
 }
 
@@ -246,8 +245,15 @@ void analyzeTweet( Object tweet ) {
 
 	// Get the tweet owner (should be equal to daddy)
 	Seuron boss; // boss est un Seuron
+
 	boss = seuronExists( tweet.user.id );
-	if( boss == false ) createSeuron( tweet.user.id, tweet.user, false ); // boss ne peut pas être égal à false, c'est un Seuron pas un boolean
+
+	if( boss == null ) createSeuron( tweet.user.id, tweet.user, false ); 
+	// boss ne peut pas être égal à false, c'est un Seuron pas un boolean
+	// -- oui tu as raison ! 
+	// -- la fonction seuronExists est un hack moche. elle retourne "false" ou "un seuron"...
+	// -- je l'ai changé pour retourné "null" ou "seuron"
+
 	// console.log(boss);
 
 	// our tweet is a reply
@@ -280,24 +286,24 @@ void analyzeRT( Seuron boss, Object tweet ){
 	console.log("THIS IS A RT");
 
 	// get our guy that has post in the first place
-	our_guy = seuronExists( tweet.retweeted_status.user.id );
+	Seuron our_guy = seuronExists( tweet.retweeted_status.user.id );
 
 	// console.log("our_guy before : " + our_guy);
 	// if our guy is not a seuron, then create it
-	if( our_guy == false  ) our_guy = createSeuron( tweet.retweeted_status.user.id, tweet.retweeted_status.user, false )
+	if( our_guy == null  ) our_guy = createSeuron( tweet.retweeted_status.user.id, tweet.retweeted_status.user, false )
 	console.log("this is our RT guy  : " + our_guy.id);
 
 	// add our guy to the lookup
 	// our_guy.lookup = true;
 
 	// get existing synapse from reply_guy
-	synapse = boss.getSynapse( our_guy.id );
+	Synapse synapse = boss.getSynapse( our_guy.id );
 
 	// console.log("our synpase before : " + synapse);
 
 	// if synapse doesnt already exist, then it means that the guy is unknown
 	// so we create the synapse with value of 4
-	if( synapse == false ) synapse = boss.createSynapse( our_guy, 4 ) ;
+	if( synapse == null ) synapse = boss.createSynapse( our_guy, 4 ) ;
 
 	console.log("our synapse : " + synapse);
 	// console.log(synapse);
@@ -313,7 +319,7 @@ void analyzeRT( Seuron boss, Object tweet ){
 	// Now we can process the original message, as the data is inside
 
 	// change context to original message
-	original_tweet  = tweet.retweeted_status;
+	Object original_tweet  = tweet.retweeted_status;
 
 	// analyze original message
 	analyzeTweet(original_tweet);
@@ -323,7 +329,7 @@ void analyzeReply(  Seuron boss, Object tweet ){
 	// console.log("this is a reply");
 	
 	// get message 
-	original_message  = tweet.in_reply_to_status_id;
+	Object original_message  = tweet.in_reply_to_status_id;
 
 	// is the message a reply to himself?
 	if( tweet.in_reply_to_user_id == boss.id ) {
@@ -340,13 +346,13 @@ void analyzeReply(  Seuron boss, Object tweet ){
 	}
 
 	// get the guy from the reply
-	reply_guy = seuronExists( tweet.in_reply_to_user_id );
+	Seuron reply_guy = seuronExists( tweet.in_reply_to_user_id );
 
 	// console.log(reply_guy);
 	// console.log("our_guy before : " + reply_guy);
 
 	// if reply_guy is not a seuron, then create it
-	if( reply_guy == false ) reply_guy = createSeuron( tweet.in_reply_to_user_id, null, false )
+	if( reply_guy == null ) reply_guy = createSeuron( tweet.in_reply_to_user_id, null, false )
 	
 	console.log(" this is a reply to : " + reply_guy.id);
 
@@ -357,13 +363,13 @@ void analyzeReply(  Seuron boss, Object tweet ){
 	
 
 	// get existing synapse from reply_guy
-	synapse = boss.getSynapse( reply_guy.id );
+	Synapse synapse = boss.getSynapse( reply_guy.id );
 	
 	// console.log("our synpase before : " + synapse);
 
 	// if synapse doesnt already exist, then it means that the guy is unknown
 	// so we create the synapse with value of 4
-	if( synapse == false ) synapse = boss.createSynapse( reply_guy, 4 ) ;
+	if( synapse == null ) synapse = boss.createSynapse( reply_guy, 4 ) ;
 
 	console.log("the synpase atached to this message is : " + synapse);
 
@@ -378,34 +384,33 @@ void analyzeReply(  Seuron boss, Object tweet ){
 
 void analyzeMentions( Seuron boss, Object mentions, int exclude_id, Object data ) {
 
+	// log everything
+	int tt;
 	console.log("total mentions in this tweet : " + mentions.length);
-
 	if(exclude_id) console.log("a user has been excluded : " + exclude_id);
-
-	var tt = 0;
 
 	//loop into mentions
 	for (int i = 0; i<mentions.length; i++){
-		console.log(mentions[i].id);
+		// console.log(mentions[i].id);
 
 		// exclude id that has been passed 
 		if(mentions[i].id != exclude_id ) {
 
 			//check if user seuron already exists
-			seuron = seuronExists( mentions[i].id );
+			Seuron seuron = seuronExists( mentions[i].id );
 			// seuron.lookup = true;
 			
-			if( seuron != false ) { 
+			if( seuron != null ) { 
 
 				console.log("-- this user already exists : " + seuron.id);
 				
 				// get existing Friendship (Synapse)
-				synapse = boss.getSynapse( mentions[i].id );
+				Synapse synapse = boss.getSynapse( mentions[i].id );
 
 				console.log("----- user synapse before : " + synapse);
 				// if synapse doesnt already exist, then it means that the guy is unknown
 				// so we create the synapse with value of 4
-				if( synapse== false ) synapse = boss.createSynapse( seuron, 4 ) ;
+				if( synapse== null ) synapse = boss.createSynapse( seuron, 4 ) ;
 
 				console.log("---- user synapse after : " + synapse);
 
@@ -415,12 +420,12 @@ void analyzeMentions( Seuron boss, Object mentions, int exclude_id, Object data 
 			} else {
 
 				// create new Seuron
-				s = createSeuron( mentions[i].id, null, false);
+				Seuron s = createSeuron( mentions[i].id, null, false);
 				
 				console.log("-- this user was created : " + s.id );
 
 				// create new Synapse with value 4
-				synapse = boss.createSynapse( s, 4 );
+				Synapsesynapse = boss.createSynapse( s, 4 );
 
 				console.log("---- this synapse was created : " + synapse );
 
