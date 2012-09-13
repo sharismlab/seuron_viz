@@ -1,14 +1,3 @@
-// analyze daddy's timeline
-// and lookup users
-
-void analyzeTimeline( Array timeline ) {
-	for(int i; i < timeline.length; i++ ) {
-		 analyzeTweet( timeline[i] );
-	}
-
-	lookupUsers( toLookup );
-}
-
 /*
 ANALYSE EACH TWEET OF THE TIMELINE
 -------------------------------
@@ -53,49 +42,40 @@ ANALYSE EACH TWEET OF THE TIMELINE
 		- We should populate a global Array with all messages
 */
 
+void analyzeTimeline( Array timeline ) {
+	for(int i; i < timeline.length; i++ ) {
+		 analyzeTweet( timeline[i] );
+	}
+
+	if( toLookup.length >0 ) lookupUsers( toLookup );
+}
+
 void analyzeTweet( Object tweet ) {
 
 	// check what actions can be founded within our tweet
 	// 0:unknown, 1:post, 2:RT, 3:answer, 4:quote(s)
-	int action;
-	// console.log("ok");
+	
+	int from = seuronExists( tweet.user.id );
 
-	console.log("---- TWEET --------------------------------");
+	if( from == null ) createSeuron( tweet.user.id, tweet.user, false );
 
-	// Get the tweet owner (should be equal to daddy)
-	Seuron boss; // boss est un Seuron
-
-	boss = seuronExists( tweet.user.id );
-
-	if( boss == null ) createSeuron( tweet.user.id, tweet.user, false ); 
-	// boss ne peut pas être égal à false, c'est un Seuron pas un boolean
-	// -- oui tu as raison ! 
-	// -- la fonction seuronExists est un hack moche. elle retourne "false" ou "un seuron"...
-	// -- je l'ai changé pour retourné "null" ou "seuron"
-
-	// console.log(boss);
+	// get last id 
+	for (int i = 0; seurons[i]; i++){
+		from =i;
+	}
 
 	// our tweet is a reply
 	if ( tweet.in_reply_to_status_id != null ) {
-		// our tweet is a reply!
-		action = 3 ;
-		analyzeReply(boss, tweet);
+		analyzeReply( seurons[from], tweet);
 	} 
 	// our tweet is a RT
 	else if ( tweet.retweeted_status ) {
-		action = 2 ;
-		analyzeRT(boss, tweet);
+		analyzeRT( seurons[from], tweet);
 	}
 	// out tweet is just a post
 	else {
-		action = 1;	
-		console.log("This is just a classic post");
 		if(tweet.entities.user_mentions.length>0 ) 
-			analyzeMentions( boss, tweet.entities.user_mentions, boss.id, tweet );
-		// else 
-		// trash it ! there is no interaction so far...
-		// or maybe it has been retweeted ??
-		// if retweeted == true then analyzeRT
+			analyzeMentions(  seurons[from], tweet.entities.user_mentions,  seurons[from].id, tweet );
 	}
 }
 
