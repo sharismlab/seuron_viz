@@ -87,7 +87,6 @@ class Seuron {
 		Synapse syn;
 		syn = new Synapse(this, s, level);
 		synapses.push(syn);	
-		return syn;
 	}
  
 	// check if a seuron is already a friend or follower
@@ -199,17 +198,6 @@ class Seuron {
 		return null;
 	}
 
-	// return friendship level (int) based on an existing seuron 
-	// not working !
-	/*
-	void getFriendshipLevel( Seuron s ) {
-		if( isFriend(s) ) return 2
-		else if( isFollower(s) ) return 3
-		else if( isUnrelated(s) ) return 0
-		else return 1
-	}
-	*/
-
 	// add data to seuron, then convert and store it
 	void populate( Object _data ) {
 		data = _data;
@@ -217,35 +205,7 @@ class Seuron {
 		splitData( data );
 	}
 
-	// find if a seuronTmp is friend & follower and give him level 1
-	/*
-	void findCloseFriends() {
-
-		for (int i = 0; friends[i]; i++){
-			for (int j = 0; followers[j]; j++){
-			
-				if( followers[j].id == friends[i].id ) {
-					friends[i].level = 1;
-					// console.log(i);
-					// console.log(closeFriendsIds);
-					// int o = i;
-					closeFriendsPos.push( i );
-					closeFriendsIds.push( friends[i].id );
-					// console.log(closeFriendsPos);
-					// console.log(closeFriendsIds);	
-					// console.log("friend "+ friends[i].id + " is a close friend." );
-			
-
-				}
-			}
-		}
-		// console.log(closeFriendsPos);
-		// console.log(closeFriendsIds);			
-	}
-	*/
 	
-
-
 	// add a message into list
 	void addMessage( Transmitter trans, Object data, int type ) {
 		// console.log(msg);

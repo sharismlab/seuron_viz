@@ -54,69 +54,70 @@ void analyzeTweet( Object tweet ) {
 
 	// check what actions can be founded within our tweet
 	// 0:unknown, 1:post, 2:RT, 3:answer, 4:quote(s)
-	
+
 	int from = seuronExists( tweet.user.id );
 
-	if( from == null ) createSeuron( tweet.user.id, tweet.user, false );
-
-	// get last id 
-	for (int i = 0; seurons[i]; i++){
-		from =i;
+	if( from == null ) {
+		createSeuron( tweet.user.id, tweet.user, false );
+		// get last id 
+		for (int i = 0; seurons[i]; i++){
+			from =i;
+		}
 	}
 
 	// our tweet is a reply
 	if ( tweet.in_reply_to_status_id != null ) {
-		analyzeReply( seurons[from], tweet);
+		analyzeReply( from, tweet);
 	} 
 	// our tweet is a RT
 	else if ( tweet.retweeted_status ) {
-		analyzeRT( seurons[from], tweet);
+		analyzeRT( from, tweet);
 	}
 	// out tweet is just a post
 	else {
 		if(tweet.entities.user_mentions.length>0 ) 
-			analyzeMentions(  seurons[from], tweet.entities.user_mentions,  seurons[from].id, tweet );
+			analyzeMentions( from, tweet.entities.user_mentions,  seurons[from].id, tweet );
+		// else : nothing happpen bcz no interactions
+		// if retweeted = true
 	}
 }
 
-void analyzeRT( Seuron boss, Object tweet ){
+void analyzeRT( int _from, Object tweet ){
 	
 	// we should first store RT, then analyze retweeted_status as a new post
 	console.log("THIS IS A RT");
 
 	// get our guy that has post in the first place
-	Seuron our_guy = seuronExists( tweet.retweeted_status.user.id );
+	int RTfrom = seuronExists( tweet.retweeted_status.user.id );
 
-	// console.log("our_guy before : " + our_guy);
-	// if our guy is not a seuron, then create it
-	if( our_guy == null  ) our_guy = createSeuron( tweet.retweeted_status.user.id, tweet.retweeted_status.user, false )
-	console.log("this is our RT guy  : " + our_guy.id);
-
-	// add our guy to the lookup
-	// our_guy.lookup = true;
+	// if our guy is not a seuron, then create it	
+	if( RTfrom == null ) {
+		RTfrom = createSeuron( tweet.retweeted_status.user.id, tweet.retweeted_status.user, false );
+		// get last id 
+		for (int i = 0; seurons[i]; i++){
+			RTfrom =i;
+		}
+	}
 
 	// get existing synapse from reply_guy
-	Synapse synapse = boss.getSynapse( our_guy.id );
-
-	// console.log("our synpase before : " + synapse);
+	int synapse = seurons[_from].getSynapse( seurons[RTfrom].id );
 
 	// if synapse doesnt already exist, then it means that the guy is unknown
 	// so we create the synapse with value of 4
-	if( synapse == null ) synapse = boss.createSynapse( our_guy, 4 ) ;
-
-	console.log("our synapse : " + synapse);
-	// console.log(synapse);
-
-	// now create the message 
-	createMessage( twitterTransmitter, synapse, 2, tweet );
+	if( synapse == null ) {
+		seurons[_from].createSynapse( seurons[RTfrom], 4 ) ;
+		for (int i = 0; seurons[_from].synapses[i]; i++){
+			synapse =i;
+		}
+	} 
+	createMessage( twitterTransmitter, seurons[_from].synapses[synapse], 2, tweet );
 
 	// deal with other user that has been quoted in the message
 	if(tweet.entities.user_mentions.length>0){
-		analyzeMentions( boss, tweet.entities.user_mentions, tweet.in_reply_to_user_id, tweet );
+		analyzeMentions( seurons[_from], tweet.entities.user_mentions, tweet.in_reply_to_user_id, tweet );
 	}
 
 	// Now we can process the original message, as the data is inside
-
 	// change context to original message
 	Object original_tweet  = tweet.retweeted_status;
 
@@ -124,17 +125,15 @@ void analyzeRT( Seuron boss, Object tweet ){
 	analyzeTweet(original_tweet);
 }
 
-void analyzeReply(  Seuron boss, Object tweet ){
-	// console.log("this is a reply");
+void analyzeReply(  int _from, Object tweet ){
+	console.log("this is a reply");
 	
 	// get message 
 	Object original_message  = tweet.in_reply_to_status_id;
 
 	// is the message a reply to himself?
-	if( tweet.in_reply_to_user_id == boss.id ) {
+	if( tweet.in_reply_to_user_id == seurons[_from].id ) {
 		// console.log("this is a reply to myself ! ");
-		// getMessage( original_message );
-		// createMessage( )
 	} 
 	// this is an answer to someone else's message
 	// so complete message should be available inside boss's "profile/mentions"
@@ -145,97 +144,74 @@ void analyzeReply(  Seuron boss, Object tweet ){
 	}
 
 	// get the guy from the reply
-	Seuron reply_guy = seuronExists( tweet.in_reply_to_user_id );
-
-	// console.log(reply_guy);
-	// console.log("our_guy before : " + reply_guy);
+	int replyFrom = seuronExists( tweet.in_reply_to_user_id );
 
 	// if reply_guy is not a seuron, then create it
-	if( reply_guy == null ) reply_guy = createSeuron( tweet.in_reply_to_user_id, null, false )
-	
-	console.log(" this is a reply to : " + reply_guy.id);
-
-
-	// add our guy to the lookup
-	// reply_guy.lookup = true;
-
-	
+	if( replyFrom == null ) {
+		replyFrom = createSeuron( tweet.in_reply_to_user_id, null, false );
+		// get last id 
+		for (int i = 0; seurons[i]; i++){
+			replyFrom =i;
+		}
+	}
 
 	// get existing synapse from reply_guy
-	Synapse synapse = boss.getSynapse( reply_guy.id );
+	synapse = seurons[_from].getSynapse( seurons[replyFrom].id );
 	
-	// console.log("our synpase before : " + synapse);
-
 	// if synapse doesnt already exist, then it means that the guy is unknown
 	// so we create the synapse with value of 4
-	if( synapse == null ) synapse = boss.createSynapse( reply_guy, 4 ) ;
-
-	console.log("the synpase atached to this message is : " + synapse);
+	if( synapse == null ) {
+		seurons[_from].createSynapse( seurons[replyFrom], 4 );
+		// get last id 
+		for (int i = 0; seurons[_from].synapses[i]; i++){
+			synapse =i;
+		}
+	}
 
 	// now create the message 
-	createMessage( twitterTransmitter, synapse, 3, tweet );
+	createMessage( twitterTransmitter, seurons[_from].synapses[synapse], 3, tweet );
 
 	// create other relations with guys quoted in the message 
 	if(tweet.entities.user_mentions.length>0){
-		analyzeMentions( boss, tweet.entities.user_mentions, tweet.in_reply_to_user_id, tweet );
+		analyzeMentions( seurons[_from], tweet.entities.user_mentions, tweet.in_reply_to_user_id, tweet );
 	}
 }
 
-void analyzeMentions( Seuron boss, Object mentions, int exclude_id, Object data ) {
-
-	// log everything
-	int tt;
-	console.log("total mentions in this tweet : " + mentions.length);
-	if(exclude_id) console.log("a user has been excluded : " + exclude_id);
+void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) {
 
 	//loop into mentions
 	for (int i = 0; i<mentions.length; i++){
-		// console.log(mentions[i].id);
 
 		// exclude id that has been passed 
 		if(mentions[i].id != exclude_id ) {
 
 			//check if user seuron already exists
-			Seuron seuron = seuronExists( mentions[i].id );
-			// seuron.lookup = true;
+			int at = seuronExists( mentions[i].id );
 			
-			if( seuron != null ) { 
-
-				console.log("-- this user already exists : " + seuron.id);
-				
-				// get existing Friendship (Synapse)
-				Synapse synapse = boss.getSynapse( mentions[i].id );
-
-				console.log("----- user synapse before : " + synapse);
-				// if synapse doesnt already exist, then it means that the guy is unknown
-				// so we create the synapse with value of 4
-				if( synapse== null ) synapse = boss.createSynapse( seuron, 4 ) ;
-
-				console.log("---- user synapse after : " + synapse);
-
-				// create message
-				createMessage( twitterTransmitter, synapse, 3, data );
-
-			} else {
-
+			if( at == null )  {
 				// create new Seuron
-				Seuron s = createSeuron( mentions[i].id, null, false);
+				createSeuron( mentions[i].id, null, false);
+				for (int i = 0; seurons[i]; i++){
+					at =i;
+				}
+			} 
 				
-				console.log("-- this user was created : " + s.id );
+			// get existing Friendship 
+			int synapse = seurons[ _from ].getSynapse( seurons[at].id );
 
-				// create new Synapse with value 4
-				Synapsesynapse = boss.createSynapse( s, 4 );
+			if( synapse == null )  {
+				// create new Seuron
+				seurons[ _from ].createSynapse( seurons[at], 4 );
 
-				console.log("---- this synapse was created : " + synapse );
+				for (int i = 0; seurons[_from].synapses[i]; i++){
+					at =i;
+				}
 
-
-				// create message
-				createMessage( twitterTransmitter, synapse, 4, data );	
 			}
+			
+			createMessage( twitterTransmitter, seurons[_from].synapses[synapse], 4, data );
 
-			tt++;
 		}
 	}
 
-	console.log( "number of users analyzed for this tweet : " + tt )
 }
