@@ -194,7 +194,7 @@ class Seuron {
 	// return friendship (Synapse) based on an id
 	void getSynapse( int id ) {
 		for (int i = 0; synapses[i]; i++){
-			if(synapses[i].seuronB.id == id) return synapses[i];
+			if(synapses[i].seuronB.id == id) return i;
 		};
 		return null;
 	}

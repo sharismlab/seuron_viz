@@ -6,11 +6,6 @@ processing + twitter + jquery
 
 PFont font;
 
-// set a environment var for local development
-// useful for loading local data
-var ENV = "dev";
-
-
 // A global array to store all seurons
 var seurons = [];
 
@@ -18,7 +13,7 @@ var seurons = [];
 var seuronIds = [];
 
 // Array to store all ids that needs to be looked up through twitter API
-toLookup = [];
+var toLookup = [];
 
 // all our messages Ids
 var messageIds = [];
@@ -41,7 +36,6 @@ boolean displaySeuron = false; // just turn this on to show seuron
 void setup(){
 	size(screenWidth, screenHeight);
 	background(255);
-	// console.log(PFont.list());
 	font = loadFont("cursive");// BIM! de la Comic Sans pour un peu de fun
 	textFont(font, 12);
 	frameRate(10);
@@ -65,20 +59,20 @@ void setup(){
 	// we will be get their profile data only if they interact with daddy	
 
 	// create daddy 
-	daddyData = getProfile("makio135");
-	daddy = createDaddy(daddyData);
-
-	console.log(daddy);
+	Object daddyData = getProfile("makio135");
+	daddy = new Seuron( daddyData.id, daddyData, true );
+	daddy.cx = screenWidth/2;
+	daddy.cy = screenHeight/2;
+	// console.log(daddy);
 
 	// FRIENDS & FOLLOWERS 
-
 	// create daddy's friends 	
-	daddyFriends = getFriends("makio135");	
-	createFriends( daddy, daddyFriends.ids);
+	Object daddyFriends = getFriends("makio135");	
+	createFriends( daddyFriends.ids );
 	
 	// create daddy's followers
-	daddyFollowers = getFollowers("makio135");
-	createFollowers( daddy, daddyFollowers.ids);
+	Object daddyFollowers = getFollowers("makio135");
+	createFollowers( daddyFollowers.ids);
 
 
 	console.log("------- before loop into messages --------");
@@ -95,11 +89,9 @@ void setup(){
 	// To extract messages and quoted people from it
 	// we should also extract statuses/mentions to have the whole conversation !
 
-	daddyTimeline = getTimeline( "makio135" );
+	Object daddyTimeline = getTimeline( "makio135" );
 	analyzeTimeline( daddyTimeline );
 	
-	
-	// lookupLocalData();
 
 	console.log("------- after loop into messages --------");
 	console.log( "created seurons : " + seurons.length );
@@ -112,56 +104,8 @@ void setup(){
 
 	console.log( "total of seurons created :" + seurons.length );	
 	console.log("total number of messages :" + messages.length);
-
-	
-	// tout ce truc là ne sert à rien, c'était pour le débugage
-	/*
-	var m = 0;
-	for (int i = 1; i<seurons.length; i++){// pour daddy on a déjà fait le lookup
-		if( s.lookup == false ) m++; // c'est quoi ce s ?? seurons[i]?
-		// et pour tous les seurons, lookup est false de base dans notre classe donc pas besoin de faire ça
-		// et en plus c'est lookedUp...
-		// et à quoi sert le m? je vois pas où on le réutilise
-	}
-	*/
-
-	console.log("------- load data --------");
-	console.log("this is local dev example, so load local files");
-
-	
-	// for (int i = 0; messages[i]; i++){
-		
-	// 	// if( messages[i].synapse != 'undefined') 
-	// 	// messages[i].display();
-	// 	console.log(messages[i].synapse);
-	// 	console.log(messages[i].action);
-
-	//  }
 }
 
-
-// daddy est le premier seuron qu'on crée donc daddy est toujours seurons[0], non?
-void getDaddy() {
-	for (int i = 0; i<seurons.length; i++){
-		if( seurons[i].id == daddy.id ) {
-			return seurons[i];
-		}
-	}
-}
-
-void hasSeuronNull() {
-	nulls = [];
-	
-	for (int i = 0; i<seurons.length; i++){
-		if( seurons[i].data == null ) {
-			nulls.push( seurons[i] );
-		}
-	}
-	console.log("------- Seuron Null --------");
-	console.log ( "Seurons nulls :" + nulls.length );
-
-	return nulls;
-}
 // ------------------------------- MAIN DRAWING FUNCTION
 void draw(){
 	// DRAW BACKGROUND
@@ -170,15 +114,6 @@ void draw(){
 	gradient.addColorStop(1,'rgba(10, 10, 10, 1)'); 
 	externals.context.fillStyle = gradient; 
 	externals.context.fillRect( 0, 0, width, height ); 
-
-	/*
-	// add a loader to screen
-	if( loading ) {
-		console.log(loading)
-		textAlign(CENTER);
-		text(isLoading, width/2, height/2);		
-
-	}*/
 
 	// DRAW TIMELINE
 	drawTimeline();
@@ -193,16 +128,13 @@ void draw(){
 	 }
 
 	// draw daddy
-	// daddy.cx =screenWidth/2;// c'était inversé mais c'est pas normal qu'on ait à mettre ça à chaque draw...
-	// daddy.cy =screenHeight/2;
 	daddy.display();
 
 	// DISPLAY OUR GUYS
-	// hasSeuronNull();
-	if( displaySeuron == true) display();
+	if( displaySeuron == true) displaySeurons();
 }
 
-void display(){
+void displaySeurons(){
 
 	// drawSeurons
 	friends = daddy.getFriends();
@@ -320,7 +252,6 @@ void display(){
 	}
 }
 
-
 // ------------------------------- LOOKUP LOCAL DATA
 void lookupUsers() {
 	// parse twitter url
@@ -339,10 +270,8 @@ void lookupUsers() {
 	// console.log(toLookup);
 	var aaa;
 	if(toLookup.length == 100 ){
-
 		url="datasamples/makio135_lookup.json";
 	} else {
-
 		url="datasamples/makio135_lookup2.json";
 		aaa  =1 ;
 	}

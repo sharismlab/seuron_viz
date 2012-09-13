@@ -1,49 +1,38 @@
 // create daddy
 void createDaddy( Object daddyData ){
-	Seuron daddy = createSeuron( daddyData.id, daddyData, true );
-	// Seuron daddy = new Seuron( daddyData.id, daddyData, true );
-	// seurons = []; // reset seurons to remove daddy
-	daddy.cx = screenWidth/2;
-	daddy.cy = screenHeight/2;
+	
 	console.log("daddy was created;");
-	return daddy;
 }
 
 // create daddy's friends 	
-void createFriends( Seuron daddy, Array daddyFriends) {
+void createFriends( Array daddyFriends) {
 	for (int i = 0; i< daddyFriends.length; i++){
 		
 		// check if the friend already exists
-		Seuron friend = seuronExists( daddyFriends[i] );
+		int friend = seuronExists( daddyFriends[i] );
 		
 		// console.log(friend);
 		if( friend != null ) {
-			daddy.addFriend( friend );
+			daddy.addFriend( seurons[friend] );
 		} else {
-			friend = createSeuron( daddyFriends[i], null, false ); 	
-			daddy.addFriend( friend );
+			daddy.addFriend( createSeuron( daddyFriends[i], null, false ) );
 		}
 	}
 }
 
 // create daddy's followers
-void createFollowers( Seuron daddy, Array daddyFollowers) {
+void createFollowers( Array daddyFollowers) {
 	for (int i = 0; i< daddyFollowers.length; i++){
 
-		Seuron follower = seuronExists	( daddyFollowers[i] );
+		int follower = seuronExists	( daddyFollowers[i] );
 		
 		if( follower != null  ) {
-			
 			// seurons already exists, so it is a closeFriend
-			Synapse synapse = daddy.getSynapse( follower.id );
-			
-			// check if 
-			synapse.level = 1;
+			daddy.synapses[ follower ].level = 1;
 		} else {
 			// console.log(follower);
 			// console.loopg('create new');
-			follower = createSeuron( daddyFollowers[i], null, false );
-			daddy.addFollower( follower );
+			daddy.addFollower( createSeuron( daddyFollowers[i], null, false ) );
 		}
 
 	}
@@ -70,15 +59,15 @@ void createSeuron( int id, Object data, boolean lookup ) {
 
 // check if a seuron exists
 void seuronExists( int id ) {
-	Seuron existence;
+	
+	int existence;
 
 	// if it doesn't exists return false
 	if( seuronIds.indexOf( id ) == -1) {
-		existence = null
+		existence = null;
 	} else {
 		// console.log("this seuron already exists");
-		i = seuronIds.indexOf( id );
-		existence = seurons[i];
+		existence = seuronIds.indexOf( id );
 	}
 	return existence
 }
@@ -99,19 +88,6 @@ void addToLookup( int id ) {
 	}
 }
 
-// DEPRECIATED // function to add seuron to lookup list
-// void oldAddToLookup( int id ) {
-// 	// console.log(id);
-// 	lookup.add( id );
-
-// 	// requests users from quotes
-// 	if( lookup.size() == 100 ) {
-// 		oldLoadLookup();
-// 		lookup = new ArrayList;
-// 	}
-// }
-
-
 void parseUser( Object userData) {
 
 	// console.log( seuronIds );
@@ -129,12 +105,12 @@ void parseUser( Object userData) {
 		// console.log ("user really parsed")
 
 		// get existing seuron
-		Seuron s = seurons[i]; 
+		 // s = seurons[i]; 
 
 		// tell seuron parser that data is a user profile
 		userData.isProfile =true;
 		// populate seuron with data
-		s.populate( userData );
+		seurons[i].populate( userData );
 		// s.lookedUp=false;
 
 		// console.log ("lookup : "+ i.lookup);
