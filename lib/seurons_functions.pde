@@ -43,10 +43,6 @@ void createSeuron( int id, Object data, boolean lookup ) {
 
 	seurons.push( s );
 	seuronIds.push( id );
-	// console.log( s.lookup);
-
-	// ça ne devrait pas etre fait ici mais dans la timeline !!
-	// sinon on fait le lookup de tous les followers + friends = inutile!
 
 	// if specified, add to lookup list 
 	if( lookup == false ) addToLookup( id );
@@ -82,9 +78,9 @@ void addToLookup( int id ) {
 	// console.log(id);
 	toLookup.push( id );
 
-	// flag seurons as active
-	int i = seuronExists(id) ;
-	activeSeurons.push(seurons[i]);
+	// // flag seurons as active
+	// int i = seuronExists(id) ;
+	// seurons.push(seurons[i]);
 
 	// requests users from quotes
 	if( toLookup.length == 100 ) {

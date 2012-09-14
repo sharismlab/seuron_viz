@@ -9,9 +9,6 @@ PFont font;
 // A global array to store all seurons, including unactive
 var seurons = [];
 
-// A global id to store all ACTIVE seurons 
-var activeSeurons = [];
-
 // A simple array storing only ids for all seurons
 var seuronIds = [];
 
@@ -67,6 +64,7 @@ void setup(){
 	daddy.cx = screenWidth/2;
 	daddy.cy = screenHeight/2;
 	seurons.push(daddy);
+	seuronIds.push(daddy.id);
 
 	// console.log(daddy);
 
@@ -150,90 +148,19 @@ void draw(){
 	// if( displaySeuron == true) displayActiveSeurons();
 }
 
-void displayActiveSeurons() {
-
-	for (int i = 0; activeSeurons[i]; i++){
-		
-		float cx = daddy.cx;
-		float cy = daddy.cy;
-
-		// console.log(daddy.synapses[daddy.getSynapse(activeSeurons[i].id)]);
-
-		// draw close friends
-		if( daddy.isCloseFriend( activeSeurons[i] ) ){
-
-			// console.log("isCloseFriend");
-
-			float r = 100;
-
-			float angle = i * TWO_PI / 30;
-
-	  		float x= cx + cos(angle) * r;
-	  		float y = cy + sin(angle) * r;
-				
-			activeSeurons[i].cy = y;
-			activeSeurons[i].cx = x;
-
-			activeSeurons[i].couleur= color(255,200,200);
-
-			activeSeurons[i].display();
-		} 
-		else if( daddy.isFriend( activeSeurons[i] ) ){
-			console.log("friend");
-
-			float r = 200;
-
-			float angle = i * TWO_PI / 30;
-
-	  		float x = cx + cos(angle) * r;
-	  		float y = cy + sin(angle) * r;
-				
-			activeSeurons[i].cy = y;
-			activeSeurons[i].cx = x;
-			
-			activeSeurons[i].couleur = color(127,0,0);
-
-			activeSeurons[i].display();
-		} 
-		else if( daddy.isFollower( activeSeurons[i] ) ){
-
-			float r = 250;
-
-			float angle = i * TWO_PI / 30;
-
-	  		float x = cx + cos(angle) * r*1.5;
-	  		float y = cy + sin(angle) * r;
-				
-			activeSeurons[i].cy = y;
-			activeSeurons[i].cx = x;
-			activeSeurons[i].couleur = color(127,130,0);
-
-			activeSeurons[i].display();
-		} 
-		else {
-			// draw unknown
-
-			float r = 250;
-
-			float angle = i * TWO_PI / 30;
-
-	  		float x = cx + cos(angle) * r*3;
-	  		float y = cy + sin(angle) * r;
-				
-			activeSeurons[i].cy = y;
-			activeSeurons[i].cx = x;
-
-			activeSeurons[i].display();
-		}
-	// activeSeurons[i].display();
-	}
-}
 
 void displayAllSeurons(){
 
+	
+	var close = [];
+	var myfriends = [];
+	var myfollowers = [];
+	var unknown = [];
+
+
 	// drawSeurons
-	friends = daddy.getFriends();
-	followers = daddy.getFollowers();
+	myfriends = daddy.getFriends();
+	myfollowers = daddy.getFollowers();
 	close  = daddy.getCloseFriends();
 	unknown = daddy.getUnrelated();
 
@@ -264,42 +191,42 @@ void displayAllSeurons(){
 	} 
 
 	// draw friends
-	for (int i = 0; friends[i]; i++){
+	for (int i = 0; myfriends[i]; i++){
 
 		// console.log(friends[i]);
 
 		float r = 200;
 
-		float angle = i * TWO_PI / friends.length;
+		float angle = i * TWO_PI / myfriends.length;
 
   		float x = cx + cos(angle) * r;
   		float y = cy + sin(angle) * r;
 			
-		friends[i].cy = y;
-		friends[i].cx = x;
+		myfriends[i].cy = y;
+		myfriends[i].cx = x;
 		
-		friends[i].couleur = color(127,0,0);
+		myfriends[i].couleur = color(127,0,0);
 
-		friends[i].display();
+		myfriends[i].display();
 	} 
 	
 	// draw followers
-	for (int i = 0; followers[i]; i++){
+	for (int i = 0; myfollowers[i]; i++){
 
 		// console.log(friends[i]);
 
 		float r = 250;
 
-		float angle = i * TWO_PI / followers.length;
+		float angle = i * TWO_PI / myfollowers.length;
 
   		float x = cx + cos(angle) * r*1.5;
   		float y = cy + sin(angle) * r;
 			
-		followers[i].cy = y;
-		followers[i].cx = x;
-		followers[i].couleur = color(127,130,0);
+		myfollowers[i].cy = y;
+		myfollowers[i].cx = x;
+		myfollowers[i].couleur = color(127,130,0);
 
-		followers[i].display();
+		myfollowers[i].display();
 	} 
 
 	// draw unknown

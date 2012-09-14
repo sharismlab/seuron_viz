@@ -76,9 +76,9 @@ class Seuron {
 			console.log(friends.length);
 			// if (friends.length == 0 ) console.log( "------------------------------------ problem found !!! ");
 			// if (friends.length == 0 ) console.log( s.id );
+			console.log( s.id  + " has a level : " + level );
 		}
 
-		// console.log( s.id  + " has a level : " + level );
 
 		Synapse syn;
 		syn = new Synapse( this, s, level );
@@ -124,8 +124,6 @@ class Seuron {
 
 		else createSynapse(follower, 3);
 	}
-
-
 	
 	void getCloseFriends() {
 		_closeFriends = [];
