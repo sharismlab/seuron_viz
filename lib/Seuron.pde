@@ -66,9 +66,9 @@ class Seuron {
 		
 		int level;
 		
-		if ( isFriend( s.id )   ) level = 2;
+		if ( isFriend( s.id )  && isFollower( s.id )  ) level = 1;
+		else if ( isFriend( s.id )   ) level = 2;
 		else if( isFollower( s.id )   ) level = 3;
-		else if ( isFriend( s.id )  && isFollower( s.id )  ) level = 1;
 		else level = 4;
 
 		if( name == null){
@@ -78,7 +78,7 @@ class Seuron {
 			// if (friends.length == 0 ) console.log( s.id );
 			console.log( s.id  + " has a level : " + level );
 		}
-
+		console.log(level);
 
 		Synapse syn;
 		syn = new Synapse( this, s, level );
