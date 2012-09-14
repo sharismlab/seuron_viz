@@ -19,7 +19,12 @@ class Seuron {
 
 	ArrayList<Message> msgs = new ArrayList(); // list of messages
 
-	var synapses = []; // here are stored all relationships
+	// store all ids from twitter
+	var friends= [];
+	var followers = [];
+
+	// here are stored all objects describing relationships
+	var synapses = []; 
 
 	// ghost constructor
 	Seuron( int _id, Object _data, boolean _lookup  ){
@@ -40,7 +45,6 @@ class Seuron {
 		// cy=random(100, 350);
 		radius=35;
 		couleur=color(255,0,0);
-		
 	}
 
 	// constructor for drawing purposes
@@ -58,62 +62,56 @@ class Seuron {
 
 	// create a synapse between this seuron and the Seuron passed, adding to friendship level
 	// add the created synapse into this seuron synapses list
-	void createSynapse( Seuron s, int level ) {
-		// console.log(level);
+	void createSynapse( Seuron s ) {
 		
-		// if(level == 4) console.log ("-- unknow synapse created ");
+		int level;
+		
+		if ( isFriend( s.id )   ) level = 2;
+		else if( isFollower( s.id )   ) level = 3;
+		else if ( isFriend( s.id )  && isFollower( s.id )  ) level = 1;
+		else level = 4;
+
+		if (friends.length == 0 ) console.log( "--------------- --------------------- problem found !!! ");
+		if (friends.length == 0 ) console.log(  s.id  );
+
+		// console.log( s.id  + " has a level : " + level );
+
 		Synapse syn;
-		syn = new Synapse(this, s, level);
-		synapses.push(syn);
-		// if(level == 4) console.log( "from" );
-		// if(level == 4) console.log( this );
-		// if(level == 4) console.log( "to" );
-		// if(level == 4) console.log( s );
+		syn = new Synapse( this, s, level );
 		
-		// if(level == 4) console.log( "total seuron synapses : "+ synapses.length );
-		// // return syn;
+		synapses.push(syn);
 	}
  
-	// check if a seuron is already a friend or follower
-	boolean isCloseFriend( Seuron s ) {
-		boolean isCloseFriend = false;
-		// console.log(s);
-		for (int i = 0; synapses[i]; i++){
-			// check if seurons is already a friend or a follower 
-			if( synapses[i].seuronA.id == s.id || synapses[i].seuronB.id == s.id ) {
-				return true;
-			}
-		}
-	}
-
 	// check if a seuron is a friend of mine
-	boolean isFriend( Seuron s ) {
-		for (int i = 0; synapses[i]; i++){
+	boolean isFriend( int id ) {
+		for (int i = 0; friends[i]; i++){
 			// check if seurons is my friend  
-			if( synapses[i].seuronB.id == s.id && synapses[i].level == 2 ) {
+			if( friends[i] == id ) {
 				return true;
 			}
 		}
+		return false;
 	}
 
 	// check if a seuron is one of my followers
-	boolean isFollower( Seuron s ) {
-		for (int i = 0; synapses[i]; i++){
+	boolean isFollower( int id ) {
+		for (int i = 0; followers[i]; i++){
 			// check if seurons is my follower 
-			if( synapses[i].seuronB.id == s.id && synapses[i].level == 3 ) {
+			if( followers[i] == id ) {
 				return true;
 			}
 		}
+		return false;
 	}
 
-	boolean isUnrelated ( Seuron s ){
-		for (int i = 0; synapses[i]; i++){
-			// check if seurons is my follower 
-			if( synapses[i].seuronB.id != s.id ) {
-				return true;
-			}
-		}
-	}
+	// boolean isUnrelated ( int id ){
+	// 	for (int i = 0; synapses[i]; i++){
+	// 		// check if seurons is my follower 
+	// 		if( synapses[i].seuronB.id != id ) {
+	// 			return true;
+	// 		}
+	// 	}
+	// }
 
 	void addFriend( Seuron friend ) {
 
@@ -136,43 +134,43 @@ class Seuron {
 	// }
 	
 	void getCloseFriends() {
-		friends = [];
+		_closeFriends = [];
 		for (int i = 0; synapses[i]; i++){
 			if (synapses[i].level == 1){
-				friends.push( synapses[i].seuronB );
+				_closeFriends.push( synapses[i].seuronB );
 			}
 		}
-		return friends;
+		return _closeFriends;
 	}
 
 	void getFriends() {
-		friends = [];
+		_friends = [];
 		for (int i = 0; synapses[i]; i++){
 			if (synapses[i].level == 2){
-				friends.push( synapses[i].seuronB );
+				_friends.push( synapses[i].seuronB );
 			}
 		}
-		return friends;
+		return _friends;
 	}
 
 	void getFollowers() {
-		followers = [];
+		_followers = [];
 		for (int i = 0; synapses[i]; i++){
 			if (synapses[i].level == 3){
-				followers.push( synapses[i].seuronB );
+				_followers.push( synapses[i].seuronB );
 			}
 		}
-		return followers;
+		return _followers;
 	}
 
 	void getUnrelated() {
-		unrelated = [];
+		_unrelated = [];
 		for (int i = 0; synapses[i]; i++){
 			if (synapses[i].level == 4){
-				unrelated.push( synapses[i].seuronB );
+				_unrelated.push( synapses[i].seuronB );
 			}
 		}
-		return unrelated;
+		return _unrelated;
 	}
 
 	// return friendship (Synapse) based on an id

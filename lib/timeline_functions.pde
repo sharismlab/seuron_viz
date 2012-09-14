@@ -53,6 +53,8 @@ void analyzeTimeline( Array timeline ) {
 
 void analyzeTweet( Object tweet ) {
 
+	console.log("---- new tweet ----");
+
 	// check what actions can be founded within our tweet
 	// 0:unknown, 1:post, 2:RT, 3:answer, 4:quote(s)
 
@@ -68,18 +70,23 @@ void analyzeTweet( Object tweet ) {
 	}
 
 	// this seuron is active, so if it has no profile info and is not already going to be lookup, and is not in lookup array, add it to lookup
-	if( seurons[from].lookedUp == false && inLookup(seurons[from].id ) == false ) addToLookup( seurons[from].id );
+	// if( seurons[from].lookedUp == false && inLookup(seurons[from].id ) == false ) addToLookup( seurons[from].id );
 
 	// our tweet is a reply
 	if ( tweet.in_reply_to_status_id != null ) {
+		console.log("reply");
 		analyzeReply( from, tweet);
+		
 	} 
 	// our tweet is a RT
 	else if ( tweet.retweeted_status ) {
+		console.log("rt");
 		analyzeRT( from, tweet);
+		
 	}
 	// out tweet is just a post
 	else {
+		console.log("mentions");
 		if(tweet.entities.user_mentions.length>0 ) 
 			analyzeMentions( from, tweet.entities.user_mentions,  seurons[from].id, tweet );
 		// else : nothing happpen bcz no interactions
@@ -106,7 +113,7 @@ void analyzeRT( int _from, Object tweet ){
 	}
 
 	// this seuron is active, so if it has no profile info and is not already going to be lookup, add it to lookup
-	if( seurons[rtFrom].lookedUp == false && inLookup( seurons[rtFrom].id ) == false ) addToLookup(seurons[rtFrom].id);
+	// if( seurons[rtFrom].lookedUp == false && inLookup( seurons[rtFrom].id ) == false ) addToLookup(seurons[rtFrom].id);
 
 	// get existing synapse from reply_guy
 	int synapse = seurons[_from].getSynapse( seurons[ rtFrom ].id );
@@ -114,7 +121,7 @@ void analyzeRT( int _from, Object tweet ){
 	// if synapse doesnt already exist, then it means that the guy is unknown
 	// so we create the synapse with value of 4
 	if( synapse == null ) {
-		seurons[_from].createSynapse( seurons[rtFrom], 4 ) ;
+		seurons[_from].createSynapse( seurons[rtFrom] ) ;
 		for (int i = 0; seurons[_from].synapses[i]; i++){
 			synapse =i;
 		}
@@ -163,9 +170,11 @@ void analyzeReply(  int _from, Object tweet ){
 			replyFrom =i;
 		}
 	}
+	
+	console.log(seurons[replyFrom]);
 
 	// this seuron is active, so if it has no profile info and is not already going to be lookup, add it to lookup
-	if( seurons[replyFrom].lookedUp == false && inLookup(seurons[replyFrom].id ) == false ) addToLookup( seurons[replyFrom].id );
+	// if( seurons[replyFrom].lookedUp == false && inLookup(seurons[replyFrom].id ) == false ) addToLookup( seurons[replyFrom].id );
 
 	// get existing synapse from reply_guy
 	synapse = seurons[_from].getSynapse( seurons[replyFrom].id );
@@ -173,7 +182,7 @@ void analyzeReply(  int _from, Object tweet ){
 	// if synapse doesnt already exist, then it means that the guy is unknown
 	// so we create the synapse with value of 4
 	if( synapse == null ) {
-		seurons[_from].createSynapse( seurons[replyFrom], 4 );
+		seurons[_from].createSynapse( seurons[replyFrom] );
 		// get last id 
 		for (int i = 0; seurons[_from].synapses[i]; i++){
 			synapse =i;
@@ -211,7 +220,7 @@ void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) 
 			} 
 			
 			// this seuron is active, so if it has no profile info and is not already going to be lookup, add it to lookup
-			if( seurons[at].lookedUp == false && inLookup( seurons[at].id ) == false ) addToLookup( seurons[at].id );		
+			// if( seurons[at].lookedUp == false && inLookup( seurons[at].id ) == false ) addToLookup( seurons[at].id );		
 
 			// get existing Friendship 
 			int synapse = seurons[ _from ].getSynapse( seurons[ at ].id );
@@ -219,7 +228,7 @@ void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) 
 			if( synapse == null )  {
 				// create new Seuron
 
-				seurons[ _from ].createSynapse( seurons[at], 4 );
+				seurons[ _from ].createSynapse( seurons[at] );
 				// console.log(seurons[ _from ].createSynapse( seurons[at], 4 ));
 
 				for (int j = 0; seurons[_from].synapses[j]; j++) {
@@ -233,5 +242,4 @@ void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) 
 
 		}
 	}
-
 }

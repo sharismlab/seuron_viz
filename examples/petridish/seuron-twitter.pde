@@ -66,25 +66,28 @@ void setup(){
 	daddy = new Seuron( daddyData.id, daddyData, true );
 	daddy.cx = screenWidth/2;
 	daddy.cy = screenHeight/2;
+	seurons.push(daddy);
+
 	// console.log(daddy);
 
 	// FRIENDS & FOLLOWERS 
 	// create daddy's friends 	
 	Object daddyFriends = getFriends("makio135");	
-	createFriends( daddyFriends.ids );
-	
+	daddy.friends = daddyFriends.ids;
+
 	// create daddy's followers
 	Object daddyFollowers = getFollowers("makio135");
-	createFollowers( daddyFollowers.ids);
-
+	daddy.followers = daddyFollowers.ids;
+	// console.log(daddy.followers);
 
 	console.log("------- before loop into messages --------");
 	console.log( "created seurons : " + seurons.length );
-	console.log( "daddy's close Friends : " + daddy.getCloseFriends().length );
-	console.log( "daddy's Friends : " + daddy.getFriends().length );
-	console.log( "daddy's Followers : " + daddy.getFollowers().length );
-	console.log( "daddy's Unrelated : " + daddy.getUnrelated().length );
+	// console.log( "daddy's close Friends : " + daddy.getCloseFriends().length );
+	// console.log( "daddy's Friends : " + daddy.getFriends().length );
+	// console.log( "daddy's Followers : " + daddy.getFollowers().length );
+	// console.log( "daddy's Unrelated : " + daddy.getUnrelated().length );
 
+	console.log("------- analyze timeline --------");
 
 	// THE TIMELINE
 	// ------------------------------------------
@@ -95,10 +98,12 @@ void setup(){
 	Object daddyTimeline = getTimeline( "makio135" );
 	analyzeTimeline( daddyTimeline );
 	
-	console.log(daddy.synapses);
+	// console.log(daddy.synapses);
 
 	console.log("------- after loop into messages --------");
 	console.log( "created seurons : " + seurons.length );
+
+
 	console.log( "daddy's close Friends : " + daddy.getCloseFriends().length );
 	console.log( "daddy's Friends : " + daddy.getFriends().length );
 	console.log( "daddy's Followers : " + daddy.getFollowers().length );
@@ -111,18 +116,8 @@ void setup(){
 	console.log( "total of active seurons :" + activeSeurons.length );
 	// console.log( activeSeurons );
 
-	// console.log(daddy.synapses);
+	console.log( "total number of daddy synapses : " + daddy.synapses.length);
 
-	//check synapses
-	for (int i = 0; activeSeurons[i]; i++){
-
-		console.log(daddy.synapses[daddy.getSynapse(activeSeurons[i].id)]);
-		if(daddy.synapses[daddy.getSynapse(activeSeurons[i].id)] != undefined) 
-			console.log("friendship level : " + daddy.synapses[daddy.getSynapse(activeSeurons[i].id)].level );
-		
-
-		
-	}
 }
 
 // ------------------------------- MAIN DRAWING FUNCTION
@@ -150,13 +145,13 @@ void draw(){
 	daddy.display();
 
 	// DISPLAY OUR GUYS
-	// if( displayAllSeuron == true) displaySeurons();
+	if( displaySeuron == true) displayAllSeurons();
 
-	if( displaySeuron == true) displayActiveSeurons();
+	// if( displaySeuron == true) displayActiveSeurons();
 }
 
-
 void displayActiveSeurons() {
+
 	for (int i = 0; activeSeurons[i]; i++){
 		
 		float cx = daddy.cx;
@@ -167,7 +162,7 @@ void displayActiveSeurons() {
 		// draw close friends
 		if( daddy.isCloseFriend( activeSeurons[i] ) ){
 
-			// console.log(friends[i]);
+			// console.log("isCloseFriend");
 
 			float r = 100;
 
@@ -184,7 +179,7 @@ void displayActiveSeurons() {
 			activeSeurons[i].display();
 		} 
 		else if( daddy.isFriend( activeSeurons[i] ) ){
-			// console.log(friends[i]);
+			console.log("friend");
 
 			float r = 200;
 
@@ -363,20 +358,20 @@ void lookupUsers() {
 	}
 	url += toLookup[ toLookup.length-1 ];
 
-	console.log( url );
+	// console.log( url );
 
 	console.log("looking for users : " + toLookup.length);
 
 	// console.log(toLookup);
-	/*var aaa;
+	var aaa;
 	if(toLookup.length == 100 ){
-		url="datasamples/makio135_lookup.json";
+		url="datasamples/makio135_lookup_A.json";
 	} else {
-		url="datasamples/makio135_lookup2.json";
+		url="datasamples/makio135_lookup_B.json";
 		aaa  =1 ;
 	}
-	*/
-	url = "datasamples/makio135_lookup_actives.json"
+	
+	// url = "datasamples/makio135_lookup_actives.json"
 
 	$.getJSON(url, function(data) {
 		console.log("JSON LOOKUP : got " + data.length + " users profiles")
@@ -386,17 +381,16 @@ void lookupUsers() {
 		});
 		displaySeuron = true;
 
-		/*
+		
 		if( aaa ==1 ) {
 			console.log("------ go go go, VIZ !");
 			displaySeuron = true; 
 			
 			// checkData();
 		}
-		*/
+		
 	});
 }
-
 
 int dateMin = (new Date()).getTime(); // Return the number of milliseconds since 1970/01/01:
 int dateMax = 0;

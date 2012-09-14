@@ -1,9 +1,3 @@
-// create daddy
-void createDaddy( Object daddyData ){
-	
-	console.log("daddy was created;");
-}
-
 // create daddy's friends 	
 void createFriends( Array daddyFriends) {
 	for (int i = 0; i< daddyFriends.length; i++){
@@ -55,7 +49,7 @@ void createSeuron( int id, Object data, boolean lookup ) {
 	// sinon on fait le lookup de tous les followers + friends = inutile!
 
 	// if specified, add to lookup list 
-	// if( lookup == false ) addToLookup( id );
+	if( lookup == false ) addToLookup( id );
 		
 	return s;
 }
