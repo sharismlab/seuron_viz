@@ -87,10 +87,10 @@ class Seuron {
 	}
  
 	// check if a seuron is a friend of mine
-	boolean isFriend( int id ) {
+	boolean isFriend( int _id ) {
 		for (int i = 0; friends[i]; i++){
 			// check if seurons is my friend  
-			if( friends[i] == id ) {
+			if( friends[i] == _id ) {
 				return true;
 			}
 		}
@@ -98,10 +98,10 @@ class Seuron {
 	}
 
 	// check if a seuron is one of my followers
-	boolean isFollower( int id ) {
+	boolean isFollower( int _id ) {
 		for (int i = 0; followers[i]; i++){
 			// check if seurons is my follower 
-			if( followers[i] == id ) {
+			if( followers[i] == _id ) {
 				return true;
 			}
 		}
@@ -124,7 +124,10 @@ class Seuron {
 
 		else createSynapse(follower, 3);
 	}
+
 	
+
+	///////////////////////////////////////Return Seuron[] 
 	void getCloseFriends() {
 		_closeFriends = [];
 		for (int i = 0; synapses[i]; i++){
@@ -165,13 +168,16 @@ class Seuron {
 		return _unrelated;
 	}
 
-	// return friendship (Synapse) based on an id
+
+
+	// return Synapse index based on another Seuron id
 	void getSynapse( int id ) {
 		for (int i = 0; synapses[i]; i++){
 			if(synapses[i].seuronB.id == id) return i;
 		};
 		return null;
 	}
+
 
 	// add data to seuron, then convert and store it
 	void populate( Object _data ) {
@@ -180,15 +186,17 @@ class Seuron {
 		splitData( data );
 	}
 
-	
-	// add a message into list
-	void addMessage( Transmitter trans, Object data, int type ) {
-		// console.log(msg);
-		msgs.add( new Message(trans, data, type) );
+
+	//////////////////////////////////Fonctions d'affichage
+	void showAvatar() {
+		// this function should return display avatar from Twitter
+		imageMode(CENTER);
+		if(avatar.width>1){
+			image(avatar,cx,cy,radius-10,radius-10);
+		}
 	}
 
-
-	void drawNucleus() { 
+	void display() {
 		// begin drawing nucleus
 		stroke(couleur);
 		strokeWeight(1);
@@ -209,23 +217,7 @@ class Seuron {
 	}
 
 
-	void showAvatar() {
-		// this function should return display avatar from Twitter
-		imageMode(CENTER);
-		if(avatar.width>1){
-			image(avatar,cx,cy,radius-10,radius-10);
-		}
-	}
-
-
-	void display() {
-		drawNucleus();
-		//drawAxon();
-	}
-
-
 	////////////////////////////////// Méthode pour récupérer les données JSon
-	
 	String name, screen_name, location, description, url;
 
 	boolean hasAvatar = false;
@@ -269,5 +261,4 @@ class Seuron {
 		return tmp;
 	}
 
-	
 }
