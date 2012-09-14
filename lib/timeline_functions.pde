@@ -171,7 +171,7 @@ void analyzeReply(  int _from, Object tweet ){
 		}
 	}
 	
-	console.log(seurons[replyFrom]);
+	// console.log(seurons[replyFrom]);
 
 	// this seuron is active, so if it has no profile info and is not already going to be lookup, add it to lookup
 	// if( seurons[replyFrom].lookedUp == false && inLookup(seurons[replyFrom].id ) == false ) addToLookup( seurons[replyFrom].id );
