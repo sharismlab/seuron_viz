@@ -51,8 +51,11 @@ void createSeuron( int id, Object data, boolean lookup ) {
 	seuronIds.push( id );
 	// console.log( s.lookup);
 
+	// ça ne devrait pas etre fait ici mais dans la timeline !!
+	// sinon on fait le lookup de tous les followers + friends = inutile!
+
 	// if specified, add to lookup list 
-	if( lookup == false ) addToLookup( id );
+	// if( lookup == false ) addToLookup( id );
 		
 	return s;
 }
@@ -72,10 +75,22 @@ void seuronExists( int id ) {
 	return existence
 }
 
+void inLookup( int id ) {
+	// boolean in = false;
+	for (int i = 0; toLookup[i]; i++){
+		if(id == toLookup[i]) return true;
+	}
+	return false;
+}
+
 // add seuron to lookup list
 void addToLookup( int id ) {
 	// console.log(id);
 	toLookup.push( id );
+
+	// flag seurons as active
+	int i = seuronExists(id) ;
+	activeSeurons.push(seurons[i]);
 
 	// requests users from quotes
 	if( toLookup.length == 100 ) {
@@ -103,4 +118,3 @@ void parseUser( Object userData) {
 		// console.log ("lookup : "+ i.lookup);
 	}
 }
-

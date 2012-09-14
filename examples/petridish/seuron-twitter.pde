@@ -6,8 +6,11 @@ processing + twitter + jquery
 
 PFont font;
 
-// A global array to store all seurons
+// A global array to store all seurons, including unactive
 var seurons = [];
+
+// A global id to store all ACTIVE seurons 
+var activeSeurons = [];
 
 // A simple array storing only ids for all seurons
 var seuronIds = [];
@@ -92,6 +95,7 @@ void setup(){
 	Object daddyTimeline = getTimeline( "makio135" );
 	analyzeTimeline( daddyTimeline );
 	
+	console.log(daddy.synapses);
 
 	console.log("------- after loop into messages --------");
 	console.log( "created seurons : " + seurons.length );
@@ -102,8 +106,23 @@ void setup(){
 
 	// console.log(daddy);
 
-	console.log( "total of seurons created :" + seurons.length );	
+	console.log( "total of seurons created :" + seurons.length );
 	console.log("total number of messages :" + messages.length);
+	console.log( "total of active seurons :" + activeSeurons.length );
+	// console.log( activeSeurons );
+
+	// console.log(daddy.synapses);
+
+	//check synapses
+	for (int i = 0; activeSeurons[i]; i++){
+
+		console.log(daddy.synapses[daddy.getSynapse(activeSeurons[i].id)]);
+		if(daddy.synapses[daddy.getSynapse(activeSeurons[i].id)] != undefined) 
+			console.log("friendship level : " + daddy.synapses[daddy.getSynapse(activeSeurons[i].id)].level );
+		
+
+		
+	}
 }
 
 // ------------------------------- MAIN DRAWING FUNCTION
@@ -131,10 +150,91 @@ void draw(){
 	daddy.display();
 
 	// DISPLAY OUR GUYS
-	if( displaySeuron == true) displaySeurons();
+	// if( displayAllSeuron == true) displaySeurons();
+
+	if( displaySeuron == true) displayActiveSeurons();
 }
 
-void displaySeurons(){
+
+void displayActiveSeurons() {
+	for (int i = 0; activeSeurons[i]; i++){
+		
+		float cx = daddy.cx;
+		float cy = daddy.cy;
+
+		// console.log(daddy.synapses[daddy.getSynapse(activeSeurons[i].id)]);
+
+		// draw close friends
+		if( daddy.isCloseFriend( activeSeurons[i] ) ){
+
+			// console.log(friends[i]);
+
+			float r = 100;
+
+			float angle = i * TWO_PI / 30;
+
+	  		float x= cx + cos(angle) * r;
+	  		float y = cy + sin(angle) * r;
+				
+			activeSeurons[i].cy = y;
+			activeSeurons[i].cx = x;
+
+			activeSeurons[i].couleur= color(255,200,200);
+
+			activeSeurons[i].display();
+		} 
+		else if( daddy.isFriend( activeSeurons[i] ) ){
+			// console.log(friends[i]);
+
+			float r = 200;
+
+			float angle = i * TWO_PI / 30;
+
+	  		float x = cx + cos(angle) * r;
+	  		float y = cy + sin(angle) * r;
+				
+			activeSeurons[i].cy = y;
+			activeSeurons[i].cx = x;
+			
+			activeSeurons[i].couleur = color(127,0,0);
+
+			activeSeurons[i].display();
+		} 
+		else if( daddy.isFollower( activeSeurons[i] ) ){
+
+			float r = 250;
+
+			float angle = i * TWO_PI / 30;
+
+	  		float x = cx + cos(angle) * r*1.5;
+	  		float y = cy + sin(angle) * r;
+				
+			activeSeurons[i].cy = y;
+			activeSeurons[i].cx = x;
+			activeSeurons[i].couleur = color(127,130,0);
+
+			activeSeurons[i].display();
+		} 
+		else {
+			// draw unknown
+
+			float r = 250;
+
+			float angle = i * TWO_PI / 30;
+
+	  		float x = cx + cos(angle) * r*3;
+	  		float y = cy + sin(angle) * r;
+				
+			activeSeurons[i].cy = y;
+			activeSeurons[i].cx = x;
+
+			activeSeurons[i].display();
+		}
+	// activeSeurons[i].display();
+	}
+}
+
+void displayAllSeurons(){
 
 	// drawSeurons
 	friends = daddy.getFriends();
@@ -263,18 +363,20 @@ void lookupUsers() {
 	}
 	url += toLookup[ toLookup.length-1 ];
 
-	// console.log( url );
+	console.log( url );
 
 	console.log("looking for users : " + toLookup.length);
 
 	// console.log(toLookup);
-	var aaa;
+	/*var aaa;
 	if(toLookup.length == 100 ){
 		url="datasamples/makio135_lookup.json";
 	} else {
 		url="datasamples/makio135_lookup2.json";
 		aaa  =1 ;
 	}
+	*/
+	url = "datasamples/makio135_lookup_actives.json"
 
 	$.getJSON(url, function(data) {
 		console.log("JSON LOOKUP : got " + data.length + " users profiles")
@@ -282,13 +384,16 @@ void lookupUsers() {
 			//populate seurons with twitter data
 			parseUser( item );
 		});
-		
+		displaySeuron = true;
+
+		/*
 		if( aaa ==1 ) {
 			console.log("------ go go go, VIZ !");
 			displaySeuron = true; 
 			
 			// checkData();
 		}
+		*/
 	});
 }
 

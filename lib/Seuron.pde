@@ -8,19 +8,6 @@ All relationships are stored in an Array of Synapses that connects it to other s
 
 class Seuron {
 	
-	// int level; 
-
-	// float ax, ay; //axon terminal coordinates
-	// float e= 2;  // axon excitation : should depend on incoming signals
-	// ArrayList<Dendrite> dendrites = new ArrayList(); // store all dendrites inside
-	
-	// var friends = [];
-	// var followers = [];
-	// var unknowns = [];
-	// var closeFriendsIds = []; // ids of close friends array
-	// var closeFriendsPos = []; // position of close friends in friends Array 
-	
-
 	int id;
 	boolean lookedUp = false ; // by default, Seuron should be looked up
 	Object data;
@@ -40,19 +27,8 @@ class Seuron {
 		id =_id;  // id from twitter
 
 		if ( _data != null ) data = _data; // add data from twitter 
-		// else console.log( data);
-		
-		
-		// lookup = false;
-		// console.log(_lookup);
-
-		// erase default value if specified
-		// if( _lookup ) lookup = _lookup
 
 		lookedUp = _lookup;
-
-		// console.log(lookup);
-
 
 		//fonction qui assigne les données à des variables de Seuron
 		if( data != null ) splitData(data); 
@@ -83,10 +59,19 @@ class Seuron {
 	// create a synapse between this seuron and the Seuron passed, adding to friendship level
 	// add the created synapse into this seuron synapses list
 	void createSynapse( Seuron s, int level ) {
-		// console.log ("synapse created for Seuron : " + this.id);
+		// console.log(level);
+		
+		// if(level == 4) console.log ("-- unknow synapse created ");
 		Synapse syn;
 		syn = new Synapse(this, s, level);
-		synapses.push(syn);	
+		synapses.push(syn);
+		// if(level == 4) console.log( "from" );
+		// if(level == 4) console.log( this );
+		// if(level == 4) console.log( "to" );
+		// if(level == 4) console.log( s );
+		
+		// if(level == 4) console.log( "total seuron synapses : "+ synapses.length );
+		// // return syn;
 	}
  
 	// check if a seuron is already a friend or follower
