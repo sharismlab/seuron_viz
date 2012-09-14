@@ -67,6 +67,7 @@ void setup(){
 	daddy.cx = screenWidth/2;
 	daddy.cy = screenHeight/2;
 	seurons.push(daddy);
+	seuronIds.push(daddy.id);
 
 	// console.log(daddy);
 
