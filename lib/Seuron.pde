@@ -71,10 +71,12 @@ class Seuron {
 		else if ( isFriend( s.id )  && isFollower( s.id )  ) level = 1;
 		else level = 4;
 
-		console.log(name + "   " + id);
-		console.log(friends.length);
-		// if (friends.length == 0 ) console.log( "------------------------------------ problem found !!! ");
-		// if (friends.length == 0 ) console.log( s.id );
+		if( name == null){
+			console.log(name + "   " + id);
+			console.log(friends.length);
+			// if (friends.length == 0 ) console.log( "------------------------------------ problem found !!! ");
+			// if (friends.length == 0 ) console.log( s.id );
+		}
 
 		// console.log( s.id  + " has a level : " + level );
 
@@ -106,14 +108,6 @@ class Seuron {
 		return false;
 	}
 
-	// boolean isUnrelated ( int id ){
-	// 	for (int i = 0; synapses[i]; i++){
-	// 		// check if seurons is my follower 
-	// 		if( synapses[i].seuronB.id != id ) {
-	// 			return true;
-	// 		}
-	// 	}
-	// }
 
 	void addFriend( Seuron friend ) {
 
@@ -131,9 +125,7 @@ class Seuron {
 		else createSynapse(follower, 3);
 	}
 
-	// void addUnrelated( Seuron unrelated  ) {
-	// 	createSynapse(unrelated, 4);
-	// }
+
 	
 	void getCloseFriends() {
 		_closeFriends = [];
@@ -218,35 +210,6 @@ class Seuron {
 		text(name, cx, hasAvatar?cy+radius:cy);
 	}
 
-
-	// function to store dendrites inside seuron
-	/*
-		void addDendrites( Dendrit d ) {
-			dendrites.add(d);
-		}
-
-		void showDendrites() {
-			for (int i=0; i< dendrites.size(); i++) {
-				( (Dendrit) dendrites.get(i) ).draw();
-			}
-		}
-
-		void drawAxon() {
-			ax = cx + radius*2;// + random(12);
-			ay = cy + radius*2;// + random(12);
-
-			stroke(couleur,75);
-			strokeWeight(5);
-			line(cx,cy,ax,ay);
-			// scribble(cx,cy,ax,ay,5,20);
-			
-			// axon terminal
-			fill(couleur,75);
-			ellipse(ax,ay,20,20);
-			
-			// println(this);
-		}
-	*/
 
 	void showAvatar() {
 		// this function should return display avatar from Twitter
