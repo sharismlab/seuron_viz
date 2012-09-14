@@ -144,8 +144,13 @@ void draw(){
 
 	// DISPLAY OUR GUYS
 	if( displaySeuron == true) displayAllSeurons();
+	
+	// for (int i = 0; i<seurons.length; i++){
+	// 	seurons[i].display();
+		
+	// }
 
-	// if( displaySeuron == true) displayActiveSeurons();
+	
 }
 
 

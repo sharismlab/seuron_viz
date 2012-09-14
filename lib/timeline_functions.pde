@@ -52,9 +52,6 @@ void analyzeTimeline( Array timeline ) {
 }
 
 void analyzeTweet( Object tweet ) {
-
-	// console.log("---- new tweet ----");
-
 	// check what actions can be founded within our tweet
 	// 0:unknown, 1:post, 2:RT, 3:answer, 4:quote(s)
 
@@ -69,9 +66,6 @@ void analyzeTweet( Object tweet ) {
 		}
 	}
 
-	// this seuron is active, so if it has no profile info and is not already going to be lookup, and is not in lookup array, add it to lookup
-	// if( seurons[from].lookedUp == false && inLookup(seurons[from].id ) == false ) addToLookup( seurons[from].id );
-
 	// our tweet is a reply
 	if ( tweet.in_reply_to_status_id != null ) {
 		// console.log("reply");
@@ -82,9 +76,10 @@ void analyzeTweet( Object tweet ) {
 	else if ( tweet.retweeted_status ) {
 		
 		// first analyze original message
-		analyzeTweet( tweet.retweeted_status);
+		analyzeTweet( tweet.retweeted_status );
+
 		//then analyze retweeted message
-		analyzeRT( from, tweet, tweet.retweeted_status.entities.user_mentions);
+		analyzeRT( from, tweet);
 		
 	}
 	// out tweet is just a post
@@ -97,7 +92,7 @@ void analyzeTweet( Object tweet ) {
 	}
 }
 
-void analyzeRT( int _from, Object tweet, Array exclude_ids ){
+void analyzeRT( int _from, Object tweet ){
 	
 	// we should first store RT, then analyze retweeted_status as a new post
 	// console.log("THIS IS A RT");
@@ -135,17 +130,21 @@ void analyzeRT( int _from, Object tweet, Array exclude_ids ){
 
 	if(tweet.entities.user_mentions.length>0 ){
 		var tempMentions= [];
-		boolean mentionExist;
 		for (int i = 0; i<tweet.entities.user_mentions.length; i++){
+			tempMentions.push(tweet.entities.user_mentions[i]);
+		}
+
+		boolean mentionExist;
+		for (int j = 0; j<tweet.retweeted_status.entities.user_mentions.length; j++){
 			mentionExist = false;
-			for (int j = 0; j<exclude_ids.length; j++){
-				if( tweet.entities.user_mentions[i].id == exclude_ids[i]){
+			for (int i = 0; i<tweet.entities.user_mentions.length; i++){
+				if( tweet.retweeted_status.entities.user_mentions[j] == tweet.entities.user_mentions[i].id){
 					mentionExist = true;
 				}
 			}
-			if(!mentionExist) tempMentions.push(tweet.entities.user_mentions[i]);
+			if(!mentionExist) tempMentions.push(tweet.retweeted_status.entities.user_mentions[j]);
 		}
-		analyzeMentions( _from, tweet.entities.user_mentions, tweet.in_reply_to_user_id, tweet );
+		analyzeMentions( _from, tempMentions, tweet.in_reply_to_user_id, tweet );
 	}
 
 	// Now we can process the original message, as the data is inside
