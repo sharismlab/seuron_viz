@@ -53,7 +53,7 @@ void analyzeTimeline( Array timeline ) {
 
 void analyzeTweet( Object tweet ) {
 
-	console.log("---- new tweet ----");
+	// console.log("---- new tweet ----");
 
 	// check what actions can be founded within our tweet
 	// 0:unknown, 1:post, 2:RT, 3:answer, 4:quote(s)
@@ -74,19 +74,19 @@ void analyzeTweet( Object tweet ) {
 
 	// our tweet is a reply
 	if ( tweet.in_reply_to_status_id != null ) {
-		console.log("reply");
+		// console.log("reply");
 		analyzeReply( from, tweet);
 		
 	} 
 	// our tweet is a RT
 	else if ( tweet.retweeted_status ) {
-		console.log("rt");
+		// console.log("rt");
 		analyzeRT( from, tweet);
 		
 	}
 	// out tweet is just a post
 	else {
-		console.log("mentions");
+		// console.log("mentions");
 		if(tweet.entities.user_mentions.length>0 ) 
 			analyzeMentions( from, tweet.entities.user_mentions,  seurons[from].id, tweet );
 		// else : nothing happpen bcz no interactions

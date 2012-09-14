@@ -71,8 +71,10 @@ class Seuron {
 		else if ( isFriend( s.id )  && isFollower( s.id )  ) level = 1;
 		else level = 4;
 
-		if (friends.length == 0 ) console.log( "--------------- --------------------- problem found !!! ");
-		if (friends.length == 0 ) console.log(  s.id  );
+		console.log(name + "   " + id);
+		console.log(friends.length);
+		// if (friends.length == 0 ) console.log( "------------------------------------ problem found !!! ");
+		// if (friends.length == 0 ) console.log( s.id );
 
 		// console.log( s.id  + " has a level : " + level );
 
