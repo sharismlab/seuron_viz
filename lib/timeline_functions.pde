@@ -80,8 +80,11 @@ void analyzeTweet( Object tweet ) {
 	} 
 	// our tweet is a RT
 	else if ( tweet.retweeted_status ) {
-		// console.log("rt");
-		analyzeRT( from, tweet);
+		
+		// first analyze original message
+		analyzeTweet( tweet.retweeted_status);
+		//then analyze retweeted message
+		analyzeRT( from, tweet, tweet.retweeted_status.entities.user_mentions);
 		
 	}
 	// out tweet is just a post
@@ -94,7 +97,7 @@ void analyzeTweet( Object tweet ) {
 	}
 }
 
-void analyzeRT( int _from, Object tweet ){
+void analyzeRT( int _from, Object tweet, Array exclude_ids ){
 	
 	// we should first store RT, then analyze retweeted_status as a new post
 	// console.log("THIS IS A RT");
@@ -129,16 +132,28 @@ void analyzeRT( int _from, Object tweet ){
 	createMessage( twitterTransmitter, seurons[_from].synapses[synapse], 2, tweet );
 
 	// deal with other user that has been quoted in the message
-	if(tweet.entities.user_mentions.length>0){
+
+	if(tweet.entities.user_mentions.length>0 ){
+		var tempMentions= [];
+		boolean mentionExist;
+		for (int i = 0; i<tweet.entities.user_mentions.length; i++){
+			mentionExist = false;
+			for (int j = 0; j<exclude_ids.length; j++){
+				if( tweet.entities.user_mentions[i].id == exclude_ids[i]){
+					mentionExist = true;
+				}
+			}
+			if(!mentionExist) tempMentions.push(tweet.entities.user_mentions[i]);
+		}
 		analyzeMentions( _from, tweet.entities.user_mentions, tweet.in_reply_to_user_id, tweet );
 	}
 
 	// Now we can process the original message, as the data is inside
 	// change context to original message
-	Object original_tweet  = tweet.retweeted_status;
+	// Object original_tweet  = tweet.retweeted_status;
 
-	// analyze original message
-	analyzeTweet(original_tweet);
+	// // analyze original message
+	// analyzeTweet(original_tweet);
 }
 
 void analyzeReply(  int _from, Object tweet ){

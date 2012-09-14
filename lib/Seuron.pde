@@ -39,8 +39,8 @@ class Seuron {
 		if( data != null ) splitData(data); 
 
 		// default vars for display
-		cx = random(20,screenWidth-50)
-		cy = random(100, screenHeight-150)
+		cx = 100;
+		cy = 100;
 		// cx=random(screenWidth);
 		// cy=random(100, 350);
 		radius=35;

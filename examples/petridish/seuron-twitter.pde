@@ -164,6 +164,7 @@ void displayAllSeurons(){
 	close  = daddy.getCloseFriends();
 	unknown = daddy.getUnrelated();
 
+
 	float cx = screenWidth/2;
 	float cy = screenHeight/2;
 	
