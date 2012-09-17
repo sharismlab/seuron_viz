@@ -1,3 +1,4 @@
+/*
 // create daddy's friends 	
 void createFriends( Array daddyFriends) {
 	for (int i = 0; i< daddyFriends.length; i++){
@@ -31,7 +32,7 @@ void createFollowers( Array daddyFollowers) {
 
 	}
 }
-
+*/
 // create a new seuron with minimum data
 // and add it to a global array containing all seurons
 void createSeuron( int id, Object data, boolean lookup ) {
