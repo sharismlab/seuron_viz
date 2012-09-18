@@ -64,7 +64,7 @@ void setup(){
 	smooth();
 
 	// for the caption
-	colors = [ color(255, 255, 255), color(255, 0, 255), color(255, 255, 0), color(0, 255, 255)];
+	colors = [ #c7eab4, #7fcebb, #41b7c5, #2d7fb9 ];
 	captions = [
 		"Friend & Follow", 
 		"Following", 
@@ -84,6 +84,7 @@ void setup(){
 	daddy = new Seuron( daddyData.id, daddyData, true );
 	daddy.cx = width/2;
 	daddy.cy = height/2;
+	daddy.couleur = #ffffcb;
 	seurons.push(daddy);
 	seuronIds.push(daddy.id);
 
@@ -109,7 +110,6 @@ void setup(){
 	// console.log(daddyMentions);
 	analyzeTimelineMentions(daddyMentions);
 
-
 	Object daddyTimeline = getTimeline( "makio135" );
 	analyzeTimeline(daddyTimeline);
 	
@@ -122,7 +122,7 @@ void draw(){
 	// DRAW BACKGROUND
 	var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
 	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
-	gradient.addColorStop(1,'rgba(10, 10, 10, 1)');
+	gradient.addColorStop(1,'rgba(30, 30, 30, 1)'); 
 	ctx.fillStyle = gradient; 
 	ctx.fillRect( 0, 0, width, height ); 
 
@@ -134,10 +134,9 @@ void draw(){
 	 fill(255);
 	 text("Press Mouse Button To Show Messages", 15,height-90);
 	 textAlign(RIGHT);
-	 text("Caption".toUpperCase(), width-15,25);
 	 for (int i = 0; colors[i]; i++){
 	 	fill(colors[i]);
-	 	text(captions[i], width-15, i*15+45);
+	 	text(captions[i].toUpperCase(), width-15, i*15+25);
 	 }
 
 	// draw daddy
@@ -150,10 +149,17 @@ void draw(){
 
 
 void displayAllSeurons(){
-	for(int i=1; i<5; i++){
-		stroke(0,150);
+	for(int i=4; i>=0; i--){
+		strokeWeight(.6*i);
+		stroke(30);
 		noFill();
 		ellipse(width/2, height/2, 75+i*150, 75+i*150);
+		if(i<=3){
+			line(width/2,height/2-75/2-i*75, width-textWidth((captions[i]).toUpperCase())-30,height/2-75/2-i*75);
+			fill(colors[i]);
+			textAlign(RIGHT);
+		 	text(captions[i].toUpperCase(), width-15, height/2-70/2-i*75);
+		}
 	}
 
 	//draw messages
@@ -283,9 +289,9 @@ void lookupUsers() {
 	// console.log(toLookup);
 	var aaa;
 	if(toLookup.length == 100 ){
-		url="datasamples/clemsos_lookup_A.json";
+		url="datasamples/makio135_lookup_A.json";
 	} else {
-		url="datasamples/clemsos_lookup_B.json";
+		url="datasamples/makio135_lookup_B.json";
 		aaa  =1 ;
 	}
 	
