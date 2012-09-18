@@ -1,15 +1,15 @@
 /*
-Message class
+Interaction class
 
-Actions are defined by the following int
+	Actions are defined by the following int
 			0 :		unknown
 			1 :		post
 			2 : 	RT
 			3 :		answer
-			4 :		quote(s)
+			4 :		quote(s) - at
 */
 
-class Message {  
+class Interaction {  
 
 	int action;
 	Transmitter service;
@@ -17,10 +17,10 @@ class Message {
 	var mentions = [];// à dev
 	Synapse synapse;
 	color[] colors = [ color(255, 255, 255), color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(102, 85, 100) ];
-// int  id;
+	// int  id;
 
 
-	Message( Transmitter _service, Synapse _synapse, int _action, Object _data ) {
+	Interaction( Transmitter _service, Synapse _synapse, int _action, Object _data ) {
 
 		service = _service;
 		synapse = _synapse; // relationships
@@ -30,7 +30,6 @@ class Message {
 		if( service.name.equals("Twitter") ) {
 				parseTwitterData( data );		
 		}
-		
 	}
 
 	void parseTwitterData( Object data ) {

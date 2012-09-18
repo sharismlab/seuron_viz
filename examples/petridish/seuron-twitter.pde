@@ -17,9 +17,12 @@ var toLookup = [];
 
 // all our messages Ids
 var messageIds = [];
-
 // all our messages 
 var messages = [];
+
+// store all our interactions
+var interactions = [];
+var interactionIds = [];
 
 // messages to be looked up
 var messagesLookup = [];
@@ -28,7 +31,7 @@ var messagesLookup = [];
 Seuron daddy;
 
 // to dispaly messages
-boolean showMessage = false;
+boolean showInteraction = false;
 boolean displaySeuron = false; // just turn this on to show seuron
 
 
@@ -267,16 +270,16 @@ void displayAllSeurons(){
 
 
 	//draw messages
-	if( showMessage ) {
-		for (int i = 0; messages[i]; i++){
-			messages[i].display();
+	if( showInteraction ) {
+		for (int i = 0; interactions[i]; i++){
+			interactions[i].display();
 		 }
 	}
 
 	if(mousePressed) {
-		showMessage = true;
+		showInteraction = true;
 	} else {
-		showMessage = false;
+		showInteraction = false;
 	}
 }
 

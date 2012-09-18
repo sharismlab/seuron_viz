@@ -124,7 +124,7 @@ void analyzeRT( int _from, Object tweet ){
 			synapse =i;
 		}
 	} 
-	createMessage( twitterTransmitter, seurons[_from].synapses[synapse], 2, tweet );
+	createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 2, tweet );
 
 	// deal with other user that has been quoted in the message
 
@@ -204,7 +204,7 @@ void analyzeReply(  int _from, Object tweet ){
 	}
 
 	// now create the message 
-	createMessage( twitterTransmitter, seurons[_from].synapses[synapse], 3, tweet );
+	createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 3, tweet );
 
 	// create other relations with guys quoted in the message 
 	if(tweet.entities.user_mentions.length>0){
@@ -252,7 +252,7 @@ void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) 
 				// console.log( "fater : " + synapse );
 			}
 			
-			createMessage( twitterTransmitter, seurons[_from].synapses[synapse], 4, data );
+			createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 4, data );
 
 		}
 	}
