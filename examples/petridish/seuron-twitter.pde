@@ -21,6 +21,10 @@ var messageIds = [];
 var messages = [];
 
 // store all our messages
+var interactions = [];
+var interactionIds = [];
+
+// store all our messages
 var threads = [];
 
 // messages to be looked up
