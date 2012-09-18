@@ -25,7 +25,7 @@ class Seuron {
 		// drawings var
 		color couleur;
 		int index;
-		float cx, cy, radius;
+		float cx, cy, tarX, tarY, easing, radius;
 		float TimelinePosX=0, TimelinePosY=0;
 		boolean isSelected = false;
 
@@ -44,10 +44,10 @@ class Seuron {
 			if(data != null) splitData(data); 
 
 			// default vars for display
-			cx = 100;
-			cy = 100;
-			// cx=random(screenWidth);
-			// cy=random(100, 350);
+			cx = width/2;
+			cy = height/2;
+			tarX = width/2;
+			tarY = height/2;
 			radius=20;
 		}
 
@@ -220,6 +220,8 @@ class Seuron {
 
 	////////////////////////DRAW FUNCTIONS
 		void display() {
+			cx=ease(cx, tarX, easing);
+			cy=ease(cy, tarY, easing);
 			// begin drawing nucleus
 			noStroke();
 			fill(couleur,160);
@@ -238,13 +240,15 @@ class Seuron {
 			textAlign(CENTER);
 			text(name, cx, cy+4);
 
-			rectMode(CORNER);
 			// info box
 			if(textWidth(description)>10) descHeight=1+floor(textWidth("Description: "+description)/400);
 			else descHeight=0;
-			fill(255,150);
+			rectMode(CORNER);
 			noStroke();
-			rect(15,15,460,33+descHeight*14);
+			fill(0,150);
+			rect(20,20,460,33+descHeight*14,3,3);
+			fill(255,230);
+			rect(15,15,460,33+descHeight*14,3,3);
 			fill(0);
 			textAlign(LEFT);
 			text("User: "+name+"\nDate: "+date+"\nDescription: "+description,20,20,400,30+descHeight*14);
@@ -257,5 +261,12 @@ class Seuron {
 			if(avatar.width>1){
 				ctx.drawImage(avatar,448,20,22,23);
 			}
+		}
+
+		//fonction d'interpolation de valeur lissée
+		float ease(float variable,float target,float easingVal) {
+			float d = target - variable;
+			if(abs(d)>1) variable+= d*easingVal;
+			return variable;
 		}
 }
