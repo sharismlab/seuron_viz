@@ -20,7 +20,7 @@ class Seuron {
 		var followers = [];
 
 		// here are stored all objects describing relationships
-		var synapses = []; 
+		var synapses = [];
 
 		// drawings var
 		color couleur;
@@ -32,27 +32,29 @@ class Seuron {
 
 	////////////////////////CONSTRUCTORS
 		// ghost constructor
-		Seuron( int _id, Object _data, boolean _lookup  ){
+		Seuron(int _id, Object _data, boolean _lookup){
 
 			id =_id;  // id from twitter
 
-			if ( _data != null ) data = _data; // add data from twitter 
+			if(_data!=null) data = _data; // add data from twitter 
 
 			lookedUp = _lookup;
 
 			//fonction qui assigne les données à des variables de Seuron
-			if( data != null ) splitData(data); 
+			if(data != null) splitData(data); 
 
 			// default vars for display
 			cx = 100;
 			cy = 100;
 			// cx=random(screenWidth);
 			// cy=random(100, 350);
-			radius=35;
+			radius=20;
 			couleur=color(255,0,0);
 		}
+
+		/*
 		// constructor for drawing purposes
-		Seuron( float _x, float _y, float _R, color _C, Object data) {
+		Seuron(float _x, float _y, float _R, color _C, Object data) {
 			// console.log(data);
 			couleur = color(_C);
 			cx = _x;
@@ -63,13 +65,13 @@ class Seuron {
 
 			splitData(data); //fonction qui assigne les données à des variables de Seuron
 		}
+		*/
 
 
 	////////////////////////LOGIC FUNCTIONS
 		// create a synapse between this seuron and the Seuron passed, adding to friendship level
 		// add the created synapse into this seuron synapses list
 		void createSynapse( Seuron s ) {
-			
 			int level;
 			
 			if ( isFriend( s.id )  && isFollower( s.id )  ) level = 1;
@@ -82,7 +84,7 @@ class Seuron {
 			
 			synapses.push(syn);
 		}
-	 
+	
 
 		// check if a seuron is a friend of mine
 		boolean isFriend( int _id ) {
@@ -94,6 +96,7 @@ class Seuron {
 			}
 			return false;
 		}
+
 		// check if a seuron is one of my followers
 		boolean isFollower( int _id ) {
 			for (int i = 0; followers[i]; i++){
@@ -107,12 +110,12 @@ class Seuron {
 
 
 		void addFriend( Seuron friend ) {
-
 			// check if he is a follower
 			// if ( isCloseFriend( friend ) ) createSynapse(friend, 1);
 			if ( isFriend( friend ) && isFollower( friend ) ) createSynapse(friend, 1);
 			else createSynapse(friend, 2);		
 		}
+
 		void addFollower( Seuron follower ) {
 			// check if he is a follower
 			// console.log(follower);
@@ -132,6 +135,7 @@ class Seuron {
 			}
 			return _closeFriends;
 		}
+
 		void getFriends() {
 			_friends = [];
 			for (int i = 0; synapses[i]; i++){
@@ -141,6 +145,7 @@ class Seuron {
 			}
 			return _friends;
 		}
+
 		void getFollowers() {
 			_followers = [];
 			for (int i = 0; synapses[i]; i++){
@@ -150,6 +155,7 @@ class Seuron {
 			}
 			return _followers;
 		}
+
 		void getUnrelated() {
 			_unrelated = [];
 			for (int i = 0; synapses[i]; i++){
@@ -231,37 +237,41 @@ class Seuron {
 	////////////////////////DRAW FUNCTIONS
 		void display() {
 			// begin drawing nucleus
-			stroke(couleur);
-			strokeWeight(1);
-			fill(couleur,100);
+			noStroke();
+			fill(couleur,160);
 			//draw nucleus
 			ellipse(cx,cy,radius,radius);
-
-
-			if(isSelected){
-				showInfoBox();
-
-				// display name
-				rectMode(CENTER);
-				fill(0,80);
-				noStroke();
-				rect(cx,hasAvatar?cy+radius-4:cy-4,textWidth(name)+10, 16);
-				fill(255);
-				textAlign(CENTER);
-				text(name, cx, hasAvatar?cy+radius:cy);
-			}
 		}
 
+		float descHeight;
 		void showInfoBox(){
-			if(hasAvatar) showAvatar();
+			// display name
+			rectMode(CENTER);
+			fill(0,80);
+			noStroke();
+			rect(cx,cy,textWidth(name)+10, 16);
+			fill(255);
+			textAlign(CENTER);
+			text(name, cx, cy+4);
 
+			rectMode(CORNER);
+			// info box
+			if(textWidth(description)>10) descHeight=1+floor(textWidth("Description: "+description)/400);
+			else descHeight=0;
+			fill(255,150);
+			noStroke();
+			rect(15,15,460,33+descHeight*14);
+			fill(0);
+			textAlign(LEFT);
+			text("User: "+name+"\nDate: "+date+"\nDescription: "+description,20,20,400,30+descHeight*14);
+			
+			if(hasAvatar) showAvatar();
 		}
 
 		void showAvatar() {
 			// this function should return display avatar from Twitter
-			imageMode(CENTER);
 			if(avatar.width>1){
-				ctx.drawImage(avatar,cx,cy,radius-10,radius-10);
+				ctx.drawImage(avatar,448,20,22,23);
 			}
 		}
 }
