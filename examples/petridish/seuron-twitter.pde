@@ -3,8 +3,7 @@ SOCIAL NEURON visualization
 processing + twitter + jquery 
 2012
 */
-var cnvs = externals.canvas,
-	ctx = externals.context;
+var cnvs, ctx;
 
 PFont font;
 
@@ -40,21 +39,35 @@ boolean displaySeuron = false; // just turn this on to show seuron
 // ------------------------------- INIT
 void setup(){
 	size(screenWidth, screenHeight);
-	background(255);
-	console.log(PFont.list());
+	cnvs = externals.canvas;
+	ctx = externals.context;
+
+	// DRAW BACKGROUND
+	var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
+	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
+	gradient.addColorStop(1,'rgba(10, 10, 10, 1)'); 
+	ctx.fillStyle = gradient; 
+	ctx.fillRect( 0, 0, width, height );
+
+	// console.log(PFont.list());
 	font = loadFont("sans-serif");
+	textFont(font,48);
+	textAlign(CENTER);
+	text("LOADING DATA", width/2,height/2);
+
 	textFont(font, 12);
+
+
 	frameRate(10);
 	smooth();
 
 	// for the caption
-	colors = [ color(255, 255, 255), color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(102, 85, 100) ];
+	colors = [ color(255, 255, 255), color(255, 0, 255), color(255, 255, 0), color(0, 255, 255)];
 	captions = [
-		"Unknown",
 		"Friend & Follow", 
-		"is Friend of", 
-		"is Followed by",
-		"No existing relationship"
+		"Following", 
+		"Follower",
+		"Unrelated"
 		];
 	
 
@@ -67,8 +80,8 @@ void setup(){
 	// create daddy 
 	Object daddyData = getProfile("makio135");
 	daddy = new Seuron( daddyData.id, daddyData, true );
-	daddy.cx = screenWidth/2;
-	daddy.cy = screenHeight/2;
+	daddy.cx = width/2;
+	daddy.cy = height/2;
 	seurons.push(daddy);
 	seuronIds.push(daddy.id);
 
@@ -127,22 +140,23 @@ void setup(){
 // ------------------------------- MAIN DRAWING FUNCTION
 void draw(){
 	// DRAW BACKGROUND
-	var gradient = externals.context.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
+	var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
 	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
 	gradient.addColorStop(1,'rgba(10, 10, 10, 1)'); 
-	externals.context.fillStyle = gradient; 
-	externals.context.fillRect( 0, 0, width, height ); 
+	ctx.fillStyle = gradient; 
+	ctx.fillRect( 0, 0, width, height ); 
 
 	// DRAW TIMELINE
 	drawTimeline();
 
 	// draw caption
-	 color(65);
-	 text("PRESS MOUSE BUTTON TO SHOW MESSAGES", screenWidth-300,40);
-	 text("Caption", screenWidth-100,60);
+	 fill(255);
+	 text("Press Mouse Button To Show Messages", width/2,40);
+	 textAlign(RIGHT);
+	 text("Caption".toUpperCase(), width-30,40);
 	 for (int i = 0; colors[i]; i++){
-	 	fill( colors[i] ) ;
-	 	text( captions[i], screenWidth-100, i*15+90 ) ;
+	 	fill(colors[i]);
+	 	text(captions[i], width-30, i*15+60);
 	 }
 
 	// draw daddy
@@ -150,31 +164,41 @@ void draw(){
 
 	// DISPLAY OUR GUYS
 	if( displaySeuron == true) displayAllSeurons();
-	
-	// for (int i = 0; i<seurons.length; i++){
-	// 	seurons[i].display();
-		
-	// }
 
-	
 }
 
 
 void displayAllSeurons(){
+	for(int i=1; i<5; i++){
+		stroke(0,150);
+		noFill();
+		ellipse(width/2,height/2,75+i*150,75+i*150);
+	}
 
-	
+	//draw messages
+	if( showInteraction ) {
+		for (int i = 0; interactions[i]; i++){
+			interactions[i].display();
+		 }
+	}
+
+	if(mousePressed) {
+		showInteraction = true;
+	} else {
+		showInteraction = false;
+	}
+
+
 	var close = [];
 	var myfriends = [];
 	var myfollowers = [];
 	var unknown = [];
-
 
 	// drawSeurons
 	myfriends = daddy.getFriends();
 	myfollowers = daddy.getFollowers();
 	close  = daddy.getCloseFriends();
 	unknown = daddy.getUnrelated();
-
 
 	float cx = screenWidth/2;
 	float cy = screenHeight/2;
@@ -187,7 +211,7 @@ void displayAllSeurons(){
 
 		// console.log(friends[i]);
 
-		float r = 100;
+		float r = 75;
 
 		float angle = i * TWO_PI / close.length;
 
@@ -197,7 +221,7 @@ void displayAllSeurons(){
 		close[i].cy = y;
 		close[i].cx = x;
 
-		close[i].couleur= color(255,200,200);
+		close[i].couleur= colors[0];
 
 		close[i].display();
 	} 
@@ -207,7 +231,7 @@ void displayAllSeurons(){
 
 		// console.log(friends[i]);
 
-		float r = 200;
+		float r = 150;
 
 		float angle = i * TWO_PI / myfriends.length;
 
@@ -217,7 +241,7 @@ void displayAllSeurons(){
 		myfriends[i].cy = y;
 		myfriends[i].cx = x;
 		
-		myfriends[i].couleur = color(127,0,0);
+		myfriends[i].couleur = colors[1];
 
 		myfriends[i].display();
 	} 
@@ -227,16 +251,16 @@ void displayAllSeurons(){
 
 		// console.log(friends[i]);
 
-		float r = 250;
+		float r = 225;
 
 		float angle = i * TWO_PI / myfollowers.length;
 
-  		float x = cx + cos(angle) * r*1.5;
+  		float x = cx + cos(angle) * r;
   		float y = cy + sin(angle) * r;
 			
 		myfollowers[i].cy = y;
 		myfollowers[i].cx = x;
-		myfollowers[i].couleur = color(127,130,0);
+		myfollowers[i].couleur = colors[2];
 
 		myfollowers[i].display();
 	} 
@@ -244,16 +268,16 @@ void displayAllSeurons(){
 	// draw unknown
 	for (int i = 0; unknown[i]; i++){
 
-		float r = 250;
+		float r = 300;
 
 		float angle = i * TWO_PI / unknown.length;
 
-  		float x = cx + cos(angle) * r*3;
+  		float x = cx + cos(angle) * r;
   		float y = cy + sin(angle) * r;
 			
 		unknown[i].cy = y;
 		unknown[i].cx = x;
-
+		unknown[i].couleur = colors[3];
 		unknown[i].display();
 	}
 
@@ -272,19 +296,8 @@ void displayAllSeurons(){
 	*/
 
 
-	//draw messages
-	if( showInteraction ) {
-		for (int i = 0; interactions[i]; i++){
-			interactions[i].display();
-		 }
-	}
-
-	if(mousePressed) {
-		showInteraction = true;
-	} else {
-		showInteraction = false;
-	}
 }
+
 
 // ------------------------------- LOOKUP LOCAL DATA
 void lookupUsers() {
@@ -331,6 +344,7 @@ void lookupUsers() {
 	});
 }
 
+
 int dateMin = (new Date()).getTime(); // Return the number of milliseconds since 1970/01/01:
 int dateMax = 0;
 int seconds;
@@ -338,23 +352,24 @@ float descHeight;
 float TimelinePosX=0, TimelinePosY=0;
 void drawTimeline(){
 	////////////////////////DRAW TIMELINE ELEMENTS
-		externals.context.save();
+		ctx.save();
 		rectMode(CORNER);
 		fill(100);
 		noStroke();
-		externals.context.shadowOffsetX = 0;
-		externals.context.shadowOffsetY = 0;
-		externals.context.shadowBlur = 10;
-		externals.context.shadowColor = "black";
+		ctx.shadowOffsetX = 0;
+		ctx.shadowOffsetY = 0;
+		ctx.shadowBlur = 10;
+		ctx.shadowColor = "black";
 		rect(15,height-75,width-30,60);
 
 		fill(0,80);
 		rect(15,height-75,20,60);
-		externals.context.restore();
+		ctx.restore();
 		pushMatrix();
 		translate(29,height-45);
 		rotate(-Math.PI/2);
 		fill(255);
+		textAlign(CENTER);
 		text("Timeline",0,0);
 		popMatrix();
 
