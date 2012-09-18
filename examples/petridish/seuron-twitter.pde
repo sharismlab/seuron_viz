@@ -1,7 +1,22 @@
 /*
-SOCIAL NEURON visualization
-processing + twitter + jquery 
-2012
+	   _____ ____  _____________    __       _   __________  ______  ____  _   __
+	  / ___// __ \/ ____/  _/   |  / /      / | / / ____/ / / / __ \/ __ \/ | / /
+	  \__ \/ / / / /    / // /| | / /      /  |/ / __/ / / / / /_/ / / / /  |/ / 
+	 ___/ / /_/ / /____/ // ___ |/ /___   / /|  / /___/ /_/ / _, _/ /_/ / /|  /  
+	/____/\____/\____/___/_/  |_/_____/  /_/ |_/_____/\____/_/ |_|\____/_/ |_/                          
+	        _                  ___             __  _           
+	 _   __(_)______  ______ _/ (_)___  ____ _/ /_(_)___  ____ 
+	| | / / / ___/ / / / __ `/ / /_  / / __ `/ __/ / __ \/ __ \
+	| |/ / (__  ) /_/ / /_/ / / / / /_/ /_/ / /_/ / /_/ / / / /
+	|___/_/____/\__,_/\__,_/_/_/ /___/\__,_/\__/_/\____/_/ /_/ 
+	                                                           
+	   ___   ____ ______ 
+	  |__ \ / __ <  /__ \
+	  __/ // / / / /__/ /
+	 / __// /_/ / // __/ 
+	/____/\____/_//____/ 
+	                     
+	processing + twitter + jquery 
 */
 var cnvs, ctx;
 
@@ -122,28 +137,24 @@ void draw(){
 	// DRAW BACKGROUND
 	var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
 	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
-	gradient.addColorStop(1,'rgba(30, 30, 30, 1)'); 
+	gradient.addColorStop(1,'rgba(50, 50, 50, 1)'); 
 	ctx.fillStyle = gradient; 
 	ctx.fillRect( 0, 0, width, height ); 
+
+	// draw caption
+	textAlign(LEFT);
+	fill(255);
+	text("Press Mouse Button To Show Messages", 15,height-90);
 
 	// DRAW TIMELINE
 	drawTimeline();
 
-	// draw caption
-	textAlign(LEFT);
-	 fill(255);
-	 text("Press Mouse Button To Show Messages", 15,height-90);
-	 textAlign(RIGHT);
-	 for (int i = 0; colors[i]; i++){
-	 	fill(colors[i]);
-	 	text(captions[i].toUpperCase(), width-15, i*15+25);
-	 }
-
-	// draw daddy
-	daddy.display();
 
 	// DISPLAY OUR GUYS
 	if( displaySeuron == true) displayAllSeurons();
+
+	// DRAW DADDY
+	daddy.display();
 
 }
 
@@ -155,10 +166,10 @@ void displayAllSeurons(){
 		noFill();
 		ellipse(width/2, height/2, 75+i*150, 75+i*150);
 		if(i<=3){
-			line(width/2,height/2-75/2-i*75, width-textWidth((captions[i]).toUpperCase())-30,height/2-75/2-i*75);
+			line(width/2,height/2-75/2-i*75, width-15,height/2-75/2-i*75);
 			fill(colors[i]);
 			textAlign(RIGHT);
-		 	text(captions[i].toUpperCase(), width-15, height/2-70/2-i*75);
+		 	text(captions[i].toUpperCase(), width-15, height/2-85/2-i*75);
 		}
 	}
 
@@ -171,7 +182,8 @@ void displayAllSeurons(){
 
 	if(mousePressed) {
 		showInteraction = true;
-	} else {
+	}
+	else {
 		showInteraction = false;
 	}
 
@@ -187,24 +199,15 @@ void displayAllSeurons(){
 	close  = daddy.getCloseFriends();
 	unknown = daddy.getUnrelated();
 
-	float cx = width/2;
-	float cy = height/2;
-
+	float rayon=0, angle=0;
 	// draw close friends
 	for (int i = 0; close[i]; i++){
-
-		// console.log(friends[i]);
-
-		float r = 75;
-
-		float angle = i * TWO_PI / close.length;
-
-  		float x = cx + cos(angle) * r;
-  		float y = cy + sin(angle) * r;
+		rayon = 75;
+		angle = i * TWO_PI / close.length;
 			
-		close[i].cy = y;
-		close[i].cx = x;
-
+		close[i].easing=.17;
+		close[i].tarX = width/2 + cos(angle) * rayon;
+		close[i].tarY = height/2 + sin(angle) * rayon;
 		close[i].couleur= colors[0];
 
 		close[i].display();
@@ -212,56 +215,40 @@ void displayAllSeurons(){
 
 	// draw friends
 	for (int i = 0; myfriends[i]; i++){
+		rayon = 150;
+		angle = i * TWO_PI / myfriends.length;
 
-		// console.log(friends[i]);
-
-		float r = 150;
-
-		float angle = i * TWO_PI / myfriends.length;
-
-  		float x = cx + cos(angle) * r;
-  		float y = cy + sin(angle) * r;
-			
-		myfriends[i].cy = y;
-		myfriends[i].cx = x;
-		
+		myfriends[i].easing=.14;
+		myfriends[i].tarX = width/2 + cos(angle) * rayon;
+		myfriends[i].tarY = height/2 + sin(angle) * rayon;
 		myfriends[i].couleur = colors[1];
 
 		myfriends[i].display();
-	} 
-	
+	}
+
 	// draw followers
 	for (int i = 0; myfollowers[i]; i++){
+		rayon = 225;
+		angle = i * TWO_PI / myfollowers.length;
 
-		// console.log(friends[i]);
-
-		float r = 225;
-
-		float angle = i * TWO_PI / myfollowers.length;
-
-  		float x = cx + cos(angle) * r;
-  		float y = cy + sin(angle) * r;
-			
-		myfollowers[i].cy = y;
-		myfollowers[i].cx = x;
+		myfollowers[i].easing=.11;
+		myfollowers[i].tarX = width/2 + cos(angle) * rayon;
+		myfollowers[i].tarY = height/2 + sin(angle) * rayon;
 		myfollowers[i].couleur = colors[2];
 
 		myfollowers[i].display();
-	} 
+	}
 
 	// draw unknown
 	for (int i = 0; unknown[i]; i++){
+		rayon = 300;
+		angle = i * TWO_PI / unknown.length;
 
-		float r = 300;
-
-		float angle = i * TWO_PI / unknown.length;
-
-  		float x = cx + cos(angle) * r;
-  		float y = cy + sin(angle) * r;
-			
-		unknown[i].cy = y;
-		unknown[i].cx = x;
+		unknown[i].easing=.08;
+		unknown[i].tarX = width/2 + cos(angle) * rayon;
+		unknown[i].tarY = height/2 + sin(angle) * rayon;
 		unknown[i].couleur = colors[3];
+
 		unknown[i].display();
 	}
 
@@ -306,10 +293,9 @@ void lookupUsers() {
 		displaySeuron = true;
 
 		
-		if( aaa ==1 ) {
+		if( aaa == 1 ) {
 			// console.log("------ go go go, VIZ !");
 			displaySeuron = true; 
-			
 			// checkData();
 		}
 		
