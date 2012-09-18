@@ -37,6 +37,7 @@ Seuron daddy;
 boolean showInteraction = false;
 boolean displaySeuron = false; // just turn this on to show seuron
 
+Object timelineMentions;
 
 // ------------------------------- INIT
 void setup(){
@@ -105,10 +106,7 @@ void setup(){
 	// To extract messages and quoted people from it
 	// we should also extract statuses/mentions to have the whole conversation !
 
-	Object daddyMentions = getMentions("clemsos");
-	// analyzeMentions(daddyMentions);
-	// console.log(daddyMentions);
-	analyzeTimelineMentions(daddyMentions);
+	timelineMentions = getMentions("makio135");
 
 	Object daddyTimeline = getTimeline( "makio135" );
 	analyzeTimeline(daddyTimeline);
@@ -147,6 +145,14 @@ void draw(){
 
 }
 
+void displayThreads() {
+	
+	for (int i = 0; i<threads[i]; i++){
+		
+		
+	}
+	
+}
 
 void displayAllSeurons(){
 	for(int i=4; i>=0; i--){
@@ -289,9 +295,9 @@ void lookupUsers() {
 	// console.log(toLookup);
 	var aaa;
 	if(toLookup.length == 100 ){
-		url="datasamples/makio135_lookup_A.json";
+		url="datasamples/clemsos_lookup_A.json";
 	} else {
-		url="datasamples/makio135_lookup_B.json";
+		url="datasamples/clemsos_lookup_B.json";
 		aaa  =1 ;
 	}
 	

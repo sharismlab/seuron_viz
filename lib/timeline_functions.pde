@@ -53,16 +53,15 @@ void analyzeTimeline( Array timeline ) {
 	if( toLookup.length >0 ) lookupUsers( toLookup );
 }
 
-void analyzeTimelineMentions( Array mentions ) {
-	console.log(mentions);
-	for(int i; i < mentions.length; i++ ) {
+// void analyzeTimelineMentions( Array mentions ) {
+// 	console.log(mentions);
+// 	for(int i; i < mentions.length; i++ ) {
 
-		// create a message for each
-		createMessage( twitterTransmitter, mentions[i].id, mentions[i]);
+// 		// create a message for each
+// 		// createMessage( twitterTransmitter, mentions[i].id, mentions[i]);
 
-
-	}
-}
+// 	}
+// }
 
 void analyzeTweet( Object tweet ) {
 	// check what actions can be founded within our tweet
@@ -178,11 +177,17 @@ void analyzeReply(  int _from, Object tweet ){
 
 	// is the message a reply to himself?
 	if( tweet.in_reply_to_user_id != seurons[_from].id ) {
-		// console.log("check into profile/mentions to find message data");
-		// tweet = getTweet where id = data.in_reply_to_status_id from profiles/mentions
-		// analyzeTweet(tweet)
-		// this is an answer to someone else's message
-		// so complete message should be available inside boss's "profile/mentions"
+
+		int index = getReplyIndex( tweet.in_reply_to_status_id) ;
+
+		if(index == null ) {
+
+			messagesLookup.push(tweet.in_reply_to_status_id);
+			
+		} else {
+			analyzeTweet( timelineMentions[index]);
+		}
+
 	} 
 	else {
 		// console.log("this is a reply to myself ! ");
