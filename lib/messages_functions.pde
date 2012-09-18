@@ -20,7 +20,7 @@ void isInThread(int messageId) {
 	return null
 }
 
-void createThread( Object data ) {
+void createThread( Object tweet ) {
 	
 	Thread t = new Thread();
 	t.messageIds.push(tweet.id);

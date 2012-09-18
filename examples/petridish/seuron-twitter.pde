@@ -16,14 +16,12 @@ var seuronIds = [];
 // Array to store all ids that needs to be looked up through twitter API
 var toLookup = [];
 
-// all our messages Ids
+// all our messages + Ids
 var messageIds = [];
-// all our messages 
 var messages = [];
 
-// store all our interactions
-var interactions = [];
-var interactionIds = [];
+// store all our messages
+var threads = [];
 
 // messages to be looked up
 var messagesLookup = [];
@@ -303,9 +301,9 @@ void lookupUsers() {
 	// console.log(toLookup);
 	var aaa;
 	if(toLookup.length == 100 ){
-		url="datasamples/makio135_lookup_A.json";
+		url="datasamples/clemsos_lookup_A.json";
 	} else {
-		url="datasamples/makio135_lookup_B.json";
+		url="datasamples/clemsos_lookup_B.json";
 		aaa  =1 ;
 	}
 	
