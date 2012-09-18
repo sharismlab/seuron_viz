@@ -147,8 +147,8 @@ void setup(){
 void draw(){
 	// DRAW BACKGROUND
 	var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
-	gradient.addColorStop(0,'rgba(180, 180, 180, 1)');
-	gradient.addColorStop(1,'rgba(150, 150, 150, 1)'); 
+	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
+	gradient.addColorStop(1,'rgba(10, 10, 10, 1)');
 	ctx.fillStyle = gradient; 
 	ctx.fillRect( 0, 0, width, height ); 
 
@@ -179,7 +179,7 @@ void displayAllSeurons(){
 	for(int i=1; i<5; i++){
 		stroke(0,150);
 		noFill();
-		ellipse(width/2,height/2,75+i*150,75+i*150);
+		ellipse(width/2, height/2, 75+i*150, 75+i*150);
 	}
 
 	//draw messages
@@ -207,8 +207,8 @@ void displayAllSeurons(){
 	close  = daddy.getCloseFriends();
 	unknown = daddy.getUnrelated();
 
-	float cx = screenWidth/2;
-	float cy = screenHeight/2;
+	float cx = width/2;
+	float cy = height/2;
 
 	// draw close friends
 	for (int i = 0; close[i]; i++){
