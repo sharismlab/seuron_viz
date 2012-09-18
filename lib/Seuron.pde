@@ -30,7 +30,7 @@ class Seuron {
 		boolean isSelected = false;
 
 
-	////////////////////////CONSTRUCTORS
+	////////////////////////CONSTRUCTOR
 		// ghost constructor
 		Seuron(int _id, Object _data, boolean _lookup){
 
@@ -49,23 +49,7 @@ class Seuron {
 			// cx=random(screenWidth);
 			// cy=random(100, 350);
 			radius=20;
-			couleur=color(255,0,0);
 		}
-
-		/*
-		// constructor for drawing purposes
-		Seuron(float _x, float _y, float _R, color _C, Object data) {
-			// console.log(data);
-			couleur = color(_C);
-			cx = _x;
-			cy = _y; 
-			radius = _R; 
-			//unknowns = new ArrayList();
-			// msgs = new ArrayList();
-
-			splitData(data); //fonction qui assigne les données à des variables de Seuron
-		}
-		*/
 
 
 	////////////////////////LOGIC FUNCTIONS

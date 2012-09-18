@@ -4,7 +4,7 @@ var viz = Processing.getInstanceById("seuron");
 function getProfile( username ) {
 
 	$.ajax({
-		url: 'datasamples/clemsos_profile.json',
+		url: 'datasamples/makio135/makio135_profile.json',
 		dataType: 'json',
 		async:false,
 		success: function(result) {
@@ -18,7 +18,7 @@ function getProfile( username ) {
 function getFriends( username ) {
 	var d;
 	$.ajax({
-		url: 'datasamples/clemsos_friends.json',
+		url: 'datasamples/makio135/makio135_friends.json',
 		dataType: 'json',
 		async:false,
 		success: function(result) {
@@ -31,7 +31,7 @@ function getFriends( username ) {
 function getFollowers( username ) {
 	var d;
 	$.ajax({
-		url: 'datasamples/clemsos_followers.json',
+		url: 'datasamples/makio135/makio135_followers.json',
 		dataType: 'json',
 		async:false,
 		success: function(result) {
@@ -44,7 +44,7 @@ function getFollowers( username ) {
 function getTimeline( username ) {
 	var d;
 	$.ajax({
-		url: 'datasamples/clemsos_timeline.json',
+		url: 'datasamples/makio135/makio135_timeline.json',
 		dataType: 'json',
 		async:false,
 		success: function(result) {
@@ -57,7 +57,7 @@ function getTimeline( username ) {
 function getMentions( username ) {
 	var d;
 	$.ajax({
-		url: 'datasamples/clemsos_mentions.json',
+		url: 'datasamples/makio135/makio135_mentions.json',
 		dataType: 'json',
 		async:false,
 		success: function(result) {
