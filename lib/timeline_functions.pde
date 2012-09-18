@@ -55,6 +55,9 @@ void analyzeTweet( Object tweet ) {
 	// check what actions can be founded within our tweet
 	// 0:unknown, 1:post, 2:RT, 3:answer, 4:quote(s)
 
+	// create our message
+	// createMessage( twitterTransmitter, tweet.id, tweet);
+
 	int from = seuronExists( tweet.user.id );
 
 	if( from == null ) {
@@ -110,9 +113,6 @@ void analyzeRT( int _from, Object tweet ){
 		}
 	}
 
-	// this seuron is active, so if it has no profile info and is not already going to be lookup, add it to lookup
-	// if( seurons[rtFrom].lookedUp == false && inLookup( seurons[rtFrom].id ) == false ) addToLookup(seurons[rtFrom].id);
-
 	// get existing synapse from reply_guy
 	int synapse = seurons[_from].getSynapse( seurons[ rtFrom ].id );
 
@@ -123,11 +123,17 @@ void analyzeRT( int _from, Object tweet ){
 		for (int i = 0; seurons[_from].synapses[i]; i++){
 			synapse =i;
 		}
-	} 
-	createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 2, tweet );
+	}
 
-	// deal with other user that has been quoted in the message
+	// Now create our new interaction and add it to our message
 
+	// get our message
+	// console.log( messagesIds.indexOf(tweet.id) );
+
+	// createInteraction( seurons[_from].synapses[synapse], 2 );
+
+
+	// deal with other users that has been quoted in the message
 	if(tweet.entities.user_mentions.length>0 ){
 		var tempMentions= [];
 		for (int i = 0; i<tweet.entities.user_mentions.length; i++){
@@ -204,7 +210,7 @@ void analyzeReply(  int _from, Object tweet ){
 	}
 
 	// now create the message 
-	createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 3, tweet );
+	// createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 3, tweet );
 
 	// create other relations with guys quoted in the message 
 	if(tweet.entities.user_mentions.length>0){
@@ -252,7 +258,7 @@ void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) 
 				// console.log( "fater : " + synapse );
 			}
 			
-			createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 4, data );
+			// createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 4, data );
 
 		}
 	}
