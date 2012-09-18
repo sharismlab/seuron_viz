@@ -53,6 +53,17 @@ void analyzeTimeline( Array timeline ) {
 	if( toLookup.length >0 ) lookupUsers( toLookup );
 }
 
+void analyzeTimelineMentions( Array mentions ) {
+	console.log(mentions);
+	for(int i; i < mentions.length; i++ ) {
+
+		// create a message for each
+		createMessage( twitterTransmitter, mentions[i].id, mentions[i]);
+
+
+	}
+}
+
 void analyzeTweet( Object tweet ) {
 	// check what actions can be founded within our tweet
 	// 0:unknown, 1:post, 2:RT, 3:answer, 4:quote(s)
@@ -102,7 +113,6 @@ void analyzeTweet( Object tweet ) {
 void analyzeRT( int _from, Object tweet ){
 	
 	// we should first store RT, then analyze retweeted_status as a new post
-	// console.log("THIS IS A RT");
 
 	// get our guy that has post in the first place
 	int rtFrom = seuronExists( tweet.retweeted_status.user.id );
@@ -130,15 +140,7 @@ void analyzeRT( int _from, Object tweet ){
 	}
 
 	// Now create our new interaction and add it to our message
-
-	// get our message
-	// console.log(tweet.id);
-	// console.log(messageIds[i]);
-	
 	messages[messageIds.indexOf( tweet.id )].interactions.push( new Interaction( seurons[_from].synapses[synapse], 2 ) );
-
-	// new Interaction( seurons[_from].synapses[synapse], 2 );
-
 
 	// deal with other users that has been quoted in the message
 	if(tweet.entities.user_mentions.length>0 ){
@@ -175,15 +177,15 @@ void analyzeReply(  int _from, Object tweet ){
 	Object original_message  = tweet.in_reply_to_status_id;
 
 	// is the message a reply to himself?
-	if( tweet.in_reply_to_user_id == seurons[_from].id ) {
-		// console.log("this is a reply to myself ! ");
-	} 
-	// this is an answer to someone else's message
-	// so complete message should be available inside boss's "profile/mentions"
-	else {
+	if( tweet.in_reply_to_user_id != seurons[_from].id ) {
 		// console.log("check into profile/mentions to find message data");
 		// tweet = getTweet where id = data.in_reply_to_status_id from profiles/mentions
 		// analyzeTweet(tweet)
+		// this is an answer to someone else's message
+		// so complete message should be available inside boss's "profile/mentions"
+	} 
+	else {
+		// console.log("this is a reply to myself ! ");
 	}
 
 	// get the guy from the reply

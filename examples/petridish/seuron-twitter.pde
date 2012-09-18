@@ -97,16 +97,6 @@ void setup(){
 	// create daddy's followers
 	Object daddyFollowers = getFollowers("makio135");
 	daddy.followers = daddyFollowers.ids;
-	// console.log(daddy.followers);
-
-	// console.log("------- before loop into messages --------");
-	// console.log( "created seurons : " + seurons.length );
-	// console.log( "daddy's close Friends : " + daddy.getCloseFriends().length );
-	// console.log( "daddy's Friends : " + daddy.getFriends().length );
-	// console.log( "daddy's Followers : " + daddy.getFollowers().length );
-	// console.log( "daddy's Unrelated : " + daddy.getUnrelated().length );
-
-	// console.log("------- analyze timeline --------");
 
 	// THE TIMELINE
 	// ------------------------------------------
@@ -114,32 +104,16 @@ void setup(){
 	// To extract messages and quoted people from it
 	// we should also extract statuses/mentions to have the whole conversation !
 
+	Object daddyMentions = getMentions("clemsos");
+	// analyzeMentions(daddyMentions);
+	// console.log(daddyMentions);
+	analyzeTimelineMentions(daddyMentions);
+
+
 	Object daddyTimeline = getTimeline( "makio135" );
 	analyzeTimeline(daddyTimeline);
 	
-	Object daddyMentions = getMentions("clemsos");
-	console.log(daddyMentions);
-	analyzeTimeline(daddyMentions);
-	
-	console.log(messages.length);
-
-	// console.log("------- after loop into messages --------");
-	// console.log( "created seurons : " + seurons.length );
-
-
-	// console.log( "daddy's close Friends : " + daddy.getCloseFriends().length );
-	// console.log( "daddy's Friends : " + daddy.getFriends().length );
-	// console.log( "daddy's Followers : " + daddy.getFollowers().length );
-	// console.log( "daddy's Unrelated : " + daddy.getUnrelated().length );
-
-	// // console.log(daddy);
-
-	// console.log( "total of seurons created :" + seurons.length );
-	// console.log("total number of messages :" + messages.length);
-	// console.log( "total of active seurons :" + activeSeurons.length );
-	// // console.log( activeSeurons );
-
-	// console.log( "total number of daddy synapses : " + daddy.synapses.length);
+	console.log(threads.length);
 
 }
 

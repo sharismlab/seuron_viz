@@ -7,14 +7,18 @@ void createMessage( Transmitter service, int id, Object data ) {
 	messageIds.push( id );
 
 	int index = isInThread(id);
+	// console.log(index);
 	if( index == null) createThread( data );
 }
 
 
 void isInThread(int messageId) {
 	for (int i = 0; threads[i]; i++){
-		for (int j = 0; threads[i].messages[j]; j++){
+		// console.log(threads[i]);
+
+		for (int j = 0; threads[i].messageIds[j]; j++) {
 			if(threads[i].messageIds[j] == messageId) return i;
+		
 		}	
 	}
 	return null
@@ -23,12 +27,15 @@ void isInThread(int messageId) {
 void createThread( Object tweet ) {
 	
 	Thread t = new Thread();
-	t.messageIds.push(tweet.id);
+	threads.push(t);
+	(t.messageIds).push(tweet.id);
 	if (tweet.in_reply_to_status_id != null) {
 		t.messageIds.push(tweet.in_reply_to_status_id);
 	} 
 	else if (tweet.retweeted_status) {
 		t.messageIds.push(tweet.retweeted_status.id);
 	}
+	// console.log(t);
+	// 
 
 }
