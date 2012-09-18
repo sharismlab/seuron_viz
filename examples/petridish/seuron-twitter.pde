@@ -115,9 +115,13 @@ void setup(){
 	// we should also extract statuses/mentions to have the whole conversation !
 
 	Object daddyTimeline = getTimeline( "makio135" );
-	analyzeTimeline( daddyTimeline );
+	analyzeTimeline(daddyTimeline);
 	
-	// console.log(daddy.synapses);
+	Object daddyMentions = getMentions("clemsos");
+	console.log(daddyMentions);
+	analyzeTimeline(daddyMentions);
+	
+	console.log(messages.length);
 
 	// console.log("------- after loop into messages --------");
 	// console.log( "created seurons : " + seurons.length );

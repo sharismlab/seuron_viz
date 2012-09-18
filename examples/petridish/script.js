@@ -53,3 +53,16 @@ function getTimeline( username ) {
 	});
 	return d;
 }
+
+function getMentions( username ) {
+	var d;
+	$.ajax({
+		url: 'datasamples/clemsos_mentions.json',
+		dataType: 'json',
+		async:false,
+		success: function(result) {
+			d=result;
+		}
+	});
+	return d;
+}
