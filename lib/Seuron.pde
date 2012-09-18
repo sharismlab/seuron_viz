@@ -71,6 +71,7 @@ class Seuron {
 		else if( isFollower( s.id )   ) level = 3;
 		else level = 4;
 
+		/*
 		if( name == null){
 			console.log(name + "   " + id);
 			console.log(friends.length);
@@ -79,6 +80,7 @@ class Seuron {
 			console.log( s.id  + " has a level : " + level );
 		}
 		console.log(level);
+		*/
 
 		Synapse syn;
 		syn = new Synapse( this, s, level );

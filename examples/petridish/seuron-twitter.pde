@@ -293,7 +293,7 @@ void lookupUsers() {
 
 	// console.log( url );
 
-	console.log("looking for users : " + toLookup.length);
+	// console.log("looking for users : " + toLookup.length);
 
 	// console.log(toLookup);
 	var aaa;
@@ -307,7 +307,7 @@ void lookupUsers() {
 	// url = "datasamples/makio135_lookup_actives.json"
 
 	$.getJSON(url, function(data) {
-		console.log("JSON LOOKUP : got " + data.length + " users profiles")
+		// console.log("JSON LOOKUP : got " + data.length + " users profiles")
 		$.each( data, function(key, item) {
 			//populate seurons with twitter data
 			parseUser( item );
@@ -316,7 +316,7 @@ void lookupUsers() {
 
 		
 		if( aaa ==1 ) {
-			console.log("------ go go go, VIZ !");
+			// console.log("------ go go go, VIZ !");
 			displaySeuron = true; 
 			
 			// checkData();
