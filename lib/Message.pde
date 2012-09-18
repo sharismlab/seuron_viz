@@ -9,6 +9,7 @@ class Message {
 
 		service = _service;
 		data = _data;
+		id = _id;
 
 		if( service.name.equals("Twitter") ) {
 				parseTwitterData( data );		
@@ -17,8 +18,8 @@ class Message {
 	}
 	
 	void parseTwitterData( Object data ) {
-		
-		console.log( "this is a tweet! " );
+
+		// console.log( "this is a tweet! " );
 		// console.log( data ) ;
 	}
 

@@ -47,6 +47,8 @@ void analyzeTimeline( Array timeline ) {
 		 analyzeTweet( timeline[i] );
 	}
 
+	// console.log("timeline.length : " +timeline.length );
+
 	// API twitter lookup users for toLookup<100
 	if( toLookup.length >0 ) lookupUsers( toLookup );
 }
@@ -54,9 +56,9 @@ void analyzeTimeline( Array timeline ) {
 void analyzeTweet( Object tweet ) {
 	// check what actions can be founded within our tweet
 	// 0:unknown, 1:post, 2:RT, 3:answer, 4:quote(s)
-
+	
 	// create our message
-	// createMessage( twitterTransmitter, tweet.id, tweet);
+	createMessage( twitterTransmitter, tweet.id, tweet);
 
 	int from = seuronExists( tweet.user.id );
 
@@ -93,6 +95,8 @@ void analyzeTweet( Object tweet ) {
 		// else : nothing happpen bcz no interactions
 		// if retweeted = true
 	}
+
+	// console.log( messages[messageIds.indexOf( tweet.id )].interactions );
 }
 
 void analyzeRT( int _from, Object tweet ){
@@ -128,9 +132,12 @@ void analyzeRT( int _from, Object tweet ){
 	// Now create our new interaction and add it to our message
 
 	// get our message
-	// console.log( messagesIds.indexOf(tweet.id) );
+	// console.log(tweet.id);
+	// console.log(messageIds[i]);
+	
+	messages[messageIds.indexOf( tweet.id )].interactions.push( new Interaction( seurons[_from].synapses[synapse], 2 ) );
 
-	// createInteraction( seurons[_from].synapses[synapse], 2 );
+	// new Interaction( seurons[_from].synapses[synapse], 2 );
 
 
 	// deal with other users that has been quoted in the message
@@ -191,10 +198,6 @@ void analyzeReply(  int _from, Object tweet ){
 		}
 	}
 	
-	// console.log(seurons[replyFrom]);
-
-	// this seuron is active, so if it has no profile info and is not already going to be lookup, add it to lookup
-	// if( seurons[replyFrom].lookedUp == false && inLookup(seurons[replyFrom].id ) == false ) addToLookup( seurons[replyFrom].id );
 
 	// get existing synapse from reply_guy
 	synapse = seurons[_from].getSynapse( seurons[replyFrom].id );
@@ -209,7 +212,9 @@ void analyzeReply(  int _from, Object tweet ){
 		}
 	}
 
-	// now create the message 
+	// now get the message and add interactions
+	messages[messageIds.indexOf( tweet.id )].interactions.push( new Interaction( seurons[_from].synapses[synapse], 3 ) );
+
 	// createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 3, tweet );
 
 	// create other relations with guys quoted in the message 
@@ -258,6 +263,8 @@ void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) 
 				// console.log( "fater : " + synapse );
 			}
 			
+			messages[messageIds.indexOf( data.id )].interactions.push( new Interaction( seurons[_from].synapses[synapse], 4 ) );
+
 			// createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 4, data );
 
 		}

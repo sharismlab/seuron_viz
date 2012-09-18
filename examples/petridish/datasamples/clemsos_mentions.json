@@ -1,0 +1,1650 @@
+[
+    {
+        "created_at": "Mon Sep 03 10:06:16 +0000 2012",
+        "id": 242564157931663360,
+        "id_str": "242564157931663360",
+        "text": "RT @clemsos: Zurb, very good CSS framewok for responsive design  https://t.co/rYIC7p5w @makio135",
+        "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 17538725,
+            "id_str": "17538725",
+            "name": "Lionel Radisson",
+            "screen_name": "MAKIO135",
+            "location": "Lyon",
+            "description": "Graphic & interactive designer. Freelance. ProcessingLyon @P5Lyon",
+            "url": "http://makio135.com/",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://makio135.com/",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                20
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 76,
+            "friends_count": 64,
+            "listed_count": 3,
+            "created_at": "Fri Nov 21 15:54:42 +0000 2008",
+            "favourites_count": 7,
+            "utc_offset": 3600,
+            "time_zone": "Paris",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 1427,
+            "lang": "fr",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://a0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": false,
+            "notifications": null
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweeted_status": {
+            "created_at": "Mon Sep 03 10:00:15 +0000 2012",
+            "id": 242562642529640450,
+            "id_str": "242562642529640448",
+            "text": "Zurb, very good CSS framewok for responsive design  https://t.co/rYIC7p5w @makio135",
+            "source": "<a href=\"http://chrome.google.com/extensions/detail/aicelmgbddfgmpieedjiggifabdpcnln\" rel=\"nofollow\">FaWave</a>",
+            "truncated": false,
+            "in_reply_to_status_id": null,
+            "in_reply_to_status_id_str": null,
+            "in_reply_to_user_id": null,
+            "in_reply_to_user_id_str": null,
+            "in_reply_to_screen_name": null,
+            "user": {
+                "id": 136861797,
+                "id_str": "136861797",
+                "name": "clemsos",
+                "screen_name": "clemsos",
+                "location": "Shanghai",
+                "description": "Writing code, articles and research papers in Shanghai and Lyon. #sharism #hack #data #visualization #urban #china\r\nMD at http://sharismlab.com",
+                "url": "http://www.clementrenaud.com",
+                "entities": {
+                    "url": {
+                        "urls": [
+                            {
+                                "url": "http://www.clementrenaud.com",
+                                "expanded_url": null,
+                                "indices": [
+                                    0,
+                                    28
+                                ]
+                            }
+                        ]
+                    },
+                    "description": {
+                        "urls": []
+                    }
+                },
+                "protected": false,
+                "followers_count": 197,
+                "friends_count": 383,
+                "listed_count": 13,
+                "created_at": "Sun Apr 25 03:48:10 +0000 2010",
+                "favourites_count": 10,
+                "utc_offset": 28800,
+                "time_zone": "Chongqing",
+                "geo_enabled": true,
+                "verified": false,
+                "statuses_count": 898,
+                "lang": "en",
+                "contributors_enabled": false,
+                "is_translator": false,
+                "profile_background_color": "131516",
+                "profile_background_image_url": "http://a0.twimg.com/images/themes/theme14/bg.gif",
+                "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme14/bg.gif",
+                "profile_background_tile": true,
+                "profile_image_url": "http://a0.twimg.com/profile_images/1296986304/profile_normal.jpg",
+                "profile_image_url_https": "https://si0.twimg.com/profile_images/1296986304/profile_normal.jpg",
+                "profile_link_color": "009999",
+                "profile_sidebar_border_color": "EEEEEE",
+                "profile_sidebar_fill_color": "EFEFEF",
+                "profile_text_color": "333333",
+                "profile_use_background_image": true,
+                "default_profile": false,
+                "default_profile_image": false,
+                "following": false,
+                "follow_request_sent": false,
+                "notifications": false
+            },
+            "geo": null,
+            "coordinates": null,
+            "place": null,
+            "contributors": null,
+            "retweet_count": 1,
+            "entities": {
+                "hashtags": [],
+                "urls": [
+                    {
+                        "url": "https://t.co/rYIC7p5w",
+                        "expanded_url": "https://github.com/zurb/foundation",
+                        "display_url": "github.com/zurb/foundation",
+                        "indices": [
+                            52,
+                            73
+                        ]
+                    }
+                ],
+                "user_mentions": [
+                    {
+                        "screen_name": "MAKIO135",
+                        "name": "Lionel Radisson",
+                        "id": 17538725,
+                        "id_str": "17538725",
+                        "indices": [
+                            74,
+                            83
+                        ]
+                    }
+                ]
+            },
+            "favorited": false,
+            "retweeted": false,
+            "possibly_sensitive": false
+        },
+        "retweet_count": 1,
+        "entities": {
+            "hashtags": [],
+            "urls": [
+                {
+                    "url": "https://t.co/rYIC7p5w",
+                    "expanded_url": "https://github.com/zurb/foundation",
+                    "display_url": "github.com/zurb/foundation",
+                    "indices": [
+                        65,
+                        86
+                    ]
+                }
+            ],
+            "user_mentions": [
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        3,
+                        11
+                    ]
+                },
+                {
+                    "screen_name": "MAKIO135",
+                    "name": "Lionel Radisson",
+                    "id": 17538725,
+                    "id_str": "17538725",
+                    "indices": [
+                        87,
+                        96
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false
+    },
+    {
+        "created_at": "Sat Sep 01 10:34:50 +0000 2012",
+        "id": 241846570440597500,
+        "id_str": "241846570440597505",
+        "text": "WeDoData : dans la mouvance du data journalism http://t.co/aIqv9rYw @vincentachille @clemsos @Lachaofraises #opendata",
+        "source": "web",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 339011842,
+            "id_str": "339011842",
+            "name": "Mathieu Martiniere",
+            "screen_name": "Mat_Marty",
+            "location": "#Lyon",
+            "description": "Journaliste indépendant // Freelance journalist.\r\nhttp://mathieumartiniere.com/  http://labogrec.blog.lemonde.fr/",
+            "url": null,
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                0
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 241,
+            "friends_count": 300,
+            "listed_count": 5,
+            "created_at": "Wed Jul 20 13:08:10 +0000 2011",
+            "favourites_count": 2,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 944,
+            "lang": "fr",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "022330",
+            "profile_background_image_url": "http://a0.twimg.com/profile_background_images/633159720/65jh3w629tq81ol45fj1.jpeg",
+            "profile_background_image_url_https": "https://si0.twimg.com/profile_background_images/633159720/65jh3w629tq81ol45fj1.jpeg",
+            "profile_background_tile": true,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1453369789/Photo_046-1_normal.jpg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1453369789/Photo_046-1_normal.jpg",
+            "profile_link_color": "00ADB3",
+            "profile_sidebar_border_color": "A8C7F7",
+            "profile_sidebar_fill_color": "C0DFEC",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": false,
+            "notifications": null
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 2,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "opendata",
+                    "indices": [
+                        108,
+                        117
+                    ]
+                }
+            ],
+            "urls": [
+                {
+                    "url": "http://t.co/aIqv9rYw",
+                    "expanded_url": "http://lentreprise.lexpress.fr/management-ecologique/wedodata-dans-la-mouvance-du-data-journalisme_34665.html#xtor=RSS-17",
+                    "display_url": "lentreprise.lexpress.fr/management-eco…",
+                    "indices": [
+                        47,
+                        67
+                    ]
+                }
+            ],
+            "user_mentions": [
+                {
+                    "screen_name": "vincentachille",
+                    "name": "Vincent ACHILLE",
+                    "id": 105512010,
+                    "id_str": "105512010",
+                    "indices": [
+                        68,
+                        83
+                    ]
+                },
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        84,
+                        92
+                    ]
+                },
+                {
+                    "screen_name": "Lachaofraises",
+                    "name": "Charlotte B. ",
+                    "id": 153772883,
+                    "id_str": "153772883",
+                    "indices": [
+                        93,
+                        107
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false
+    },
+    {
+        "created_at": "Thu Aug 30 07:32:13 +0000 2012",
+        "id": 241075838207029250,
+        "id_str": "241075838207029248",
+        "text": "@clemsos tu débarques à quelle heure?",
+        "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+        "truncated": false,
+        "in_reply_to_status_id": 236812637927784450,
+        "in_reply_to_status_id_str": "236812637927784449",
+        "in_reply_to_user_id": 136861797,
+        "in_reply_to_user_id_str": "136861797",
+        "in_reply_to_screen_name": "clemsos",
+        "user": {
+            "id": 17538725,
+            "id_str": "17538725",
+            "name": "Lionel Radisson",
+            "screen_name": "MAKIO135",
+            "location": "Lyon",
+            "description": "Graphic & interactive designer. Freelance. ProcessingLyon @P5Lyon",
+            "url": "http://makio135.com/",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://makio135.com/",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                20
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 76,
+            "friends_count": 64,
+            "listed_count": 3,
+            "created_at": "Fri Nov 21 15:54:42 +0000 2008",
+            "favourites_count": 7,
+            "utc_offset": 3600,
+            "time_zone": "Paris",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 1427,
+            "lang": "fr",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://a0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": false,
+            "notifications": null
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "entities": {
+            "hashtags": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        0,
+                        8
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false
+    },
+    {
+        "created_at": "Sat Aug 18 13:10:00 +0000 2012",
+        "id": 236812188126425100,
+        "id_str": "236812188126425088",
+        "text": "@clemsos ça sent l'arnaque... Ça plus l'idée de ma taper le c3, on se verra plutôt ce soir, appelle quand t'as fini",
+        "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+        "truncated": false,
+        "in_reply_to_status_id": 236809779459276800,
+        "in_reply_to_status_id_str": "236809779459276800",
+        "in_reply_to_user_id": 136861797,
+        "in_reply_to_user_id_str": "136861797",
+        "in_reply_to_screen_name": "clemsos",
+        "user": {
+            "id": 17538725,
+            "id_str": "17538725",
+            "name": "Lionel Radisson",
+            "screen_name": "MAKIO135",
+            "location": "Lyon",
+            "description": "Graphic & interactive designer. Freelance. ProcessingLyon @P5Lyon",
+            "url": "http://makio135.com/",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://makio135.com/",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                20
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 76,
+            "friends_count": 64,
+            "listed_count": 3,
+            "created_at": "Fri Nov 21 15:54:42 +0000 2008",
+            "favourites_count": 7,
+            "utc_offset": 3600,
+            "time_zone": "Paris",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 1427,
+            "lang": "fr",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://a0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": false,
+            "notifications": null
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "entities": {
+            "hashtags": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        0,
+                        8
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false
+    },
+    {
+        "created_at": "Sat Aug 18 12:56:18 +0000 2012",
+        "id": 236808740890886140,
+        "id_str": "236808740890886145",
+        "text": "@clemsos il y a la clim? Sinon je reste au frais jusqu'à ce soir",
+        "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+        "truncated": false,
+        "in_reply_to_status_id": 236805324542193660,
+        "in_reply_to_status_id_str": "236805324542193664",
+        "in_reply_to_user_id": 136861797,
+        "in_reply_to_user_id_str": "136861797",
+        "in_reply_to_screen_name": "clemsos",
+        "user": {
+            "id": 17538725,
+            "id_str": "17538725",
+            "name": "Lionel Radisson",
+            "screen_name": "MAKIO135",
+            "location": "Lyon",
+            "description": "Graphic & interactive designer. Freelance. ProcessingLyon @P5Lyon",
+            "url": "http://makio135.com/",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://makio135.com/",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                20
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 76,
+            "friends_count": 64,
+            "listed_count": 3,
+            "created_at": "Fri Nov 21 15:54:42 +0000 2008",
+            "favourites_count": 7,
+            "utc_offset": 3600,
+            "time_zone": "Paris",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 1427,
+            "lang": "fr",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://a0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": false,
+            "notifications": null
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "entities": {
+            "hashtags": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        0,
+                        8
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false
+    },
+    {
+        "created_at": "Sat Aug 18 12:32:30 +0000 2012",
+        "id": 236802753630978050,
+        "id_str": "236802753630978048",
+        "text": "@clemsos :-)  j'en étais sûr. Non je suis free ce soir, Marion est en Isère",
+        "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+        "truncated": false,
+        "in_reply_to_status_id": 236802127119384580,
+        "in_reply_to_status_id_str": "236802127119384576",
+        "in_reply_to_user_id": 136861797,
+        "in_reply_to_user_id_str": "136861797",
+        "in_reply_to_screen_name": "clemsos",
+        "user": {
+            "id": 17538725,
+            "id_str": "17538725",
+            "name": "Lionel Radisson",
+            "screen_name": "MAKIO135",
+            "location": "Lyon",
+            "description": "Graphic & interactive designer. Freelance. ProcessingLyon @P5Lyon",
+            "url": "http://makio135.com/",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://makio135.com/",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                20
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 76,
+            "friends_count": 64,
+            "listed_count": 3,
+            "created_at": "Fri Nov 21 15:54:42 +0000 2008",
+            "favourites_count": 7,
+            "utc_offset": 3600,
+            "time_zone": "Paris",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 1427,
+            "lang": "fr",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://a0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": false,
+            "notifications": null
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "entities": {
+            "hashtags": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        0,
+                        8
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false
+    },
+    {
+        "created_at": "Sat Aug 18 12:20:06 +0000 2012",
+        "id": 236799631416234000,
+        "id_str": "236799631416233985",
+        "text": "@clemsos samedi... T'es de retour?",
+        "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+        "truncated": false,
+        "in_reply_to_status_id": 236791127003500540,
+        "in_reply_to_status_id_str": "236791127003500544",
+        "in_reply_to_user_id": 136861797,
+        "in_reply_to_user_id_str": "136861797",
+        "in_reply_to_screen_name": "clemsos",
+        "user": {
+            "id": 17538725,
+            "id_str": "17538725",
+            "name": "Lionel Radisson",
+            "screen_name": "MAKIO135",
+            "location": "Lyon",
+            "description": "Graphic & interactive designer. Freelance. ProcessingLyon @P5Lyon",
+            "url": "http://makio135.com/",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://makio135.com/",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                20
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 76,
+            "friends_count": 64,
+            "listed_count": 3,
+            "created_at": "Fri Nov 21 15:54:42 +0000 2008",
+            "favourites_count": 7,
+            "utc_offset": 3600,
+            "time_zone": "Paris",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 1427,
+            "lang": "fr",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://a0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": false,
+            "notifications": null
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "entities": {
+            "hashtags": [],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        0,
+                        8
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false
+    },
+    {
+        "created_at": "Thu Aug 09 01:22:00 +0000 2012",
+        "id": 233372525260857340,
+        "id_str": "233372525260857344",
+        "text": "how we evalute that... @clemsos http://t.co/xFBbUhY5 #Kindle",
+        "source": "<a href=\"https://kindle.amazon.com\" rel=\"nofollow\">Kindle</a>",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 227606069,
+            "id_str": "227606069",
+            "name": "Isaac Kindle",
+            "screen_name": "isaakindle",
+            "location": "Kindle",
+            "description": "isaac's  #sharism kindle notes and highlights",
+            "url": "https://kindle.amazon.com/post/see_more/U19PX9JCJTLD",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "https://kindle.amazon.com/post/see_more/U19PX9JCJTLD",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                52
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 131,
+            "friends_count": 2,
+            "listed_count": 6,
+            "created_at": "Fri Dec 17 08:29:44 +0000 2010",
+            "favourites_count": 0,
+            "utc_offset": null,
+            "time_zone": null,
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 692,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://a0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1192557096/kindle2_normal.jpg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1192557096/kindle2_normal.jpg",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": false,
+            "notifications": null
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "Kindle",
+                    "indices": [
+                        53,
+                        60
+                    ]
+                }
+            ],
+            "urls": [
+                {
+                    "url": "http://t.co/xFBbUhY5",
+                    "expanded_url": "http://amzn.com/k/-XM9quO3QQOrHwiFXBpXeA",
+                    "display_url": "amzn.com/k/-XM9quO3QQOr…",
+                    "indices": [
+                        32,
+                        52
+                    ]
+                }
+            ],
+            "user_mentions": [
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        23,
+                        31
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false
+    },
+    {
+        "created_at": "Fri Aug 03 06:14:37 +0000 2012",
+        "id": 231271839320666100,
+        "id_str": "231271839320666112",
+        "text": "looks good ! RT @MAKIO135: RT @HackerNewsYC : Adobe’s first open source font family http://t.co/Cr3YbDBP  cc @clemsos @guillaumeberry",
+        "source": "<a href=\"http://www.tweetdeck.com\" rel=\"nofollow\">TweetDeck</a>",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 136861797,
+            "id_str": "136861797",
+            "name": "clemsos",
+            "screen_name": "clemsos",
+            "location": "Shanghai",
+            "description": "Writing code, articles and research papers in Shanghai and Lyon. #sharism #hack #data #visualization #urban #china\r\nMD at http://sharismlab.com",
+            "url": "http://www.clementrenaud.com",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://www.clementrenaud.com",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                28
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 197,
+            "friends_count": 383,
+            "listed_count": 13,
+            "created_at": "Sun Apr 25 03:48:10 +0000 2010",
+            "favourites_count": 10,
+            "utc_offset": 28800,
+            "time_zone": "Chongqing",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 898,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "131516",
+            "profile_background_image_url": "http://a0.twimg.com/images/themes/theme14/bg.gif",
+            "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme14/bg.gif",
+            "profile_background_tile": true,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1296986304/profile_normal.jpg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1296986304/profile_normal.jpg",
+            "profile_link_color": "009999",
+            "profile_sidebar_border_color": "EEEEEE",
+            "profile_sidebar_fill_color": "EFEFEF",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": false,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 2,
+        "entities": {
+            "hashtags": [],
+            "urls": [
+                {
+                    "url": "http://t.co/Cr3YbDBP",
+                    "expanded_url": "http://goo.gl/fb/S1UDx",
+                    "display_url": "goo.gl/fb/S1UDx",
+                    "indices": [
+                        84,
+                        104
+                    ]
+                }
+            ],
+            "user_mentions": [
+                {
+                    "screen_name": "MAKIO135",
+                    "name": "Lionel Radisson",
+                    "id": 17538725,
+                    "id_str": "17538725",
+                    "indices": [
+                        16,
+                        25
+                    ]
+                },
+                {
+                    "screen_name": "HackerNewsYC",
+                    "name": "Hacker News",
+                    "id": 770729628,
+                    "id_str": "770729628",
+                    "indices": [
+                        30,
+                        43
+                    ]
+                },
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        109,
+                        117
+                    ]
+                },
+                {
+                    "screen_name": "guillaumeberry",
+                    "name": "Guillaume Berry",
+                    "id": 25840054,
+                    "id_str": "25840054",
+                    "indices": [
+                        118,
+                        133
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false
+    },
+    {
+        "created_at": "Thu Aug 02 21:57:21 +0000 2012",
+        "id": 231146697261191170,
+        "id_str": "231146697261191168",
+        "text": "RT @HackerNewsYC : Adobe’s first open source font family http://t.co/VeiP7LO0  cc @clemsos @guillaumeberry",
+        "source": "<a href=\"http://twitter.com/download/android\" rel=\"nofollow\">Twitter for Android</a>",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 17538725,
+            "id_str": "17538725",
+            "name": "Lionel Radisson",
+            "screen_name": "MAKIO135",
+            "location": "Lyon",
+            "description": "Graphic & interactive designer. Freelance. ProcessingLyon @P5Lyon",
+            "url": "http://makio135.com/",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://makio135.com/",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                20
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 76,
+            "friends_count": 64,
+            "listed_count": 3,
+            "created_at": "Fri Nov 21 15:54:42 +0000 2008",
+            "favourites_count": 7,
+            "utc_offset": 3600,
+            "time_zone": "Paris",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 1427,
+            "lang": "fr",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://a0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1125279514/Untitled-1_normal.png",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": false,
+            "notifications": null
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "entities": {
+            "hashtags": [],
+            "urls": [
+                {
+                    "url": "http://t.co/VeiP7LO0",
+                    "expanded_url": "http://goo.gl/fb/S1UDx",
+                    "display_url": "goo.gl/fb/S1UDx",
+                    "indices": [
+                        57,
+                        77
+                    ]
+                }
+            ],
+            "user_mentions": [
+                {
+                    "screen_name": "HackerNewsYC",
+                    "name": "Hacker News",
+                    "id": 770729628,
+                    "id_str": "770729628",
+                    "indices": [
+                        3,
+                        16
+                    ]
+                },
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        82,
+                        90
+                    ]
+                },
+                {
+                    "screen_name": "guillaumeberry",
+                    "name": "Guillaume Berry",
+                    "id": 25840054,
+                    "id_str": "25840054",
+                    "indices": [
+                        91,
+                        106
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false
+    },
+    {
+        "created_at": "Mon Jul 30 11:34:15 +0000 2012",
+        "id": 229902725834485760,
+        "id_str": "229902725834485760",
+        "text": "@HongyuanQ RT @OlivierHeinry: @clemsos http://t.co/JnkymDaP #nantes #fashiondesign",
+        "source": "<a href=\"http://www.tweetdeck.com\" rel=\"nofollow\">TweetDeck</a>",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": 635261111,
+        "in_reply_to_user_id_str": "635261111",
+        "in_reply_to_screen_name": "HongyuanQ",
+        "user": {
+            "id": 136861797,
+            "id_str": "136861797",
+            "name": "clemsos",
+            "screen_name": "clemsos",
+            "location": "Shanghai",
+            "description": "Writing code, articles and research papers in Shanghai and Lyon. #sharism #hack #data #visualization #urban #china\r\nMD at http://sharismlab.com",
+            "url": "http://www.clementrenaud.com",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://www.clementrenaud.com",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                28
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 197,
+            "friends_count": 383,
+            "listed_count": 13,
+            "created_at": "Sun Apr 25 03:48:10 +0000 2010",
+            "favourites_count": 10,
+            "utc_offset": 28800,
+            "time_zone": "Chongqing",
+            "geo_enabled": true,
+            "verified": false,
+            "statuses_count": 898,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "131516",
+            "profile_background_image_url": "http://a0.twimg.com/images/themes/theme14/bg.gif",
+            "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme14/bg.gif",
+            "profile_background_tile": true,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1296986304/profile_normal.jpg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1296986304/profile_normal.jpg",
+            "profile_link_color": "009999",
+            "profile_sidebar_border_color": "EEEEEE",
+            "profile_sidebar_fill_color": "EFEFEF",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": false,
+            "default_profile_image": false,
+            "following": false,
+            "follow_request_sent": false,
+            "notifications": false
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "nantes",
+                    "indices": [
+                        60,
+                        67
+                    ]
+                },
+                {
+                    "text": "fashiondesign",
+                    "indices": [
+                        68,
+                        82
+                    ]
+                }
+            ],
+            "urls": [
+                {
+                    "url": "http://t.co/JnkymDaP",
+                    "expanded_url": "http://www.titpoupoule.com/",
+                    "display_url": "titpoupoule.com",
+                    "indices": [
+                        39,
+                        59
+                    ]
+                }
+            ],
+            "user_mentions": [
+                {
+                    "screen_name": "HongyuanQ",
+                    "name": "hongyuan qu",
+                    "id": 635261111,
+                    "id_str": "635261111",
+                    "indices": [
+                        0,
+                        10
+                    ]
+                },
+                {
+                    "screen_name": "OlivierHeinry",
+                    "name": "Oli44",
+                    "id": 327935012,
+                    "id_str": "327935012",
+                    "indices": [
+                        14,
+                        28
+                    ]
+                },
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        30,
+                        38
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false
+    },
+    {
+        "created_at": "Mon Jul 30 10:38:31 +0000 2012",
+        "id": 229888699318558720,
+        "id_str": "229888699318558720",
+        "text": "@clemsos http://t.co/CWNWRB8U #nantes #fashiondesign",
+        "source": "<a href=\"http://www.tweetdeck.com\" rel=\"nofollow\">TweetDeck</a>",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": 136861797,
+        "in_reply_to_user_id_str": "136861797",
+        "in_reply_to_screen_name": "clemsos",
+        "user": {
+            "id": 327935012,
+            "id_str": "327935012",
+            "name": "Oli44",
+            "screen_name": "OlivierHeinry",
+            "location": "Dodi Island, Akasombo, Ghana",
+            "description": "free knowledge puredata servidéo ping gangplank labtolab labsurlab wienseburg ker-thiossane yeta mali motion ",
+            "url": "http://www.heinry.fr/olivier",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://www.heinry.fr/olivier",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                28
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 96,
+            "friends_count": 168,
+            "listed_count": 8,
+            "created_at": "Sat Jul 02 12:27:09 +0000 2011",
+            "favourites_count": 32,
+            "utc_offset": 3600,
+            "time_zone": "Copenhagen",
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 559,
+            "lang": "fr",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://a0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1423270184/malimotion-sonosurlatete_normal.jpg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1423270184/malimotion-sonosurlatete_normal.jpg",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": false,
+            "notifications": null
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "nantes",
+                    "indices": [
+                        30,
+                        37
+                    ]
+                },
+                {
+                    "text": "fashiondesign",
+                    "indices": [
+                        38,
+                        52
+                    ]
+                }
+            ],
+            "urls": [
+                {
+                    "url": "http://t.co/CWNWRB8U",
+                    "expanded_url": "http://www.titpoupoule.com/",
+                    "display_url": "titpoupoule.com",
+                    "indices": [
+                        9,
+                        29
+                    ]
+                }
+            ],
+            "user_mentions": [
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        0,
+                        8
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false
+    },
+    {
+        "created_at": "Mon Jul 30 10:37:29 +0000 2012",
+        "id": 229888438114086900,
+        "id_str": "229888438114086913",
+        "text": "@clemsos tit'poupoule #nates #mode chez MEL DE MARGO 24 rue Armand Brossard à Nantes .",
+        "source": "<a href=\"http://www.tweetdeck.com\" rel=\"nofollow\">TweetDeck</a>",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": 136861797,
+        "in_reply_to_user_id_str": "136861797",
+        "in_reply_to_screen_name": "clemsos",
+        "user": {
+            "id": 327935012,
+            "id_str": "327935012",
+            "name": "Oli44",
+            "screen_name": "OlivierHeinry",
+            "location": "Dodi Island, Akasombo, Ghana",
+            "description": "free knowledge puredata servidéo ping gangplank labtolab labsurlab wienseburg ker-thiossane yeta mali motion ",
+            "url": "http://www.heinry.fr/olivier",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://www.heinry.fr/olivier",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                28
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 96,
+            "friends_count": 168,
+            "listed_count": 8,
+            "created_at": "Sat Jul 02 12:27:09 +0000 2011",
+            "favourites_count": 32,
+            "utc_offset": 3600,
+            "time_zone": "Copenhagen",
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 559,
+            "lang": "fr",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://a0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1423270184/malimotion-sonosurlatete_normal.jpg",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1423270184/malimotion-sonosurlatete_normal.jpg",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": false,
+            "notifications": null
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "nates",
+                    "indices": [
+                        22,
+                        28
+                    ]
+                },
+                {
+                    "text": "mode",
+                    "indices": [
+                        29,
+                        34
+                    ]
+                }
+            ],
+            "urls": [],
+            "user_mentions": [
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        0,
+                        8
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false
+    },
+    {
+        "created_at": "Sun Jul 29 07:58:34 +0000 2012",
+        "id": 229486058058969100,
+        "id_str": "229486058058969088",
+        "text": "RT @clemsos: Call for Papers: Open Data Academic Research at OKFest | Open Knowledge Foundation Blog http://t.co/viBi69wQ #opendata",
+        "source": "<a href=\"http://www.tweetdeck.com\" rel=\"nofollow\">TweetDeck</a>",
+        "truncated": false,
+        "in_reply_to_status_id": null,
+        "in_reply_to_status_id_str": null,
+        "in_reply_to_user_id": null,
+        "in_reply_to_user_id_str": null,
+        "in_reply_to_screen_name": null,
+        "user": {
+            "id": 261038182,
+            "id_str": "261038182",
+            "name": "Sharism Lab",
+            "screen_name": "sharismlab",
+            "location": "world",
+            "description": "We provide experimental theory about socialnomics, entropy and social intelligence. We envision a forthcoming economy of sharing. ",
+            "url": "http://sharismlab.com/",
+            "entities": {
+                "url": {
+                    "urls": [
+                        {
+                            "url": "http://sharismlab.com/",
+                            "expanded_url": null,
+                            "indices": [
+                                0,
+                                22
+                            ]
+                        }
+                    ]
+                },
+                "description": {
+                    "urls": []
+                }
+            },
+            "protected": false,
+            "followers_count": 691,
+            "friends_count": 20,
+            "listed_count": 30,
+            "created_at": "Sat Mar 05 03:29:00 +0000 2011",
+            "favourites_count": 5,
+            "utc_offset": -32400,
+            "time_zone": "Alaska",
+            "geo_enabled": false,
+            "verified": false,
+            "statuses_count": 437,
+            "lang": "en",
+            "contributors_enabled": false,
+            "is_translator": false,
+            "profile_background_color": "C0DEED",
+            "profile_background_image_url": "http://a0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_image_url_https": "https://si0.twimg.com/images/themes/theme1/bg.png",
+            "profile_background_tile": false,
+            "profile_image_url": "http://a0.twimg.com/profile_images/1876616803/logotw_normal.png",
+            "profile_image_url_https": "https://si0.twimg.com/profile_images/1876616803/logotw_normal.png",
+            "profile_link_color": "0084B4",
+            "profile_sidebar_border_color": "C0DEED",
+            "profile_sidebar_fill_color": "DDEEF6",
+            "profile_text_color": "333333",
+            "profile_use_background_image": true,
+            "default_profile": true,
+            "default_profile_image": false,
+            "following": null,
+            "follow_request_sent": false,
+            "notifications": null
+        },
+        "geo": null,
+        "coordinates": null,
+        "place": null,
+        "contributors": null,
+        "retweet_count": 0,
+        "entities": {
+            "hashtags": [
+                {
+                    "text": "opendata",
+                    "indices": [
+                        122,
+                        131
+                    ]
+                }
+            ],
+            "urls": [
+                {
+                    "url": "http://t.co/viBi69wQ",
+                    "expanded_url": "http://blog.okfn.org/2012/06/29/call-for-papers-open-data-academic-research-at-okfest/",
+                    "display_url": "blog.okfn.org/2012/06/29/cal…",
+                    "indices": [
+                        101,
+                        121
+                    ]
+                }
+            ],
+            "user_mentions": [
+                {
+                    "screen_name": "clemsos",
+                    "name": "clemsos",
+                    "id": 136861797,
+                    "id_str": "136861797",
+                    "indices": [
+                        3,
+                        11
+                    ]
+                }
+            ]
+        },
+        "favorited": false,
+        "retweeted": false,
+        "possibly_sensitive": false
+    }
+]
