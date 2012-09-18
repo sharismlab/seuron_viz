@@ -141,8 +141,8 @@ void setup(){
 void draw(){
 	// DRAW BACKGROUND
 	var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
-	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
-	gradient.addColorStop(1,'rgba(10, 10, 10, 1)'); 
+	gradient.addColorStop(0,'rgba(180, 180, 180, 1)');
+	gradient.addColorStop(1,'rgba(150, 150, 150, 1)'); 
 	ctx.fillStyle = gradient; 
 	ctx.fillRect( 0, 0, width, height ); 
 
@@ -150,13 +150,14 @@ void draw(){
 	drawTimeline();
 
 	// draw caption
+	textAlign(LEFT);
 	 fill(255);
-	 text("Press Mouse Button To Show Messages", width/2,40);
+	 text("Press Mouse Button To Show Messages", 15,height-90);
 	 textAlign(RIGHT);
-	 text("Caption".toUpperCase(), width-30,40);
+	 text("Caption".toUpperCase(), width-15,25);
 	 for (int i = 0; colors[i]; i++){
 	 	fill(colors[i]);
-	 	text(captions[i], width-30, i*15+60);
+	 	text(captions[i], width-15, i*15+45);
 	 }
 
 	// draw daddy
@@ -202,9 +203,6 @@ void displayAllSeurons(){
 
 	float cx = screenWidth/2;
 	float cy = screenHeight/2;
-	
-	// hack to fix a strange thing about the other daddy (???) 
-	// myDad = getDaddy();
 
 	// draw close friends
 	for (int i = 0; close[i]; i++){
@@ -281,21 +279,9 @@ void displayAllSeurons(){
 		unknown[i].display();
 	}
 
-
-	// // here comes the dad
-	// myDad.cx =screenHeight/2;
-	// myDad.cy =screenWidth/2;
-	// myDad.display;
-
-	//draw synapses
-	/*
-	for (int i = 0; daddy.synapses[i]; i++){
-		if(daddy.synapses[i].seuronB.data != null)
-			daddy.synapses[i].display();
+	for (int i= 1; seurons[i]; i++){
+		if(seurons[i].isSelected) seurons[i].showInfoBox();
 	}
-	*/
-
-
 }
 
 
@@ -378,10 +364,10 @@ void drawTimeline(){
 	for (int i= 1; seurons[i]; i++){
 		Seuron s = seurons[i];
 
-		if(s.hasAvatar ==true) {
+		if(seurons[i].hasAvatar ==true) {
 			// console.log(s);
 
-			seconds = Date.parse(s.date);
+			seconds = Date.parse(seurons[i].date);
 			if(seconds<dateMin){
 				dateMin = seconds;
 				// println("dateMin: " + dateMin);
@@ -392,24 +378,21 @@ void drawTimeline(){
 			}
 
 			TimelinePosX = map(seconds,dateMin,dateMax,45,width-25);
-			TimelinePosY = height-75 + map(s.cy,100,screenHeight-150,5,55);
-			stroke(s.couleur);
+			TimelinePosY = height-75 + map(seurons[i].cy,100,screenHeight-150,5,55);
+			stroke(seurons[i].couleur);
 			strokeWeight(2);
 			strokeCap(SQUARE);
 			line(TimelinePosX, height-75, TimelinePosX, height-16);
-			fill(s.couleur);
+			fill(seurons[i].couleur);
 			ellipse(TimelinePosX,TimelinePosY,8,8);
 
-			if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<8 || dist(mouseX, mouseY, s.cx, s.cy)<s.radius/2) {
-				line(TimelinePosX, TimelinePosY, s.cx, s.cy);
-				if(textWidth(s.description)>10) descHeight=1+floor(textWidth("Description: "+s.description)/400);
-				else descHeight=0;
-				fill(255,255,0,150);
-				noStroke();
-				rect(15,15,460,33+descHeight*14);
-				fill(255);
-				textAlign(LEFT);
-				text("User: "+s.name+"\nDate: "+s.date+"\nDescription: "+s.description,20,20,400,30+descHeight*14);
+			if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<8 || dist(mouseX, mouseY, seurons[i].cx, s.cy)<seurons[i].radius/2) {
+				line(TimelinePosX, TimelinePosY, seurons[i].cx, seurons[i].cy);
+
+				seurons[i].isSelected = true;
+			}
+			else{
+				seurons[i].isSelected=false;
 			}
 		}
 	}
