@@ -3,6 +3,8 @@ SOCIAL NEURON visualization
 processing + twitter + jquery 
 2012
 */
+var cnvs = externals.canvas,
+	ctx = externals.context;
 
 PFont font;
 
@@ -39,7 +41,8 @@ boolean displaySeuron = false; // just turn this on to show seuron
 void setup(){
 	size(screenWidth, screenHeight);
 	background(255);
-	font = loadFont("cursive");// BIM! de la Comic Sans pour un peu de fun
+	console.log(PFont.list());
+	font = loadFont("sans-serif");
 	textFont(font, 12);
 	frameRate(10);
 	smooth();
@@ -334,35 +337,35 @@ int seconds;
 float descHeight;
 float TimelinePosX=0, TimelinePosY=0;
 void drawTimeline(){
-	externals.context.save();
-	rectMode(CORNER);
-	fill(100);
-	noStroke();
-	externals.context.shadowOffsetX = 0;
-	externals.context.shadowOffsetY = 0;
-	externals.context.shadowBlur = 10;
-	externals.context.shadowColor = "black";
-	rect(15,height-75,width-30,60);
+	////////////////////////DRAW TIMELINE ELEMENTS
+		externals.context.save();
+		rectMode(CORNER);
+		fill(100);
+		noStroke();
+		externals.context.shadowOffsetX = 0;
+		externals.context.shadowOffsetY = 0;
+		externals.context.shadowBlur = 10;
+		externals.context.shadowColor = "black";
+		rect(15,height-75,width-30,60);
 
-	fill(0,80);
-	rect(15,height-75,20,60);
-	externals.context.restore();
-	pushMatrix();
-	translate(29,height-45);
-	rotate(-Math.PI/2);
-	fill(255);
-	text("Timeline",0,0);
-	popMatrix();
+		fill(0,80);
+		rect(15,height-75,20,60);
+		externals.context.restore();
+		pushMatrix();
+		translate(29,height-45);
+		rotate(-Math.PI/2);
+		fill(255);
+		text("Timeline",0,0);
+		popMatrix();
 
+
+	////////////////////////DRAW SEURONS
 	for (int i= 1; seurons[i]; i++){
 		Seuron s = seurons[i];
 
 		if(s.hasAvatar ==true) {
 			// console.log(s);
 
-
-
-			
 			seconds = Date.parse(s.date);
 			if(seconds<dateMin){
 				dateMin = seconds;

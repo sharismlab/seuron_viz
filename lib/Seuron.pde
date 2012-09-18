@@ -13,13 +13,7 @@ class Seuron {
 		boolean lookedUp = false ; // by default, Seuron should be looked up
 		Object data;
 
-		// drawings var
-		color couleur;
-		int index;
-		float cx, cy, radius;
-		float TimelinePosX=0, TimelinePosY=0;
-
-		ArrayList<Message> msgs = new ArrayList(); // list of messages
+		// ArrayList<Message> msgs = new ArrayList(); // list of messages
 
 		// store all ids from twitter
 		var friends= [];
@@ -28,8 +22,15 @@ class Seuron {
 		// here are stored all objects describing relationships
 		var synapses = []; 
 
+		// drawings var
+		color couleur;
+		int index;
+		float cx, cy, radius;
+		float TimelinePosX=0, TimelinePosY=0;
+		boolean isSelected = false;
 
-	////////////////////////CONSTRUCTOR
+
+	////////////////////////CONSTRUCTORS
 		// ghost constructor
 		Seuron( int _id, Object _data, boolean _lookup  ){
 
@@ -50,29 +51,6 @@ class Seuron {
 			radius=35;
 			couleur=color(255,0,0);
 		}
-
-	// create a synapse between this seuron and the Seuron passed, adding to friendship level
-	// add the created synapse into this seuron synapses list
-	void createSynapse( Seuron s ) {
-		
-		int level;
-		
-		if ( isFriend( s.id )  && isFollower( s.id )  ) level = 1;
-		else if ( isFriend( s.id )   ) level = 2;
-		else if( isFollower( s.id )   ) level = 3;
-		else level = 4;
-
-		/*
-		if( name == null){
-			console.log(name + "   " + id);
-			console.log(friends.length);
-			// if (friends.length == 0 ) console.log( "------------------------------------ problem found !!! ");
-			// if (friends.length == 0 ) console.log( s.id );
-			console.log( s.id  + " has a level : " + level );
-		}
-		console.log(level);
-		*/
-
 		// constructor for drawing purposes
 		Seuron( float _x, float _y, float _R, color _C, Object data) {
 			// console.log(data);
@@ -86,18 +64,6 @@ class Seuron {
 			splitData(data); //fonction qui assigne les données à des variables de Seuron
 		}
 
-		// constructor for drawing purposes
-		Seuron( float _x, float _y, float _R, color _C, Object data) {
-			// console.log(data);
-			couleur = color(_C);
-			cx = _x;
-			cy = _y; 
-			radius = _R; 
-			//unknowns = new ArrayList();
-			// msgs = new ArrayList();
-
-			splitData(data); //fonction qui assigne les données à des variables de Seuron
-		}
 
 	////////////////////////LOGIC FUNCTIONS
 		// create a synapse between this seuron and the Seuron passed, adding to friendship level
@@ -111,21 +77,13 @@ class Seuron {
 			else if( isFollower( s.id )   ) level = 3;
 			else level = 4;
 
-			if( name == null){
-				console.log(name + "   " + id);
-				console.log(friends.length);
-				// if (friends.length == 0 ) console.log( "------------------------------------ problem found !!! ");
-				// if (friends.length == 0 ) console.log( s.id );
-				console.log( s.id  + " has a level : " + level );
-			}
-			console.log(level);
-
 			Synapse syn;
 			syn = new Synapse( this, s, level );
 			
 			synapses.push(syn);
 		}
 	 
+
 		// check if a seuron is a friend of mine
 		boolean isFriend( int _id ) {
 			for (int i = 0; friends[i]; i++){
@@ -136,7 +94,6 @@ class Seuron {
 			}
 			return false;
 		}
-
 		// check if a seuron is one of my followers
 		boolean isFollower( int _id ) {
 			for (int i = 0; followers[i]; i++){
@@ -156,7 +113,6 @@ class Seuron {
 			if ( isFriend( friend ) && isFollower( friend ) ) createSynapse(friend, 1);
 			else createSynapse(friend, 2);		
 		}
-
 		void addFollower( Seuron follower ) {
 			// check if he is a follower
 			// console.log(follower);
@@ -166,7 +122,7 @@ class Seuron {
 		}
 
 		
-		///////////////////////////////////////Return Seuron[] 
+		//Return Seuron[] 
 		void getCloseFriends() {
 			_closeFriends = [];
 			for (int i = 0; synapses[i]; i++){
@@ -176,7 +132,6 @@ class Seuron {
 			}
 			return _closeFriends;
 		}
-
 		void getFriends() {
 			_friends = [];
 			for (int i = 0; synapses[i]; i++){
@@ -186,7 +141,6 @@ class Seuron {
 			}
 			return _friends;
 		}
-
 		void getFollowers() {
 			_followers = [];
 			for (int i = 0; synapses[i]; i++){
@@ -196,7 +150,6 @@ class Seuron {
 			}
 			return _followers;
 		}
-
 		void getUnrelated() {
 			_unrelated = [];
 			for (int i = 0; synapses[i]; i++){
@@ -224,11 +177,13 @@ class Seuron {
 			splitData( data );
 		}
 
+
 		//////////////////////// Méthode pour récupérer les données JSon
 		String name, screen_name, location, description, url;
 
 		boolean hasAvatar = false;
-		PImage avatar;
+		PImage PImgAvatar;
+		var avatar = new Image();
 
 		String date, timeZone;
 		int utc_offset;
@@ -247,9 +202,13 @@ class Seuron {
 			description = d.description;
 			url = d.url;
 
-			if(d.profile_image_url != null) hasAvatar = true;
-			avatar = requestImage(d.profile_image_url);
-			 
+			if(d.profile_image_url != null){
+				hasAvatar = true;
+				PImgAvatar = requestImage(d.profile_image_url);
+				avatar.src=d.profile_image_url;
+			}
+			
+
 			date = parseTwitterDate(d.created_at);
 			utc_offset = d.utc_offset;
 			timeZone = d.time_zone;
@@ -270,32 +229,39 @@ class Seuron {
 
 
 	////////////////////////DRAW FUNCTIONS
-		void showAvatar() {
-			// this function should return display avatar from Twitter
-			imageMode(CENTER);
-			if(avatar.width>1){
-				image(avatar,cx,cy,radius-10,radius-10);
-			}
-		}
-
 		void display() {
 			// begin drawing nucleus
 			stroke(couleur);
 			strokeWeight(1);
-			fill(couleur);
+			fill(couleur,100);
 			//draw nucleus
 			ellipse(cx,cy,radius,radius);
 
-			if(hasAvatar) showAvatar();
 
-			// display name
-			rectMode(CENTER);
-			fill(0,80);
-			noStroke();
-			rect(cx,hasAvatar?cy+radius-4:cy-4,textWidth(name)+10, 16);
-			fill(255);
-			textAlign(CENTER);
-			text(name, cx, hasAvatar?cy+radius:cy);
+			if(isSelected){
+				showInfoBox();
+
+				// display name
+				rectMode(CENTER);
+				fill(0,80);
+				noStroke();
+				rect(cx,hasAvatar?cy+radius-4:cy-4,textWidth(name)+10, 16);
+				fill(255);
+				textAlign(CENTER);
+				text(name, cx, hasAvatar?cy+radius:cy);
+			}
 		}
 
+		void showInfoBox(){
+			if(hasAvatar) showAvatar();
+
+		}
+
+		void showAvatar() {
+			// this function should return display avatar from Twitter
+			imageMode(CENTER);
+			if(avatar.width>1){
+				ctx.drawImage(avatar,cx,cy,radius-10,radius-10);
+			}
+		}
 }
