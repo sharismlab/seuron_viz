@@ -130,7 +130,56 @@ void setup(){
 
 }
 
+// ------------------------------- LOOKUP LOCAL DATA
+void lookupUsers() {
+	// parse twitter url
+	
+	String url = "https://api.twitter.com/1/users/lookup.json?include_entities=true";
+	url += "&user_id=";
+	for (int i = 0; i<toLookup.length-1; i++){
+		url += toLookup[i] + ",";
+	}
+	url += toLookup[ toLookup.length-1 ];
+
+	// console.log( url );
+
+	// console.log("looking for users : " + toLookup.length);
+
+	// console.log(toLookup);
+	var aaa;
+	if(toLookup.length == 100 ){
+		url="datasamples/clemsos_lookup_A.json";
+	} else {
+		url="datasamples/clemsos_lookup_B.json";
+		aaa  =1 ;
+	}
+	
+	// url = "datasamples/makio135_lookup_actives.json"
+
+	$.getJSON(url, function(data) {
+		// console.log("JSON LOOKUP : got " + data.length + " users profiles")
+		$.each( data, function(key, item) {
+			//populate seurons with twitter data
+			parseUser( item );
+		});
+		displaySeuron = true;
+
+		
+		if( aaa == 1 ) {
+			// console.log("------ go go go, VIZ !");
+			displaySeuron = true; 
+			// checkData();
+		}
+		
+	});
+}
+
+
+
 // ------------------------------- MAIN DRAWING FUNCTION
+// ALL DRAWING FUNCTIONS MOVED TO drawing_functions.pde
+
+/*
 void draw(){
 	// DRAW BACKGROUND
 	var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
@@ -154,15 +203,6 @@ void draw(){
 	// DRAW DADDY
 	daddy.display();
 
-}
-
-void displayThreads() {
-	
-	for (int i = 0; i<threads[i]; i++){
-		
-		
-	}
-	
 }
 
 void displayAllSeurons(){
@@ -262,53 +302,12 @@ void displayAllSeurons(){
 		if(seurons[i].isSelected) seurons[i].showInfoBox();
 	}
 }
+*/
 
 
-// ------------------------------- LOOKUP LOCAL DATA
-void lookupUsers() {
-	// parse twitter url
-	
-	String url = "https://api.twitter.com/1/users/lookup.json?include_entities=true";
-	url += "&user_id=";
-	for (int i = 0; i<toLookup.length-1; i++){
-		url += toLookup[i] + ",";
-	}
-	url += toLookup[ toLookup.length-1 ];
-
-	// console.log( url );
-
-	// console.log("looking for users : " + toLookup.length);
-
-	// console.log(toLookup);
-	var aaa;
-	if(toLookup.length == 100 ){
-		url="datasamples/clemsos_lookup_A.json";
-	} else {
-		url="datasamples/clemsos_lookup_B.json";
-		aaa  =1 ;
-	}
-	
-	// url = "datasamples/makio135_lookup_actives.json"
-
-	$.getJSON(url, function(data) {
-		// console.log("JSON LOOKUP : got " + data.length + " users profiles")
-		$.each( data, function(key, item) {
-			//populate seurons with twitter data
-			parseUser( item );
-		});
-		displaySeuron = true;
-
-		
-		if( aaa == 1 ) {
-			// console.log("------ go go go, VIZ !");
-			displaySeuron = true; 
-			// checkData();
-		}
-		
-	});
-}
 
 
+/*
 int dateMin = (new Date()).getTime(); // Return the number of milliseconds since 1970/01/01:
 int dateMax = 0;
 int seconds;
@@ -375,3 +374,4 @@ void drawTimeline(){
 		}
 	}
 }
+*/
