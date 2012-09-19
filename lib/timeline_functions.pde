@@ -43,12 +43,15 @@ ANALYSE EACH TWEET OF THE TIMELINE
 */
 
 void analyzeTimeline( Array timeline ) {
+
+
+	console.log("timeline.length : " +timeline.length );
+	console.log("mentions.length : " +timelineMentions.length );
+
 	for(int i; i < timeline.length; i++ ) {
 		 analyzeTweet( timeline[i] );
 	}
-
-	// console.log("timeline.length : " +timeline.length );
-
+	displaySeuron = true
 	// API twitter lookup users for toLookup<100
 	if( toLookup.length >0 ) lookupUsers( toLookup );
 }

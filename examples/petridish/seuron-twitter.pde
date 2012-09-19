@@ -47,6 +47,7 @@ var messagesLookup = [];
 
 // THE Only boss of all.
 Seuron daddy;
+boolean displayDaddy = false;
 
 // to dispaly messages
 boolean showInteraction = false;
@@ -103,6 +104,7 @@ void setup(){
 	daddy.couleur = #ffffcb;
 	seurons.push(daddy);
 	seuronIds.push(daddy.id);
+	displayDaddy = true; // used to check if data is ready on the prod server 
 
 	// console.log(daddy);
 

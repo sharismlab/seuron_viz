@@ -127,7 +127,7 @@ void draw() {
 	if( displaySeuron == true) displayAllSeurons();
 
 	// DRAW DADDY
-	daddy.display();
+	if( displayDaddy == true) daddy.display();
 }
 
 int dateMin = (new Date()).getTime(); // Return the number of milliseconds since 1970/01/01:
