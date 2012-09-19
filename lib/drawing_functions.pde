@@ -101,6 +101,7 @@ void displayAllSeurons(){
 	}
 
 	for (int i= 1; seurons[i]; i++){
+		if(daddy.isSelected) daddy.showInfoBox();
 		if(seurons[i].isSelected) seurons[i].showInfoBox();
 	}
 }
@@ -186,8 +187,14 @@ void drawTimeline(){
 			}
 
 			TimelinePosX = map(seconds,dateMin,dateMax,45,width-25);
-			TimelinePosY = height-75 + map(seurons[i].cy,100,screenHeight-150,5,55);
-			stroke(seurons[i].couleur);
+			TimelinePosY = (daddy.isFriend(seurons[i].id) && daddy.isFollower(seurons[i].id))? height-75 + 15 :
+							daddy.isFriend(seurons[i].id)? height-75 + 25:
+							daddy.isFollower(seurons[i].id)? height-75 + 35:
+							height-75 + 45;
+
+
+			// height-75 + map(seurons[i].cy,100,screenHeight-150,5,55);
+			stroke(seurons[i].couleur,100);
 			strokeWeight(2);
 			strokeCap(SQUARE);
 			line(TimelinePosX, height-75, TimelinePosX, height-16);
@@ -204,6 +211,9 @@ void drawTimeline(){
 			}
 		}
 	}
-	if(dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) daddy.isSelected = true;
+	if(dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {
+		daddy.isSelected = true;
+		console.log("daddy.isSelected = true")
+	}
 	else daddy.isSelected = false;
 }

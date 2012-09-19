@@ -31,7 +31,6 @@ class Seuron {
 
 
 	////////////////////////CONSTRUCTOR
-		// ghost constructor
 		Seuron(int _id, Object _data, boolean _lookup){
 
 			id =_id;  // id from twitter
