@@ -1,3 +1,12 @@
+var colors = [ #c7eab4, #7fcebb, #41b7c5, #2d7fb9 ];
+var captions = [
+		"Friend & Follow", 
+		"Following", 
+		"Follower",
+		"Unrelated"
+		];
+
+
 void displayAllSeurons(){
 	for(int i=4; i>=0; i--){
 		strokeWeight(.6*i);
@@ -195,4 +204,6 @@ void drawTimeline(){
 			}
 		}
 	}
+	if(dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) daddy.isSelected = true;
+	else daddy.isSelected = false;
 }

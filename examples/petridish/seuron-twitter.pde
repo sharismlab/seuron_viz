@@ -55,6 +55,7 @@ boolean displaySeuron = false; // just turn this on to show seuron
 
 Object timelineMentions;
 
+
 // ------------------------------- INIT
 void setup(){
 	size(screenWidth, screenHeight);
@@ -80,6 +81,7 @@ void setup(){
 	frameRate(10);
 	smooth();
 
+<<<<<<< HEAD
 	// for the caption
 	colors = [ #c7eab4, #7fcebb, #41b7c5, #2d7fb9 ];
 	captions = [
@@ -377,3 +379,7 @@ void drawTimeline(){
 	}
 }
 */
+=======
+	loadData();
+}
+>>>>>>> 68e741f5f4828ad5e53d5e3b31b26a990c5468d0
