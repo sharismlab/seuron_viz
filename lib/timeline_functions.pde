@@ -174,7 +174,7 @@ void analyzeRT( int _from, Object tweet ){
 
 void analyzeReply(  int _from, Object tweet ){
 	// console.log("this is a reply");
-	
+
 	// get message 
 	Object original_message  = tweet.in_reply_to_status_id;
 

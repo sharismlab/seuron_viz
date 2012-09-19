@@ -149,7 +149,7 @@ void drawTimeline(){
 	////////////////////////DRAW TIMELINE ELEMENTS
 		ctx.save();
 		rectMode(CORNER);
-		fill(100);
+		fill(60);
 		noStroke();
 		ctx.shadowOffsetX = 0;
 		ctx.shadowOffsetY = 0;

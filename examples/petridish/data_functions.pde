@@ -13,7 +13,7 @@ void loadData(){
 	daddy.couleur = #ffffcb;
 	seurons.push(daddy);
 	seuronIds.push(daddy.id);
-
+	displayDaddy = true;
 	// console.log(daddy);
 
 	// create daddy's friends 	

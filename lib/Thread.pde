@@ -10,4 +10,8 @@ class Thread
 	Thread () {
 		// expression
 	}
+
+	void display(){
+		
+	}
 }
