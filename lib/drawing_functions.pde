@@ -146,9 +146,8 @@ void draw() {
 
 int dateMin = (new Date()).getTime(); // Return the number of milliseconds since 1970/01/01:
 int dateMax = 0;
-int seconds;
-float descHeight;
 float TimelinePosX=0, TimelinePosY=0;
+// float descHeight;
 void drawTimeline(){
 	////////////////////////DRAW TIMELINE ELEMENTS
 		ctx.save();
