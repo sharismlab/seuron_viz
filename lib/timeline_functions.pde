@@ -50,6 +50,7 @@ void analyzeTimeline( Array timeline ) {
 	// console.log("mentions.length : " +timelineMentions.length );
 
 	for(int i; i < timeline[i]; i++ ) {
+
 		currentThreadId = null;
 		analyzeTweet( timeline[i] );
 
@@ -269,8 +270,6 @@ void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) 
 		}
 	}
 }
-
-
 
 void analyzeThread(Object tweet, int prevId ) {
 	// 0:unknown, 1:post, 2:RT, 3:reply, 4:@
