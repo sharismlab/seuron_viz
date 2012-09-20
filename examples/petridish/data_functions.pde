@@ -42,6 +42,7 @@ void loadData(){
 
 	for (int i = 0; threads[i]; i++){
 		console.log(threads[i].messageIds.length);	
+		console.log(threads[i].messageIds);
 	}
 
 }

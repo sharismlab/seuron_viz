@@ -233,9 +233,9 @@ class Seuron {
 			// display name
 			rectMode(CENTER);
 			noStroke();
-			fill(0,80);
+			fill(0,150);
 			rect(cx,cy, textWidth(name)+16,15)
-			fill(255);
+			fill(couleur);
 			textAlign(CENTER);
 			text(name, cx, cy+4);
 
