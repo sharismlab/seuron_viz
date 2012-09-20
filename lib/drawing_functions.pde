@@ -171,7 +171,7 @@ void drawTimeline(){
 
 	////////////////////////DRAW SEURONS
 	for (int i=1; seurons[i]; i++){// seurons[0] is daddy so begin at 1
-		if(seurons[i].hasAvatar==true) {
+		// if(seurons[i].hasAvatar==true) {
 			
 
 			seconds = Date.parse(seurons[i].date);
@@ -208,11 +208,11 @@ void drawTimeline(){
 			else{
 				seurons[i].isSelected=false;
 			}
-		}
-		else{ // debug: if seurons[i] !hasAvatar
+		// }
+		// else{ // debug: if seurons[i] !hasAvatar
 			// console.log(i);
 			// console.log(seurons[i]);
-		}
+		// }
 	}
 	if(dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {
 		daddy.isSelected = true;
