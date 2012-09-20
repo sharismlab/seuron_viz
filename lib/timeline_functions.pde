@@ -46,10 +46,11 @@ int currentThreadIndex = null;
 
 void analyzeTimeline( Array timeline ) {
 
-	// console.log("timeline.length : " +timeline.length );
-	// console.log("mentions.length : " +timelineMentions.length );
+	console.log("timeline.length : " +timeline.length );
+	console.log("mentions.length : " +timelineMentions.length );
 
-	for(int i; i < timeline[i]; i++ ) {
+	for(int i; timeline[i]; i++ ) {
+		
 
 		currentThreadIndex = null;
 		analyzeTweet( timeline[i] );
@@ -85,7 +86,7 @@ void analyzeTweet( Object tweet ) {
 	if ( tweet.in_reply_to_status_id != null ) {
 		// console.log("reply");
 		analyzeReply( from, tweet);
-		analyzeThread(tweet, tweet.in_reply_to_status_id);
+		// analyzeThread(tweet, tweet.in_reply_to_status_id);
 		
 	} 
 	// our tweet is a RT
@@ -96,14 +97,14 @@ void analyzeTweet( Object tweet ) {
 
 		//then analyze retweeted message
 		analyzeRT( from, tweet);
-		analyzeThread(tweet,tweet.retweeted_status.id);
+		// analyzeThread(tweet,tweet.retweeted_status.id);
 		
 	}
 	// out tweet is just a post
 	else {
 		
 		// console.log("mentions");
-		analyzeThread(tweet,null);
+		// analyzeThread(tweet,null);
 
 		if(tweet.entities.user_mentions.length>0 ) 
 			analyzeMentions( from, tweet.entities.user_mentions,  seurons[from].id, tweet );
@@ -275,22 +276,22 @@ void analyzeThread( Object tweet, int prevId ) {
 	// 0:unknown, 1:post, 2:RT, 3:reply, 4:@
 
 	if(prevId != null) currentThreadIndex = isInThread(prevId);
-	if(currentThreadId == null ) currentThreadIndex = isInThread(tweet.id);
+	if(currentThreadIndex == null ) currentThreadIndex = isInThread(tweet.id);
 
 	if(currentThreadIndex == null){
-		// createThread(tweet.id);
-		// if(prevId != null) threads[ threads.length-1 ].messageIds.push(prevId);
+		createThread(tweet.id);
+		if(prevId != null) threads[ threads.length-1 ].messageIds.push(prevId);
 	} 
 	else {
-		// threads[currentThreadIndex].messageIds.push(tweet.id);
-		// if(prevId != null) threads[currentThreadIndex].messageIds.push(prevId);
+		threads[currentThreadIndex].messageIds.push(tweet.id);
+		if(prevId != null) threads[currentThreadIndex].messageIds.push(prevId);
 	}
 
 	if(tweet.retweeted_status) {
 		// first analyze original message
 		analyzeTweet( tweet.retweeted_status );
 	}
-	else if {
+	else {
 		getReply(tweet.in_reply_to_status_id);
 	}
 
