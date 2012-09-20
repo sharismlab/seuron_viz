@@ -208,7 +208,6 @@ void drawTimeline(){
 			else{
 				seurons[i].isSelected=false;
 			}
-
 		// }
 		// else{ // debug: if seurons[i] !hasAvatar
 			// console.log(i);
