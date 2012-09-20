@@ -18,6 +18,7 @@
 	                     
 	processing + twitter + jquery 
 */
+
 var cnvs, ctx;
 
 PFont font;

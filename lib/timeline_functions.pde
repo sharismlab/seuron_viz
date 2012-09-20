@@ -51,7 +51,7 @@ void analyzeTimeline( Array timeline ) {
 
 	for(int i; i < timeline[i]; i++ ) {
 
-		currentThreadId = null;
+		currentThreadIndex = null;
 		analyzeTweet( timeline[i] );
 
 	}
@@ -271,19 +271,19 @@ void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) 
 	}
 }
 
-void analyzeThread(Object tweet, int prevId ) {
+void analyzeThread( Object tweet, int prevId ) {
 	// 0:unknown, 1:post, 2:RT, 3:reply, 4:@
 
 	if(prevId != null) currentThreadIndex = isInThread(prevId);
 	if(currentThreadId == null ) currentThreadIndex = isInThread(tweet.id);
 
 	if(currentThreadIndex == null){
-		createThread(tweet.id);
-		if(prevId != null) threads[ threads.length-1 ].push(prevId);
+		// createThread(tweet.id);
+		// if(prevId != null) threads[ threads.length-1 ].messageIds.push(prevId);
 	} 
 	else {
-		threads[currentThreadIndex].push(tweet.id);
-		if(prevId != null) threads[currentThreadIndex].push(prevId);
+		// threads[currentThreadIndex].messageIds.push(tweet.id);
+		// if(prevId != null) threads[currentThreadIndex].messageIds.push(prevId);
 	}
 
 	if(tweet.retweeted_status) {
