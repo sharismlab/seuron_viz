@@ -109,7 +109,8 @@ void displayAllSeurons(){
 void displayThreads() {
 	
 	for (int i = 0; i<threads[i]; i++){
-		//display threads		
+		//display threads
+		threads[i].display();
 	}
 }
 
@@ -170,7 +171,7 @@ void drawTimeline(){
 
 	////////////////////////DRAW SEURONS
 	for (int i=1; seurons[i]; i++){// seurons[0] is daddy so begin at 1
-		if(seurons[i].hasAvatar ==true) {
+		if(seurons[i].hasAvatar==true) {
 			
 
 			seconds = Date.parse(seurons[i].date);
@@ -185,8 +186,8 @@ void drawTimeline(){
 
 			TimelinePosX = map(seconds,dateMin,dateMax,45,width-25);
 			TimelinePosY = (daddy.isFriend(seurons[i].id) && daddy.isFollower(seurons[i].id))? height-75 + 15 :
-							daddy.isFriend(seurons[i].id)? height-75 + 25:
-							daddy.isFollower(seurons[i].id)? height-75 + 35:
+							daddy.isFriend(seurons[i].id)? height-75 + 25 :
+							daddy.isFollower(seurons[i].id)? height-75 + 35 :
 							height-75 + 45;
 
 
@@ -209,7 +210,8 @@ void drawTimeline(){
 			}
 		}
 		else{ // debug: if seurons[i] !hasAvatar
-			console.log(seurons[i]);
+			// console.log(i);
+			// console.log(seurons[i]);
 		}
 	}
 	if(dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {
