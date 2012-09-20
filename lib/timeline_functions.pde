@@ -46,8 +46,8 @@ int currentThreadIndex = null;
 
 void analyzeTimeline( Array timeline ) {
 
-	console.log("timeline.length : " +timeline.length );
-	console.log("mentions.length : " +timelineMentions.length );
+	// console.log("timeline.length : " +timeline.length );
+	// console.log("mentions.length : " +timelineMentions.length );
 
 	for(int i; timeline[i]; i++ ) {
 		

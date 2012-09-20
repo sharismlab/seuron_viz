@@ -31,6 +31,8 @@ class Message {
 		text = data.text;
 		
 		date = parseTwitterDate(data.created_at);
+		// console.log(date);
+
 		seconds = Date.parse(date);
 			if(seconds<dateMin){
 				dateMin = seconds;
@@ -40,7 +42,8 @@ class Message {
 				dateMax = seconds;
 				// println("dateMax: " + dateMax);
 			}
-
+		// console.log(seconds);
+		
 		if(data.entities.hashtags.length>0) {
 
 			for (int i = 0; data.entities.hashtags[i]; i++){

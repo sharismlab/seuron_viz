@@ -227,8 +227,10 @@ void drawTimeline(){
 	*/
 
 	////////////////////////DRAW MESSAGES
+	// console.log(dateMin + "    " +  dateMax);
+
 	for (int i = 0; messages[i]; i++){
-		TimelinePosX = map(seconds,dateMin,dateMax,45,width-25);
+		TimelinePosX = map(messages[i].seconds,dateMin,dateMax,45,width-25);
 		TimelinePosY = height-75 + 30;
 		// stroke(seurons[i].couleur,100);
 		stroke(messages[i].couleur,100);
@@ -236,8 +238,9 @@ void drawTimeline(){
 		strokeCap(SQUARE);
 		line(TimelinePosX, height-75, TimelinePosX, height-16);
 		fill(messages[i].couleur);
+		// fill(255);
 		ellipse(TimelinePosX,TimelinePosY,8,8);
-
+		// console.log(i);
 		if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<8){
 			for (int j = 0; messages[i].interactions[j]; j++){
 				noFill();
