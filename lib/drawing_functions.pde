@@ -109,8 +109,7 @@ void displayAllSeurons(){
 void displayThreads() {
 	
 	for (int i = 0; i<threads[i]; i++){
-		//display threads
-		
+		//display threads		
 	}
 }
 
@@ -170,11 +169,9 @@ void drawTimeline(){
 
 
 	////////////////////////DRAW SEURONS
-	for (int i= 1; seurons[i]; i++){
-		Seuron s = seurons[i];
-
+	for (int i=1; seurons[i]; i++){// seurons[0] is daddy so begin at 1
 		if(seurons[i].hasAvatar ==true) {
-			// console.log(s);
+			
 
 			seconds = Date.parse(seurons[i].date);
 			if(seconds<dateMin){
@@ -201,14 +198,18 @@ void drawTimeline(){
 			fill(seurons[i].couleur);
 			ellipse(TimelinePosX,TimelinePosY,8,8);
 
-			if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<8 || dist(mouseX, mouseY, seurons[i].cx, s.cy)<seurons[i].radius/2) {
-				line(TimelinePosX, TimelinePosY, seurons[i].cx, seurons[i].cy);
+			if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<8 || dist(mouseX, mouseY, seurons[i].cx, seurons[i].cy)<seurons[i].radius/2 || mousePressed) {
+				noFill();
+				bezier(TimelinePosX, TimelinePosY,TimelinePosX, TimelinePosY-150, seurons[i].cx, seurons[i].cy+150, seurons[i].cx, seurons[i].cy);
 
 				seurons[i].isSelected = true;
 			}
 			else{
 				seurons[i].isSelected=false;
 			}
+		}
+		else{ // debug: if seurons[i] !hasAvatar
+			console.log(seurons[i]);
 		}
 	}
 	if(dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {
