@@ -12,22 +12,25 @@ class Message {
 		service = _service;
 		data = _data;
 		id = _id;
-
+		// console.log(data);
 		if( service.name.equals("Twitter") ) {
-				splitData( data );		
+				if(data) splitData( data );		
 		}
 
 	}
 	
-	var hashtags, links = [];
+	var hashtags = [];
+	var links = [];
 	String date, text;
-	int  seconds;
+	int seconds;
 	color couleur;
 	
 	void splitData( Object data ) {
-		date = parseTwitterDate(d.created_at);
-		text = data.text;
+		// console.log(data);
 
+		text = data.text;
+		
+		date = parseTwitterDate(data.created_at);
 		seconds = Date.parse(date);
 			if(seconds<dateMin){
 				dateMin = seconds;
@@ -46,18 +49,18 @@ class Message {
 			}
 		}
 
-		if(data.entities.links.length>0) {
+		if(data.entities.urls.length>0) {
 
 			
-			for (int i = 0; data.entities.links[i]; i++){
-				links.push(data.entities.links[i]);
+			for (int i = 0; data.entities.urls[i]; i++){
+				links.push( data.entities.urls[i] );
 				
 			}
 		}
 
-		if(data.retweeted_status) couleur = color[0];
-		else if(data.in_reply_to_status_id != null ) couleur = color[1];
-		else couleur = color[2];
+		if(data.retweeted_status) couleur = colors[0];
+		else if(data.in_reply_to_status_id != null ) couleur = colors[1];
+		else couleur = colors[2];
 
 		// console.log( "this is a tweet! " );
 		// console.log( data ) ;
