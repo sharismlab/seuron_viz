@@ -55,8 +55,6 @@ void createMessage( Transmitter service, int id, Object tweet ) {
 	}
 }
 
-
-
 void createThread( int id ) {
 	
 	// create thread

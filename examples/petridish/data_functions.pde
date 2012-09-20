@@ -58,9 +58,9 @@ void lookupUsers() {
 
 	// console.log( url );
 
-	// console.log("looking for users : " + toLookup.length);
+//	console.log("looking for users : " + toLookup.length);
+//	console.log(toLookup);
 
-	// console.log(toLookup);
 	var aaa;
 	if(toLookup.length == 100 ){
 		url="datasamples/clemsos_lookup_A.json";

@@ -209,7 +209,7 @@ void drawTimeline(){
 			}
 		}
 		else{ // debug: if seurons[i] !hasAvatar
-			console.log(seurons[i]);
+			// console.log(seurons[i]);
 		}
 	}
 	if(dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {

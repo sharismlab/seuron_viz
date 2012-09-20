@@ -63,6 +63,7 @@ void analyzeTweet( Object tweet ) {
 	// create our message
 	createMessage( twitterTransmitter, tweet.id, tweet);
 
+	
 	int from = seuronExists( tweet.user.id );
 
 	if( from == null ) {
@@ -293,4 +294,8 @@ void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) 
 
 		}
 	}
+}
+
+void analyzeThread(int id, int prevId ) {
+	
 }
