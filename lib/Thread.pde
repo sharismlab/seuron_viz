@@ -12,6 +12,8 @@ class Thread
 	}
 
 	void display(){
-		
+		for(int i=0; messageIds[i]; i++){
+			
+		}
 	}
 }

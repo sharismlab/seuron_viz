@@ -8,19 +8,6 @@ var captions = [
 
 
 void displayAllSeurons(){
-	for(int i=4; i>=0; i--){
-		strokeWeight(.6*i);
-		stroke(30);
-		noFill();
-		ellipse(width/2, height/2, 75+i*150, 75+i*150);
-		if(i<=3){
-			line(width/2,height/2-75/2-i*75, width-15,height/2-75/2-i*75);
-			fill(colors[i]);
-			textAlign(RIGHT);
-		 	text(captions[i].toUpperCase(), width-15, height/2-85/2-i*75);
-		}
-	}
-
 	//draw messages
 	if( showInteraction ) {
 		for (int i = 0; interactions[i]; i++){
@@ -114,21 +101,38 @@ void displayThreads() {
 	}
 }
 
+void drawCaptions(){
+	textAlign(LEFT);
+	fill(255);
+	text("Press Mouse Button To Show Messages", 15,height-90);
+
+	for(int i=4; i>=0; i--){
+		strokeWeight(.6*i);
+		stroke(30);
+		noFill();
+		ellipse(width/2, height/2, 75+i*150, 75+i*150);
+		if(i<=3){
+			line(width/2,height/2-75/2-i*75, width-15,height/2-75/2-i*75);
+			fill(colors[i]);
+			textAlign(RIGHT);
+		 	text(captions[i].toUpperCase(), width-15, height/2-85/2-i*75);
+		}
+	}
+}
+
 // ------------------------------- MAIN DRAWING FUNCTION
 void draw() {
 	////////////////////////////////////////////////////////////////
 
 	// DRAW BACKGROUND
-	var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
-	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
-	gradient.addColorStop(1,'rgba(50, 50, 50, 1)'); 
-	ctx.fillStyle = gradient; 
-	ctx.fillRect( 0, 0, width, height ); 
+		var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
+		gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
+		gradient.addColorStop(1,'rgba(50, 50, 50, 1)'); 
+		ctx.fillStyle = gradient; 
+		ctx.fillRect( 0, 0, width, height ); 
 
 	 // draw caption
-	textAlign(LEFT);
-	fill(255);
-	text("Press Mouse Button To Show Messages", 15,height-90);
+	drawCaptions();
 
 	// DRAW TIMELINE
 	drawTimeline();
@@ -170,6 +174,7 @@ void drawTimeline(){
 
 
 	////////////////////////DRAW SEURONS
+	/*
 	for (int i=0; seurons[i]; i++){// seurons[0] is daddy so begin at 1
 		if(seurons[i].hasAvatar==true) {
 			
@@ -208,15 +213,38 @@ void drawTimeline(){
 			else{
 				seurons[i].isSelected=false;
 			}
-		// }
+		}
 		// else{ // debug: if seurons[i] !hasAvatar
 			// console.log(i);
 			// console.log(seurons[i]);
-		}
+		// }
 	}
 	if(dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {
 		daddy.isSelected = true;
 		// console.log("daddy.isSelected = true")
 	}
 	else daddy.isSelected = false;
+	*/
+
+	////////////////////////DRAW MESSAGES
+	for (int i = 0; messages[i]; i++){
+		TimelinePosX = map(seconds,dateMin,dateMax,45,width-25);
+		TimelinePosY = height-75 + 30;
+		// stroke(seurons[i].couleur,100);
+		stroke(messages[i].couleur,100);
+		strokeWeight(2);
+		strokeCap(SQUARE);
+		line(TimelinePosX, height-75, TimelinePosX, height-16);
+		fill(messages[i].couleur);
+		ellipse(TimelinePosX,TimelinePosY,8,8);
+
+		if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<8){
+			for (int j = 0; messages[i].interactions[j]; j++){
+				noFill();
+				// stroke(messages[i].interactions[j].couleur);
+				bezier(TimelinePosX, TimelinePosY,TimelinePosX, TimelinePosY-150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy+150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy);
+				bezier(TimelinePosX, TimelinePosY,TimelinePosX, TimelinePosY-150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy+150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy);
+			}
+		}
+	}
 }
