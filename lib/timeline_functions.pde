@@ -42,23 +42,28 @@ ANALYSE EACH TWEET OF THE TIMELINE
 		- We should populate a global Array with all messages
 */
 
-void analyzeTimeline( Array timeline ) {
+int currentThreadIndex = null;
 
+void analyzeTimeline( Array timeline ) {
 
 	// console.log("timeline.length : " +timeline.length );
 	// console.log("mentions.length : " +timelineMentions.length );
 
-	for(int i; i < timeline.length; i++ ) {
-		 analyzeTweet( timeline[i] );
+	for(int i; i < timeline[i]; i++ ) {
+		currentThreadId = null;
+		analyzeTweet( timeline[i] );
+
 	}
+
 	displaySeuron = true
+
 	// API twitter lookup users for toLookup<100
 	if( toLookup.length >0 ) lookupUsers( toLookup );
 }
 
 void analyzeTweet( Object tweet ) {
 	// check what actions can be founded within our tweet
-	// 0:unknown, 1:post, 2:RT, 3:answer, 4:quote(s)
+	// 0:unknown, 1:post, 2:RT, 3:reply, 4:@
 	// console.log(tweet.created_at);
 	// create our message
 	createMessage( twitterTransmitter, tweet.id, tweet);
@@ -79,21 +84,26 @@ void analyzeTweet( Object tweet ) {
 	if ( tweet.in_reply_to_status_id != null ) {
 		// console.log("reply");
 		analyzeReply( from, tweet);
+		analyzeThread(tweet, tweet.in_reply_to_status_id);
 		
 	} 
 	// our tweet is a RT
 	else if ( tweet.retweeted_status ) {
 		
 		// first analyze original message
-		analyzeTweet( tweet.retweeted_status );
+		// analyzeTweet( tweet.retweeted_status );
 
 		//then analyze retweeted message
 		analyzeRT( from, tweet);
+		analyzeThread(tweet,tweet.retweeted_status.id);
 		
 	}
 	// out tweet is just a post
 	else {
+		
 		// console.log("mentions");
+		analyzeThread(tweet,null);
+
 		if(tweet.entities.user_mentions.length>0 ) 
 			analyzeMentions( from, tweet.entities.user_mentions,  seurons[from].id, tweet );
 		// else : nothing happpen bcz no interactions
@@ -168,48 +178,12 @@ void analyzeReply(  int _from, Object tweet ){
 
 
 	// is the message a reply to himself?
-	if( tweet.in_reply_to_user_id != seurons[_from].id ) {
-
-		// get the original message
-		var original_tweet = null;
-		int replyIndex = getReplyIndex( tweet.in_reply_to_status_id);
-		// console.log(replyIndex);
-
-		if( replyIndex == null ) {
-
-			// get the message from Twitter API
-			messagesLookup.push(tweet.in_reply_to_status_id);
-
-			// original_tweet = lookup message from twitter;
-			// analyzeTweet(messageLookedUp);
-
-		} else {
-
-			// get original tweet from mentions timeline
-			original_tweet = timelineMentions[replyIndex];
-			
-			// check if original message is already in thread
-			int threadIndex = isInThread( tweet.in_reply_to_status_id );
-
-			// console.log(threadIndex);
-			if(threadIndex != null) {
-				//add to thread
-				threads[threadIndex].push(tweet.id);
-			} else {
-				int index = isInThread(tweet.id);
-				// console.log(index);
-				if(index == null) {
-					createThread(tweet.id);
-				} 
-			}
-		}
-
-		if(original_tweet != null) analyzeTweet(original_tweet);
+	/*if( tweet.in_reply_to_user_id != seurons[_from].id ) {
 
 	} 
 	else {
 		// console.log("this is a reply to myself ! "); --> silly
-	}
+	}*/
 
 	// get the guy from the reply
 	int replyFrom = seuronExists( tweet.in_reply_to_user_id );
@@ -296,6 +270,64 @@ void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) 
 	}
 }
 
-void analyzeThread(int id, int prevId ) {
+
+
+void analyzeThread(Object tweet, int prevId ) {
+	// 0:unknown, 1:post, 2:RT, 3:reply, 4:@
+
+	if(prevId != null) currentThreadIndex = isInThread(prevId);
+	if(currentThreadId == null ) currentThreadIndex = isInThread(tweet.id);
+
+	if(currentThreadIndex == null){
+		createThread(tweet.id);
+		if(prevId != null) threads[ threads.length-1 ].push(prevId);
+	} 
+	else {
+		threads[currentThreadIndex].push(tweet.id);
+		if(prevId != null) threads[currentThreadIndex].push(prevId);
+	}
+
+	if(tweet.retweeted_status) {
+		// first analyze original message
+		analyzeTweet( tweet.retweeted_status );
+	}
+	else if {
+		getReply(tweet.in_reply_to_status_id);
+	}
+
+}
+
+
+void getReply(int id) {
+
+	int replyIndex = getReplyIndex(id);
+	var reply = null;
 	
+	if( replyIndex == null ) {
+		console.log("added to lookup");
+		/*
+		// get the message from Twitter API
+		reply = messagesLookup(tweet.in_reply_to_status_id);
+
+		// temp
+		tweetLoaded = true;
+
+		// wait for server to be ready
+		while (!tweetLoaded){}
+
+	*/
+	} else {
+		console.log("found in mentions");
+		reply = timelineMentions[replyIndex];
+	}
+
+	analyzeTweet(reply);
+}
+
+// get index of a message in the mentions timeline
+void getReplyIndex( int id ) {
+	for (int i = 0; timelineMentions[i]; i++){
+		if( timelineMentions[i].id == id ) return i;
+	}
+	return null
 }

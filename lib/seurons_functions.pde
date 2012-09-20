@@ -1,38 +1,3 @@
-/*
-// create daddy's friends 	
-void createFriends( Array daddyFriends) {
-	for (int i = 0; i< daddyFriends.length; i++){
-		
-		// check if the friend already exists
-		int friend = seuronExists( daddyFriends[i] );
-		
-		// console.log(friend);
-		if( friend != null ) {
-			daddy.addFriend( seurons[friend] );
-		} else {
-			daddy.addFriend( createSeuron( daddyFriends[i], null, false ) );
-		}
-	}
-}
-
-// create daddy's followers
-void createFollowers( Array daddyFollowers) {
-	for (int i = 0; i< daddyFollowers.length; i++){
-
-		int follower = seuronExists	( daddyFollowers[i] );
-		
-		if( follower != null  ) {
-			// seurons already exists, so it is a closeFriend
-			daddy.synapses[ follower ].level = 1;
-		} else {
-			// console.log(follower);
-			// console.loopg('create new');
-			daddy.addFollower( createSeuron( daddyFollowers[i], null, false ) );
-		}
-
-	}
-}
-*/
 // create a new seuron with minimum data
 // and add it to a global array containing all seurons
 void createSeuron( int id, Object data, boolean lookup ) {

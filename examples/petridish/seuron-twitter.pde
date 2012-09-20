@@ -58,6 +58,7 @@ Object timelineMentions;
 
 // ------------------------------- INIT
 void setup(){
+	// console.log("lala");
 	size(screenWidth, screenHeight);
 	cnvs = externals.canvas;
 	ctx = externals.context;
@@ -80,7 +81,6 @@ void setup(){
 
 	frameRate(10);
 	smooth();
-
 
 	loadData();
 }
