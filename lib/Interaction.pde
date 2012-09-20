@@ -3,10 +3,10 @@ Interaction class
 
 	Actions are defined by the following int
 			0 :		unknown
-			1 :		post
-			2 : 	RT
-			3 :		answer
-			4 :		quote(s) - at
+			1 :		post // rien !
+			2 : 	RT // green #00FF85
+			3 :		answer // orange #ff9000
+			4 :		@at // rose #ee64ff
 */
 
 class Interaction {  
@@ -14,7 +14,7 @@ class Interaction {
 	int action;
 	Object data;
 	Synapse synapse;
-	color[] colors = [ color(255, 255, 255), color(255, 0, 0), color(0, 255, 0), color(0, 0, 255), color(102, 85, 100) ];
+	color[] colors = [ #FE0000, #FE0000, #00FF85, #ff9000, #ee64ff ];
 	color couleur;
 
 	Interaction( Synapse _synapse, int _action ) {

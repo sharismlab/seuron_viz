@@ -231,8 +231,12 @@ void drawTimeline(){
 	for (int i = 0; messages[i]; i++){
 		TimelinePosX = map(messages[i].seconds,dateMin,dateMax,45,width-25);
 		TimelinePosY = height-75 + 30;
+		TimelinePosY = (messages[i].type==3)? height-75 + 15 :
+						(messages[i].type==2)? height-75 + 30 :
+						height-75 + 45;
+
 		// stroke(seurons[i].couleur,100);
-		stroke(messages[i].couleur,100);
+		stroke(messages[i].couleur,255);
 		strokeWeight(2);
 		strokeCap(SQUARE);
 		line(TimelinePosX, height-75, TimelinePosX, height-16);
@@ -242,10 +246,13 @@ void drawTimeline(){
 		// console.log(i);
 		if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<8){
 			for (int j = 0; messages[i].interactions[j]; j++){
+				messages[i].interactions[j].synapse.seuronA.isSelected = true;
+				messages[i].interactions[j].synapse.seuronB.isSelected = true;
 				noFill();
-				// stroke(messages[i].interactions[j].couleur);
+				stroke(messages[i].interactions[j].couleur);
 				bezier(TimelinePosX, TimelinePosY,TimelinePosX, TimelinePosY-150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy+150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy);
 				bezier(TimelinePosX, TimelinePosY,TimelinePosX, TimelinePosY-150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy+150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy);
+				if(mousePressed) console.log(messages[i]);
 			}
 		}
 	}
