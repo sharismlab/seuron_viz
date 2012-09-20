@@ -1,25 +1,3 @@
-// get index of a message in the mentions timeline
-void getReplyIndex( int id ) {
-	for (int i = 0; timelineMentions[i]; i++){
-		if( timelineMentions[i].id == id ) return i;
-	}
-	return null
-}
-
-
-//  check if the message is already in a thread 
-// -- return the index position of the tread in threads[] or null
-void isInThread(int messageId) {
-	for (int i = 0; threads[i]; i++){
-		// console.log(threads[i]);
-		for (int j = 0; threads[i].messageIds[j]; j++) {
-			if(threads[i].messageIds[j] == messageId) return i;
-		}	
-	}
-	return null
-}
-
-
 // create an interaction for each message 
 void createMessage( Transmitter service, int id, Object tweet ) {
 
@@ -55,6 +33,7 @@ void createMessage( Transmitter service, int id, Object tweet ) {
 	}
 }
 
+
 void createThread( int id ) {
 	
 	// create thread
@@ -66,4 +45,16 @@ void createThread( int id ) {
 	// add thread to global array
 	threads.push(t);
 
+}
+
+//  check if the message is already in a thread 
+// -- return the index position of the tread in threads[] or null
+void isInThread(int messageId) {
+	for (int i = 0; threads[i]; i++){
+		// console.log(threads[i]);
+		for (int j = 0; threads[i].messageIds[j]; j++) {
+			if(threads[i].messageIds[j] == messageId) return i;
+		}	
+	}
+	return null
 }
