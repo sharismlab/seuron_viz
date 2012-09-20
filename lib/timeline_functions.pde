@@ -274,6 +274,7 @@ void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) 
 
 void analyzeThread( Object tweet, int prevId ) {
 	// 0:unknown, 1:post, 2:RT, 3:reply, 4:@
+	console.log(tweet);
 
 	if(prevId != null) currentThreadIndex = isInThread(prevId);
 	if(currentThreadIndex == null ) currentThreadIndex = isInThread(tweet.id);
@@ -301,6 +302,7 @@ void analyzeThread( Object tweet, int prevId ) {
 void getReply(int id) {
 
 	int replyIndex = getReplyIndex(id);
+	
 	var reply = null;
 	
 	if( replyIndex == null ) {
@@ -317,7 +319,7 @@ void getReply(int id) {
 
 	*/
 	} else {
-		console.log("found in mentions");
+		// console.log("found in mentions");
 		reply = timelineMentions[replyIndex];
 	}
 
