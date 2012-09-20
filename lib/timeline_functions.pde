@@ -45,8 +45,8 @@ ANALYSE EACH TWEET OF THE TIMELINE
 void analyzeTimeline( Array timeline ) {
 
 
-	console.log("timeline.length : " +timeline.length );
-	console.log("mentions.length : " +timelineMentions.length );
+	// console.log("timeline.length : " +timeline.length );
+	// console.log("mentions.length : " +timelineMentions.length );
 
 	for(int i; i < timeline.length; i++ ) {
 		 analyzeTweet( timeline[i] );
@@ -56,20 +56,10 @@ void analyzeTimeline( Array timeline ) {
 	if( toLookup.length >0 ) lookupUsers( toLookup );
 }
 
-// void analyzeTimelineMentions( Array mentions ) {
-// 	console.log(mentions);
-// 	for(int i; i < mentions.length; i++ ) {
-
-// 		// create a message for each
-// 		// createMessage( twitterTransmitter, mentions[i].id, mentions[i]);
-
-// 	}
-// }
-
 void analyzeTweet( Object tweet ) {
 	// check what actions can be founded within our tweet
 	// 0:unknown, 1:post, 2:RT, 3:answer, 4:quote(s)
-	
+	// console.log(tweet.created_at);
 	// create our message
 	createMessage( twitterTransmitter, tweet.id, tweet);
 
@@ -173,27 +163,49 @@ void analyzeRT( int _from, Object tweet ){
 }
 
 void analyzeReply(  int _from, Object tweet ){
-	// console.log("this is a reply");
-	
-	// get message 
-	Object original_message  = tweet.in_reply_to_status_id;
 
 	// is the message a reply to himself?
 	if( tweet.in_reply_to_user_id != seurons[_from].id ) {
 
-		int index = getReplyIndex( tweet.in_reply_to_status_id) ;
+		// get the original message
+		var original_tweet = null;
+		int replyIndex = getReplyIndex( tweet.in_reply_to_status_id);
+		// console.log(replyIndex);
 
-		if(index == null ) {
+		if( replyIndex == null ) {
 
+			// get the message from Twitter API
 			messagesLookup.push(tweet.in_reply_to_status_id);
-			
+
+			// original_tweet = lookup message from twitter;
+			// analyzeTweet(messageLookedUp);
+
 		} else {
-			analyzeTweet( timelineMentions[index]);
+
+			// get original tweet from mentions timeline
+			original_tweet = timelineMentions[replyIndex];
+			
+			// check if original message is already in thread
+			int threadIndex = isInThread( tweet.in_reply_to_status_id );
+
+			// console.log(threadIndex);
+			if(threadIndex != null) {
+				//add to thread
+				threads[threadIndex].push(tweet.id);
+			} else {
+				int index = isInThread(tweet.id);
+				// console.log(index);
+				if(index == null) {
+					createThread(tweet.id);
+				} 
+			}
 		}
+
+		if(original_tweet != null) analyzeTweet(original_tweet);
 
 	} 
 	else {
-		// console.log("this is a reply to myself ! ");
+		// console.log("this is a reply to myself ! "); --> silly
 	}
 
 	// get the guy from the reply

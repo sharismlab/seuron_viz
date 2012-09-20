@@ -13,6 +13,7 @@ void loadData(){
 	daddy.couleur = #ffffcb;
 	seurons.push(daddy);
 	seuronIds.push(daddy.id);
+	displayDaddy = true;
 
 	// console.log(daddy);
 
@@ -35,7 +36,11 @@ void loadData(){
 	Object daddyTimeline = getTimeline( "makio135" );
 	analyzeTimeline(daddyTimeline);
 	
-	console.log(threads.length);
+	console.log("threads.length : "+threads.length);
+	for (int i = 0; threads[i]; i++){
+		console.log(threads[i].messageIds.length);	
+	}
+
 }
 
 
