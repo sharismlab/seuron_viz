@@ -232,9 +232,9 @@ class Seuron {
 		void showInfoBox(){
 			// display name
 			rectMode(CENTER);
-			fill(0,80);
 			noStroke();
-			rect(cx,cy,textWidth(name)+10, 16);
+			fill(0,80);
+			rect(cx,cy, textWidth(name)+16,15)
 			fill(255);
 			textAlign(CENTER);
 			text(name, cx, cy+4);
@@ -244,8 +244,6 @@ class Seuron {
 			else descHeight=0;
 			rectMode(CORNER);
 			noStroke();
-			fill(0,150);
-			rect(20,20,460,33+descHeight*14,3,3);
 			fill(255,230);
 			rect(15,15,460,33+descHeight*14,3,3);
 			fill(0);

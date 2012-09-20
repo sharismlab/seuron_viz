@@ -163,6 +163,8 @@ void analyzeRT( int _from, Object tweet ){
 }
 
 void analyzeReply(  int _from, Object tweet ){
+	// console.log("this is a reply");
+
 
 	// is the message a reply to himself?
 	if( tweet.in_reply_to_user_id != seurons[_from].id ) {

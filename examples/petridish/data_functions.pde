@@ -15,6 +15,7 @@ void loadData(){
 	seuronIds.push(daddy.id);
 	displayDaddy = true;
 
+
 	// console.log(daddy);
 
 	// create daddy's friends 	
