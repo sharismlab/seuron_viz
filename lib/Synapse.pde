@@ -31,17 +31,14 @@ class Synapse {
 
 
 	Synapse(Seuron _seuronA, Seuron _seuronB, int _level) {
-		
-		seuronA =_seuronA;
+		seuronA = _seuronA;
 		seuronB = _seuronB;
 		level = _level;
-
 	}
 
 	void display() {
 		stroke(colors[level]);
 		line(seuronA.cx, seuronA.cy, seuronB.cx,seuronB.cy);
-		
 	}
 
 

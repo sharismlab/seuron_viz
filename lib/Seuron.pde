@@ -230,15 +230,6 @@ class Seuron {
 
 		float descHeight;
 		void showInfoBox(){
-			// display name
-			rectMode(CENTER);
-			noStroke();
-			fill(0,150);
-			rect(cx,cy, textWidth(name)+16,15)
-			fill(couleur);
-			textAlign(CENTER);
-			text(name, cx, cy+4);
-
 			// info box
 			if(textWidth(description)>10) descHeight=1+floor(textWidth("Description: "+description)/400);
 			else descHeight=0;
@@ -251,6 +242,17 @@ class Seuron {
 			text("User: "+name+"\nDate: "+date+"\nDescription: "+description,20,20,400,30+descHeight*14);
 			
 			if(hasAvatar) showAvatar();
+		}
+
+		void showName(){
+			// display name
+			rectMode(CENTER);
+			noStroke();
+			fill(0,150);
+			rect(cx,cy, textWidth(name)+16,15)
+			fill(couleur);
+			textAlign(CENTER);
+			text(name, cx, cy+4);
 		}
 
 		void showAvatar() {

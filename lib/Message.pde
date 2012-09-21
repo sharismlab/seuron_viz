@@ -27,14 +27,14 @@ class Message {
 	
 	var hashtags = [];
 	var links = [];
-	String date, text;
+	String date, message;
 	int seconds, type;
 	color couleur = colors[0];
 	
 	void splitData( Object data ) {
 		// console.log(data);
 
-		text = data.text;
+		message = data.text;
 		
 		date = parseTwitterDate(data.created_at);
 		// console.log(date);
@@ -85,5 +85,17 @@ class Message {
 			return tmp;
 	}
 
+	float messageHeight;
+	void showInfoBox(){
+		// info box
+		messageHeight=1+floor(textWidth("Message: "+message)/440);
+		rectMode(CORNER);
+		noStroke();
+		fill(255,230);
+		rect(15,15,460,20+messageHeight*14,3,3);
+		fill(0);
+		textAlign(LEFT);
+		text("Date: "+date+"\nMessage: "+message,20,20,440,12+messageHeight*14);
+	}
 
 }
