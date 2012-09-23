@@ -66,13 +66,13 @@ class Node
     r1=_r1; r2=_r2; }
 
   void draw() {
-    stroke(0);
-    fill(255);
+    stroke(30);
+    fill(30);
     for(Node o: outlinks) {
       drawArrow(x,y,o.x,o.y); }
-    ellipse(x,y,r1*2,r2*2);
+    // ellipse(x,y,r1*2,r2*2);
     fill(50,50,255);
-    text(label,x+r1*2,y+r2*2);
+    // text(label,x+r1*2,y+r2*2);
   }
   
   int[] arrowhead = {0,-4,0,4,7,0};
@@ -86,13 +86,14 @@ class Node
     line(x,y,x+end[0],y+end[1]);
     drawArrowHead(x+end[0], y+end[1], angle);
   }
+
   void drawArrowHead(int ox, int oy, float angle) {
     int[] rc1 = rotateCoordinate(arrowhead[0], arrowhead[1], angle);
     int[] rc2 = rotateCoordinate(arrowhead[2], arrowhead[3], angle);
     int[] rc3 = rotateCoordinate(arrowhead[4], arrowhead[5], angle);
     int[] narrow = {ox+ rc1[0], oy+ rc1[1], ox+ rc2[0], oy+ rc2[1], ox+ rc3[0], oy+ rc3[1]};
     stroke(0);
-    fill(255);
+    fill(30);
     triangle(narrow[0], narrow[1], narrow[2], narrow[3], narrow[4], narrow[5]);
   }
 }

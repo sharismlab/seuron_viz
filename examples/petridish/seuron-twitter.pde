@@ -87,6 +87,7 @@ void setup(){
 
 	sortMessages();
 	createForceGraph();
+	// createThreadsForce();
 	// console.log(daddy);
 
 

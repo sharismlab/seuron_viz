@@ -12,7 +12,7 @@ int msgDispCount=0;
 var dispIds = [];
 
 boolean viewChangeable = true;
-int view = 2;
+int view = 1;
 
 void draw() {
 	////////////////////////////////////////////////////////////////
@@ -30,16 +30,18 @@ void draw() {
 	if(view==2) drawThreads();
 
 	if(view ==3) {
-		drawForce();
-		for (int i = 0; nodes[i]; i++){
-	
-			seurons[i].cx = nodes[i].x;
-			seurons[i].cy = nodes[i].y;
-			seurons[i].display();	
 		
-			
+		// drawThreadsForce();
+
+		for (int i = 0; nodes[i]; i++){
+
+			if( dispIds.indexOf( seurons[i].id ) != -1) seurons[i].cx = nodes[i].x;
+			if( dispIds.indexOf( seurons[i].id ) != -1) seurons[i].cy = nodes[i].y;
+			if( dispIds.indexOf( seurons[i].id ) != -1)  seurons[i].display();	
+
 		}
 
+		drawForce();
 			
 	}
 
@@ -73,6 +75,10 @@ void draw() {
 	fill(255);
 	textAlign(CENTER);
 	text("Switch View", width-99, 33);
+	if(view ==1) text("Relationship", width-99, 63);
+	else if(view ==2) text("Interactions", width-99, 63);
+	else if(view ==3) text("Connection", width-99, 63);
+
 
 }
 
@@ -80,7 +86,7 @@ void draw() {
 void drawCaptions(){
 	textAlign(LEFT);
 	fill(255);
-	text("Press Mouse Button To Show Messages", 15,height-90);
+	// text("Press Mouse Button To Show Messages", 15,height-90);
 
 	for(int i=4; i>=0; i--){
 		strokeWeight(.6*i);
