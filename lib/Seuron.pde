@@ -68,7 +68,6 @@ class Seuron {
 			synapses.push(syn);
 		}
 	
-
 		// check if a seuron is a friend of mine
 		boolean isFriend( int _id ) {
 			for (int i = 0; friends[i]; i++){
@@ -91,7 +90,6 @@ class Seuron {
 			return false;
 		}
 
-
 		void addFriend( Seuron friend ) {
 			// check if he is a follower
 			// if ( isCloseFriend( friend ) ) createSynapse(friend, 1);
@@ -107,8 +105,7 @@ class Seuron {
 			else createSynapse(follower, 3);
 		}
 
-		
-		//Return Seuron[] 
+		var close = [];
 		void getCloseFriends() {
 			_closeFriends = [];
 			for (int i = 0; synapses[i]; i++){
@@ -119,6 +116,7 @@ class Seuron {
 			return _closeFriends;
 		}
 
+		var myfriends = [];
 		void getFriends() {
 			_friends = [];
 			for (int i = 0; synapses[i]; i++){
@@ -129,6 +127,7 @@ class Seuron {
 			return _friends;
 		}
 
+		var myfollowers = [];
 		void getFollowers() {
 			_followers = [];
 			for (int i = 0; synapses[i]; i++){
@@ -139,6 +138,7 @@ class Seuron {
 			return _followers;
 		}
 
+		var unknown = [];
 		void getUnrelated() {
 			_unrelated = [];
 			for (int i = 0; synapses[i]; i++){
@@ -149,6 +149,59 @@ class Seuron {
 			return _unrelated;
 		}
 
+		void setNetworkPos() {
+
+			myfriends = getFriends();
+			myfollowers = getFollowers();
+			close  = getCloseFriends();
+			unknown = getUnrelated();
+
+			//set positions for daddy's network
+			float rayon=0, angle=0;
+			// draw close friends
+			for (int i = 0; close[i]; i++){
+				rayon = 75;
+				angle = i * TWO_PI / close.length;
+					
+				close[i].easing=.17;
+				close[i].tarX = width/2 + cos(angle) * rayon;
+				close[i].tarY = height/2 + sin(angle) * rayon;
+				close[i].couleur= colors[0];
+			} 
+
+			// draw friends
+			for (int i = 0; myfriends[i]; i++){
+				rayon = 150;
+				angle = i * TWO_PI / myfriends.length;
+
+				myfriends[i].easing=.14;
+				myfriends[i].tarX = width/2 + cos(angle) * rayon;
+				myfriends[i].tarY = height/2 + sin(angle) * rayon;
+				myfriends[i].couleur = colors[1];
+			}
+
+			// draw followers
+			for (int i = 0; myfollowers[i]; i++){
+				rayon = 225;
+				angle = i * TWO_PI / myfollowers.length;
+
+				myfollowers[i].easing=.11;
+				myfollowers[i].tarX = width/2 + cos(angle) * rayon;
+				myfollowers[i].tarY = height/2 + sin(angle) * rayon;
+				myfollowers[i].couleur = colors[2];
+			}
+
+			// draw unknown
+			for (int i = 0; unknown[i]; i++){
+				rayon = 300;
+				angle = i * TWO_PI / unknown.length;
+
+				unknown[i].easing=.08;
+				unknown[i].tarX = width/2 + cos(angle) * rayon;
+				unknown[i].tarY = height/2 + sin(angle) * rayon;
+				unknown[i].couleur = colors[3];
+			}
+		}
 
 		// return Synapse index based on another Seuron id
 		void getSynapse( int id ) {
@@ -267,5 +320,10 @@ class Seuron {
 			float d = target - variable;
 			if(abs(d)>1) variable+= d*easingVal;
 			return variable;
+		}
+
+		void setPosition(float x, float y) {
+			tarX
+			tarY
 		}
 }
