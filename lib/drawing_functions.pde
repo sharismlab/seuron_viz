@@ -32,9 +32,12 @@ void draw() {
 	if(view ==3) {
 		drawForce();
 		for (int i = 0; nodes[i]; i++){
+	
 			seurons[i].cx = nodes[i].x;
 			seurons[i].cy = nodes[i].y;
-			seurons[i].display();
+			seurons[i].display();	
+		
+			
 		}
 
 			

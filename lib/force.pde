@@ -6,29 +6,10 @@ void createForceGraph() {
 	
 	// define a graph
   	g = new DirectedGraph();
-  	
+
 	// define some nodes
 	for (int i = 0; seurons[i]; i++){
 		nodes.push( new Node( i, seurons[i].tarX, seurons[i].tarY ) );
-	}
-
-	//add nodes to the graph
-	for (int i = 0; nodes[i]; i++){
-		g.addNode(nodes[i]);	
-	}
-
-	// link nodes
-	// console.log(interactionIds);
-	for (int i = 0; messages[i]; i++){
-		for (int j = 0; messages[i].interactions[j]; j++){
-	  		
-			int indexA = getNodeIndex(messages[i].interactions[j].synapse.seuronA.id);
-			int indexB = getNodeIndex(messages[i].interactions[j].synapse.seuronB.id);
-			// console.log(nodes[indexA]);
-			
-			g.linkNodes(nodes[indexA], nodes[indexB]);
-		}
-		
 	}
 
 	// add force
@@ -37,12 +18,38 @@ void createForceGraph() {
 }
 
 void drawForce() {
-	if(g!=null){
+	
+	//add nodes to the graph
+	for (int i = 0; nodes[i]; i++){
+	
+		g.addNode(nodes[i]);	
+	
+	}
+
+	// link nodes
+	// console.log(interactionIds);
+	for (int i = 0; messages[i]; i++){
+
+
+		for (int j = 0; messages[i].interactions[j]; j++){
+	  		
+
+			// add all interactions to seurons force graph
+			int indexA = getNodeIndex(messages[i].interactions[j].synapse.seuronA.id);
+			int indexB = getNodeIndex(messages[i].interactions[j].synapse.seuronB.id);
+			g.linkNodes(nodes[indexA], nodes[indexB]);
+		}
 		
+	}
+
+	if(g!=null){
+
 	    boolean done = g.reflow();
 	    // g.draw();
 	    if(!done) { loop(); } else { noLoop(); }
-  }
+	}
+
+	
 }
 
 // return index in nodes[] from a seuron Id

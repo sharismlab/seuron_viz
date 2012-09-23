@@ -21,7 +21,6 @@ class Seuron {
 
 		// here are stored all objects describing relationships
 		var synapses = [];
-
 		var messageIds = [];
 
 		// drawings var
