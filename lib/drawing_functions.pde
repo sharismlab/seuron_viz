@@ -32,7 +32,11 @@ void draw() {
 	// DRAW DADDY
 	if( displayDaddy == true) daddy.display();
 
+<<<<<<< HEAD
 	if(frameCount%1==0 && msgDispCount<messages.length){
+=======
+	if(frameCount%15==0 && msgDispCount<messages.length){
+>>>>>>> 12330bd635f33e83eeb3bf97c79ab4fa7eb9f380
 		msgDispCount++;
 		// console.log(msgDispCount);
 	}
@@ -87,57 +91,28 @@ void drawTimeline(){
 		popMatrix();
 
 	////////////////////////DRAW SEURONS
-		/*
+		
 		for (int i=0; seurons[i]; i++){// seurons[0] is daddy so begin at 1
-			if(seurons[i].hasAvatar==true) {
+			if(dist(mouseX, mouseY, seurons[i].cx, seurons[i].cy)<seurons[i].radius/2 || mousePressed) {
+				for(int j=0; seurons[i].messageIds[j], j++){
+					int index = getMessageIndex(seurons[i].messageIds[j]);
+					stroke( messages[index].interactions[j].couleur );
+					bezier(seurons[i].cx, seurons[i].cy, messages[index].timelinePosX, messages[index].timelinePosY);
+				}
 				
-
-				seconds = Date.parse(seurons[i].date);
-				if(seconds<dateMin){
-					dateMin = seconds;
-					// println("dateMin: " + dateMin);
-				}
-				else if(seconds>dateMax){ 
-					dateMax = seconds;
-					// println("dateMax: " + dateMax);
-				}
-
-				TimelinePosX = map(seconds,dateMin,dateMax,45,width-25);
-				TimelinePosY = (daddy.isFriend(seurons[i].id) && daddy.isFollower(seurons[i].id))? height-75 + 15 :
-								daddy.isFriend(seurons[i].id)? height-75 + 25 :
-								daddy.isFollower(seurons[i].id)? height-75 + 35 :
-								height-75 + 45;
-
-
-				// height-75 + map(seurons[i].cy,100,screenHeight-150,5,55);
-				stroke(seurons[i].couleur,100);
-				strokeWeight(2);
-				strokeCap(SQUARE);
-				line(TimelinePosX, height-75, TimelinePosX, height-16);
-				fill(seurons[i].couleur);
-				ellipse(TimelinePosX,TimelinePosY,8,8);
-
-				if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<8 || dist(mouseX, mouseY, seurons[i].cx, seurons[i].cy)<seurons[i].radius/2 || mousePressed) {
-					noFill();
-					bezier(TimelinePosX, TimelinePosY,TimelinePosX, TimelinePosY-150, seurons[i].cx, seurons[i].cy+150, seurons[i].cx, seurons[i].cy);
-
-					seurons[i].isSelected = true;
-				}
-				else{
-					seurons[i].isSelected=false;
-				}
+				seurons[i].isSelected = true;
 			}
-			// else{ // debug: if seurons[i] !hasAvatar
-				// console.log(i);
-				// console.log(seurons[i]);
-			// }
+			else{
+				seurons[i].isSelected=false;
+			}
+
 		}
 		if(dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {
 			daddy.isSelected = true;
 			// console.log("daddy.isSelected = true")
 		}
 		else daddy.isSelected = false;
-		*/
+		
 
 	////////////////////////DRAW MESSAGES
 		// console.log(dateMin + "    " +  dateMax);
@@ -153,7 +128,7 @@ void drawTimeline(){
 			strokeCap(SQUARE);
 			line(messages[i].timelinePosX, height-75, messages[i].timelinePosX, height-16);
 
-			if(dist(mouseX, mouseY, messages[i].timelinePosX, messages[i].timelinePosY)<=5 || i==msgDispCount-1){
+			if(dist(mouseX, mouseY, messages[i].timelinePosX, messages[i].timelinePosY)<=5  || i==msgDispCount-1){
 				messages[i].showInfoBox();
 				for (int j = 0; messages[i].interactions[j]; j++){
 					seurons[seuronExists(messages[i].interactions[j].synapse.seuronA.id)].isSelected = true;
@@ -164,8 +139,18 @@ void drawTimeline(){
 
 					stroke( messages[i].interactions[j].couleur );
 
-					bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy+150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy);
-					bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy+150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy);
+					// if(daddy.id != messages[i].interactions[j].synapse.seuronA.id && daddy.id != messages[i].interactions[j].synapse.seuronB.id) {
+						bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy+150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy);
+					// }
+
+					// if(daddy.id != messages[i].interactions[j].synapse.seuronA.id && daddy.id != messages[i].interactions[j].synapse.seuronB.id){
+						bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy+150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy);
+					// }
+
+					if(daddy.id != messages[i].interactions[j].synapse.seuronA.id && daddy.id != messages[i].interactions[j].synapse.seuronB.id){
+						line(messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy);
+					}
+
 					if(mousePressed) {console.log(messages[i]); console.log(dateMax);}
 				}
 			}

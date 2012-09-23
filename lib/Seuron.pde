@@ -274,13 +274,13 @@ class Seuron {
 
 	////////////////////////DRAW FUNCTIONS
 		void display() {
-			cx=ease(cx, tarX, easing);
-			cy=ease(cy, tarY, easing);
 			// begin drawing nucleus
 			noStroke();
 			fill(couleur,160);
 			//draw nucleus
 			ellipse(cx,cy,radius,radius);
+			cx=ease(cx, tarX, easing);
+			cy=ease(cy, tarY, easing);
 		}
 
 		float descHeight;

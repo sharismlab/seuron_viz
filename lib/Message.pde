@@ -46,7 +46,6 @@ class Message {
 
 		if(seconds < dateMin){
 			dateMin = seconds;
-			// console.log("--------------------- dateMin: " + dateMin);
 		}
 		else if(seconds > dateMax){ 
 			dateMax = seconds;
