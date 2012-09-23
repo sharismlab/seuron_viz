@@ -25,6 +25,8 @@ void draw() {
 	 // draw caption
 	if( view == 1) drawCaptions();
 
+	if(view==2) drawThreads();
+
 	// DRAW TIMELINE
 	drawTimeline();
 
@@ -64,7 +66,6 @@ void draw() {
 		text("Switch View", 50, height/2+3);
 	}
 
-	if(view==2) drawThreads();
 }
 
 void drawCaptions(){
@@ -246,7 +247,27 @@ void displayAllSeurons(){
 }
 
 
+float scrollY=0;
+boolean scrollDraggable = false;
 void drawThreads(){
+	////////////////////////SCROLLBAR
+	fill(30);
+	noStroke();
+	rect(width-32,13,19,height-109,8,8);
+	
+	if(mouseX>width-30 && mouseX<width-15 && mouseY>15+scrollY && mouseY<15+scrollY+60){
+		fill(150);
+		if(mousePressed) scrollDraggable=true;
+	}
+	else fill(80);
+
+	if(scrollDraggable){
+		scrollY+=mouseY-pmouseY;
+		scrollY=constrain(scrollY, 0, height-173);
+	}
+
+	rect(width-30,15+scrollY,15,60,6,6);
+
 	////////////////////////DRAW THREADS
 	float countThreads;
 	float step;
@@ -254,10 +275,11 @@ void drawThreads(){
 		if(threads[i].messageIds.length>1) countThreads++;
 	}
 	// console.log(countThreads);
-	step=(height-50)/countThreads;
+	step=(3*height)/countThreads;
 	
 	countThreads=0;
 	pushMatrix();
+	translate(0,map(scrollY,0, height-173, 0, -3*height));
 	for (int i = 0; threads[i]; i++){
 		threads[i].displayable=false;
 		//display threads
@@ -266,7 +288,6 @@ void drawThreads(){
 			countThreads++;
 
 			threads[i].posY= 25+countThreads*step;
-			translate(25,0);
 			// threads[i].posX= 25+dispIds.length*10;
 
 			for (int j = 0; threads[i].messageIds[j]; j++){
@@ -283,4 +304,8 @@ void drawThreads(){
 		}
 	}
 	popMatrix();
+}
+
+void mouseReleased(){
+	scrollDraggable=false;
 }
