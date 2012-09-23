@@ -10,8 +10,10 @@ var captions = [
 // ------------------------------- MAIN DRAWING FUNCTION
 int msgDispCount=0;
 var dispIds = [];
+
 boolean viewChangeable = true;
 int view = 3;
+
 void draw() {
 	////////////////////////////////////////////////////////////////
 
@@ -27,6 +29,8 @@ void draw() {
 
 	if(view==2) drawThreads();
 
+	if(view ==3) drawForce();
+
 	// DRAW TIMELINE
 	drawTimeline();
 
@@ -41,47 +45,27 @@ void draw() {
 		// console.log(msgDispCount);
 	}
 
-	if(msgDispCount==10){
-		viewChangeable = true;
-		// console.log(viewChangeable);
+	
+	//////////////////////////Switch View Button
+	if(mouseX>width-135 && mouseX<width-60 && mouseY>15 && mouseY<45){
+		fill(150);
+		viewChangeable=true;
 	}
-
-	if(viewChangeable) {
-		if(mouseX>15 && mouseX<90 && mouseY>height/2-15 && mouseY<height/2+15){
-			fill(200);
-			if(mousePressed){
-				
-				console.log(view);
-
-				if(view==1 ) view=2;
-				else if(view==2) view=3;
-				else view=1;
-				
-				fill(150);
-			}
-		}
-		else{
-			fill(0);
-		}
-		rectMode(CORNER);
-		noStroke();
-		rect(15,height/2-15,75,30);
-		fill(255);
-		textAlign(CENTER);
-		text("Switch View", 50, height/2+3);
+	else{
+		viewChangeable=false;
+		fill(0);
 	}
-
-	if(view==2) drawThreads();
-
-	if(view==3) {
-		
-		drawForce();
-	}
+	rectMode(CORNER);
+	noStroke();
+	rect(width-135,15,75,30,5,5);
+	fill(255);
+	textAlign(CENTER);
+	text("Switch View", width-99, 33);
 
 }
 
-void drawCaptions(){
 
+void drawCaptions(){
 	textAlign(LEFT);
 	fill(255);
 	text("Press Mouse Button To Show Messages", 15,height-90);
@@ -100,10 +84,10 @@ void drawCaptions(){
 	}
 }
 
+
 int dateMin = (new Date()).getTime(); // Return the number of milliseconds since 1970/01/01:
 int dateMax = 0;
 float TimelinePosX=0, TimelinePosY=0;
-
 // float descHeight;
 void drawTimeline(){
 	////////////////////////DRAW TIMELINE ELEMENTS
@@ -229,8 +213,8 @@ void drawTimeline(){
 	}
 }
 
-void displayAllSeurons(){
 
+void displayAllSeurons(){
 	// draw close friends
 	for (int i = 0; daddy.close[i]; i++){
 		if(dispIds.indexOf(daddy.close[i].id)!=-1) daddy.close[i].display();
@@ -287,7 +271,7 @@ void drawThreads(){
 		if(threads[i].messageIds.length>1) countThreads++;
 	}
 	// console.log(countThreads);
-	step=(3*height)/countThreads;
+	step=(3.5*height)/countThreads;
 	
 	countThreads=0;
 	pushMatrix();
@@ -318,6 +302,13 @@ void drawThreads(){
 	popMatrix();
 }
 
+
 void mouseReleased(){
 	scrollDraggable=false;
+
+	if(viewChangeable){
+		if(view==1) view=2;
+		else view=1;
+		viewChangeable=false;
+	}
 }
