@@ -137,17 +137,14 @@ void drawTimeline(){
 		}
 
 		for (int i = 0; messages[i]; i++){
-			TimelinePosX = map(messages[i].seconds,dateMin,dateMax,45,width-25);
-			TimelinePosY = (messages[i].type==3)? height-75 + 15 :
-							(messages[i].type==2)? height-75 + 30 :
-							height-75 + 45;
+			
 
 			stroke(messages[i].couleur);
 			strokeWeight(.5);
 			strokeCap(SQUARE);
-			line(TimelinePosX, height-75, TimelinePosX, height-16);
+			line(messages[i].timelinePosX, height-75, messages[i].timelinePosX, height-16);
 
-			if(dist(mouseX, mouseY, TimelinePosX, TimelinePosY)<=5){
+			if(dist(mouseX, mouseY, messages[i].timelinePosX, messages[i].timelinePosY)<=5){
 				messages[i].showInfoBox();
 				for (int j = 0; messages[i].interactions[j]; j++){
 					seurons[seuronExists(messages[i].interactions[j].synapse.seuronA.id)].isSelected = true;
@@ -156,18 +153,16 @@ void drawTimeline(){
 					noFill();
 					strokeWeight(2);
 					stroke(messages[i].interactions[j].couleur);
-					bezier(TimelinePosX, TimelinePosY,TimelinePosX, TimelinePosY-150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy+150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy);
-					bezier(TimelinePosX, TimelinePosY,TimelinePosX, TimelinePosY-150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy+150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy);
+					bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy+150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy);
+					bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy+150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy);
 					if(mousePressed) console.log(messages[i]);
 				}
 			}
 			
 			noStroke();
 			fill(messages[i].couleur,150);
-			ellipse(TimelinePosX,TimelinePosY,8,8);
+			ellipse(messages[i].timelinePosX,messages[i].timelinePosY,8,8);
 		}
-
-
 }
 
 void displayAllSeurons(){

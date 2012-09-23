@@ -5,6 +5,7 @@ class Message {
 	Object data;
 	var interactions = [];
 	int seconds;
+	float timelinePosX, timelinePosY;
 
 	/*
 	1 :		post
@@ -22,7 +23,6 @@ class Message {
 		if( service.name.equals("Twitter") ) {
 				if(data) splitData( data );		
 		}
-
 	}
 	
 	var hashtags = [];
@@ -96,6 +96,15 @@ class Message {
 		fill(0);
 		textAlign(LEFT);
 		text("Date: "+date+"\nMessage: "+message,20,20,440,12+messageHeight*14);
+	}
+
+	void setPosition() {
+
+		timelinePosX = map( seconds,dateMin,dateMax,45,width-25 );
+		timelinePosY = (type==3)? height-75 + 15 :
+						(type==2)? height-75 + 30 :
+						height-75 + 45;
+	
 	}
 
 }

@@ -57,6 +57,13 @@ void analyzeTimeline( Array timeline ) {
 
 	}
 
+	// set position for all messages on the timeline
+	for (int i = 0; messages[i]; i++){
+		// console.log(i);	
+		messages[i].setPosition();
+	}
+
+
 	displaySeuron = true
 
 	// API twitter lookup users for toLookup<100
@@ -326,7 +333,6 @@ void getReply(int id) {
 		reply = timelineMentions[replyIndex];
 		analyzeTweet(reply);
 	}
-
 }
 
 // get index of a message in the mentions timeline
