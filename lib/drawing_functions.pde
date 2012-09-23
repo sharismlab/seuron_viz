@@ -131,6 +131,7 @@ void drawTimeline(){
 		else daddy.isSelected = false;
 		*/
 
+
 	////////////////////////DRAW MESSAGES
 		// console.log(dateMin + "    " +  dateMax);
 		for (int i = 0; seurons[i]; i++){
@@ -170,6 +171,11 @@ void drawTimeline(){
 			fill(messages[i].couleur,150);
 			ellipse(messages[i].timelinePosX,messages[i].timelinePosY,8,8);
 		}
+
+	for (int i = 0; threads[i]; i++){
+		//display threads
+		threads[i].displayTL();
+	}
 }
 
 void displayAllSeurons(){
@@ -198,12 +204,5 @@ void displayAllSeurons(){
 	if(daddy.isSelected) daddy.showName();
 	for (int i= 1; seurons[i]; i++){
 		if(seurons[i].isSelected) seurons[i].showName();
-	}
-}
-
-void displayThreads() {
-	for (int i = 0; i<threads[i]; i++){
-		//display threads
-		threads[i].display();
 	}
 }
