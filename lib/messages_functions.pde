@@ -37,3 +37,11 @@ void sortMessages() {
 	messages  = messages.sort(function(a,b) { return parseFloat(a.seconds) - parseFloat(b.seconds) } );
 	// console.log(messages );
 }
+
+void getMessageIndex(int messageId) {
+	for (int i = 0; messageIds[i]; i++){
+		// console.log(threads[i]);
+		if(messageIds[i] == messageId) return i;
+	}
+	return null
+}

@@ -152,6 +152,9 @@ void analyzeRT( int _from, Object tweet ){
 	// Now create our new interaction and add it to our message
 	messages[messageIds.indexOf( tweet.id )].interactions.push( new Interaction( seurons[_from].synapses[synapse], 2 ) );
 
+	// add message to seuron from
+	if( seurons[_from].messageIds.indexOf(tweet.id) ==-1 ) seurons[_from].messageIds.push(tweet.id);
+
 	// deal with other users that has been quoted in the message
 	if(tweet.entities.user_mentions.length>0 ){
 		var tempMentions= [];
@@ -221,6 +224,9 @@ void analyzeReply(  int _from, Object tweet ){
 	// now get the message and add interactions
 	messages[messageIds.indexOf( tweet.id )].interactions.push( new Interaction( seurons[_from].synapses[synapse], 3 ) );
 
+	// add message to seuron from
+	if(seurons[_from].messageIds.indexOf(tweet.id) ==-1 ) seurons[_from].messageIds.push(tweet.id);
+
 	// createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 3, tweet );
 
 	// create other relations with guys quoted in the message 
@@ -231,6 +237,10 @@ void analyzeReply(  int _from, Object tweet ){
 
 void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) {
 	// console.log("there is mentions");
+
+	// add message to seuron from
+	// console.log(seurons[_from].messageIds.indexOf(data.id) !=-1);
+	if(seurons[_from].messageIds.indexOf(data.id) ==-1 ) seurons[_from].messageIds.push(data.id);
 
 	//loop into mentions
 	for (int i = 0; i<mentions.length; i++){

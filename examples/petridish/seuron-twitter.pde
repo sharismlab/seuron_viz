@@ -87,6 +87,7 @@ void setup(){
 
 	sortMessages();
 
+	console.log(daddy);
 	/*for (int j = 0; messages[j]; j++){
 		for (int i = 0; messages[j].interactions[i]; i++){
 			// console.log(messages[j].interactions[i]);

@@ -21,7 +21,7 @@ class Message {
 		id = _id;
 		// console.log(data);
 		if( service.name.equals("Twitter") ) {
-				if(data) splitData( data );		
+				if(data) splitData( data );	
 		}
 	}
 	
@@ -32,22 +32,26 @@ class Message {
 	color couleur = colors[0];
 	
 	void splitData( Object data ) {
-		// console.log(data);
+		// console.log(data.created_at);
 
 		message = data.text;
 		
 		date = parseTwitterDate(data.created_at);
 		// console.log(date);
-
+		// console.log("dateMax: " + dateMax);
+		// console.log("dateMin: " + dateMin);
 		seconds = Date.parse(date);
-		if(seconds<dateMin){
+		// console.log("seconds : " + seconds);
+		// if(seconds < dateMin) console.log("true");
+
+		if(seconds < dateMin){
 			dateMin = seconds;
-			console.log("dateMin: " + dateMin);
+			// console.log("--------------------- dateMin: " + dateMin);
 		}
-		else if( seconds>dateMax ){ 
+		else if(seconds > dateMax){ 
 			dateMax = seconds;
-			console.log(date);
-			console.log("dateMax: " + dateMax);
+			// console.log(date);
+			// console.log("------------------ dateMax: " + dateMax);
 		}
 		// console.log(seconds);
 

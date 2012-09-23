@@ -32,7 +32,7 @@ void draw() {
 	// DRAW DADDY
 	if( displayDaddy == true) daddy.display();
 
-	if(frameCount%5==0 && msgDispCount<messages.length){
+	if(frameCount%1==0 && msgDispCount<messages.length){
 		msgDispCount++;
 		// console.log(msgDispCount);
 	}
