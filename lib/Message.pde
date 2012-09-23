@@ -51,19 +51,14 @@ class Message {
 		// console.log(seconds);
 
 		if(data.entities.hashtags.length>0) {
-
 			for (int i = 0; data.entities.hashtags[i]; i++){
 				hashtags.push(data.entities.hashtags[i]);
-				
 			}
 		}
 
 		if(data.entities.urls.length>0) {
-
-			
 			for (int i = 0; data.entities.urls[i]; i++){
 				links.push( data.entities.urls[i] );
-				
 			}
 		}
 			/*

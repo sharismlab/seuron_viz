@@ -21,7 +21,7 @@ class Interaction {
 
 		synapse = _synapse; // relationships
 		action = _action; // action of the message (rt, at, )
-		couleur = colors[_action];
+		couleur = colors[action];
 	}
 
 	void display() {
