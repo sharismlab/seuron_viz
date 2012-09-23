@@ -167,73 +167,30 @@ void drawTimeline(){
 }
 
 void displayAllSeurons(){
-	var close = [];
-	var myfriends = [];
-	var myfollowers = [];
-	var unknown = [];
 
-	// drawSeurons
-	myfriends = daddy.getFriends();
-	myfollowers = daddy.getFollowers();
-	close  = daddy.getCloseFriends();
-	unknown = daddy.getUnrelated();
-
-	float rayon=0, angle=0;
-	
 	// draw close friends
-	for (int i = 0; close[i]; i++){
-		rayon = 75;
-		angle = i * TWO_PI / close.length;
-			
-		close[i].easing=.17;
-		close[i].tarX = width/2 + cos(angle) * rayon;
-		close[i].tarY = height/2 + sin(angle) * rayon;
-		close[i].couleur= colors[0];
-
-		close[i].display();
+	for (int i = 0; daddy.close[i]; i++){
+		daddy.close[i].display();
 	} 
 
 	// draw friends
-	for (int i = 0; myfriends[i]; i++){
-		rayon = 150;
-		angle = i * TWO_PI / myfriends.length;
-
-		myfriends[i].easing=.14;
-		myfriends[i].tarX = width/2 + cos(angle) * rayon;
-		myfriends[i].tarY = height/2 + sin(angle) * rayon;
-		myfriends[i].couleur = colors[1];
-
-		myfriends[i].display();
+	for (int i = 0; daddy.myfriends[i]; i++){
+		daddy.myfriends[i].display();
 	}
 
 	// draw followers
-	for (int i = 0; myfollowers[i]; i++){
-		rayon = 225;
-		angle = i * TWO_PI / myfollowers.length;
-
-		myfollowers[i].easing=.11;
-		myfollowers[i].tarX = width/2 + cos(angle) * rayon;
-		myfollowers[i].tarY = height/2 + sin(angle) * rayon;
-		myfollowers[i].couleur = colors[2];
-
-		myfollowers[i].display();
+	for (int i = 0; daddy.myfollowers[i]; i++){
+		daddy.myfollowers[i].display();
 	}
 
 	// draw unknown
-	for (int i = 0; unknown[i]; i++){
-		rayon = 300;
-		angle = i * TWO_PI / unknown.length;
-
-		unknown[i].easing=.08;
-		unknown[i].tarX = width/2 + cos(angle) * rayon;
-		unknown[i].tarY = height/2 + sin(angle) * rayon;
-		unknown[i].couleur = colors[3];
-
-		unknown[i].display();
+	for (int i = 0; daddy.unknown[i]; i++){
+		daddy.unknown[i].display();
 	}
 
+	//show Seuron's name if isSelected
+	if(daddy.isSelected) daddy.showName();
 	for (int i= 1; seurons[i]; i++){
-		if(daddy.isSelected) daddy.showName();
 		if(seurons[i].isSelected) seurons[i].showName();
 	}
 }

@@ -63,7 +63,7 @@ void analyzeTimeline( Array timeline ) {
 		messages[i].setPosition();
 	}
 
-	daddy.getNetworkPos();
+	daddy.setNetworkPos();
 
 
 	displaySeuron = true
