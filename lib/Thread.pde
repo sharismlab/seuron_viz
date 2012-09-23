@@ -25,4 +25,8 @@ class Thread
 		endShape();
 	}
 
+	void display(){
+		
+	}
+
 }

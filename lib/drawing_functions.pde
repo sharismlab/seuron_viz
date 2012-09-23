@@ -10,6 +10,8 @@ var captions = [
 // ------------------------------- MAIN DRAWING FUNCTION
 int msgDispCount=0;
 var dispIds = [];
+boolean viewChangeable = false;
+int view = 1;
 void draw() {
 	////////////////////////////////////////////////////////////////
 
@@ -27,16 +29,42 @@ void draw() {
 	drawTimeline();
 
 	// DISPLAY OUR GUYS
-	if( displaySeuron == true) displayAllSeurons();
+	if( view ==1 && displaySeuron == true) displayAllSeurons();
 
 	// DRAW DADDY
-	if( displayDaddy == true) daddy.display();
+	if( view == 1 && displayDaddy == true) daddy.display();
 
 	if(frameCount%1==0 && msgDispCount<messages.length){
 		msgDispCount++;
 		// console.log(msgDispCount);
 	}
 
+	if(msgDispCount==10){
+		viewChangeable = true;
+		console.log(viewChangeable);
+	}
+
+	if(viewChangeable) {
+		if(mouseX>15 && mouseX<90 && mouseY>height/2-15 && mouseY<height/2+15){
+			fill(200);
+			if(mousePressed){
+				if(view==1) view=2;
+				else view=1;
+				fill(150);
+			}
+		}
+		else{
+			fill(0);
+		}
+		rectMode(CORNER);
+		noStroke();
+		rect(15,height/2-15,75,30);
+		fill(255);
+		textAlign(CENTER);
+		text("Switch View", 50, height/2+3);
+	}
+
+	if(view==2) drawThreads();
 }
 
 void drawCaptions(){
@@ -88,7 +116,7 @@ void drawTimeline(){
 		popMatrix();
 
 	////////////////////////DRAW SEURONS
-
+	if( view == 1){
 		for (int i = 0; seurons[i]; i++){
 			seurons[i].isSelected=false;
 		}
@@ -128,7 +156,7 @@ void drawTimeline(){
 			// console.log("daddy.isSelected = true")
 		}
 		else daddy.isSelected = false;
-		
+	}
 
 	////////////////////////DRAW MESSAGES
 		// console.log(dateMin + "    " +  dateMax);
@@ -142,33 +170,35 @@ void drawTimeline(){
 			strokeCap(SQUARE);
 			line(messages[i].timelinePosX, height-75, messages[i].timelinePosX, height-16);
 
-			if(dist(mouseX, mouseY, messages[i].timelinePosX, messages[i].timelinePosY)<=5  || i==msgDispCount-1){
-				messages[i].showInfoBox();
-				for (int j = 0; messages[i].interactions[j]; j++){
-					seurons[seuronExists(messages[i].interactions[j].synapse.seuronA.id)].isSelected = true;
-					seurons[seuronExists(messages[i].interactions[j].synapse.seuronB.id)].isSelected = true;
+			if( view == 1){
+				if(dist(mouseX, mouseY, messages[i].timelinePosX, messages[i].timelinePosY)<=5  || i==msgDispCount-1){
+					messages[i].showInfoBox();
+					for (int j = 0; messages[i].interactions[j]; j++){
+						seurons[seuronExists(messages[i].interactions[j].synapse.seuronA.id)].isSelected = true;
+						seurons[seuronExists(messages[i].interactions[j].synapse.seuronB.id)].isSelected = true;
 
-					noFill();
-					strokeWeight(2);
+						noFill();
+						strokeWeight(2);
 
-					stroke( messages[i].interactions[j].couleur );
+						stroke( messages[i].interactions[j].couleur );
 
-					// if(daddy.id != messages[i].interactions[j].synapse.seuronA.id && daddy.id != messages[i].interactions[j].synapse.seuronB.id) {
-						bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy+150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy);
-					// }
+						// if(daddy.id != messages[i].interactions[j].synapse.seuronA.id && daddy.id != messages[i].interactions[j].synapse.seuronB.id) {
+							bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy+150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy);
+						// }
 
-					// if(daddy.id != messages[i].interactions[j].synapse.seuronA.id && daddy.id != messages[i].interactions[j].synapse.seuronB.id){
-						bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy+150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy);
-					// }
+						// if(daddy.id != messages[i].interactions[j].synapse.seuronA.id && daddy.id != messages[i].interactions[j].synapse.seuronB.id){
+							bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy+150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy);
+						// }
 
-					if(daddy.id != messages[i].interactions[j].synapse.seuronA.id && daddy.id != messages[i].interactions[j].synapse.seuronB.id){
-						line(messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy);
+						if(daddy.id != messages[i].interactions[j].synapse.seuronA.id && daddy.id != messages[i].interactions[j].synapse.seuronB.id){
+							line(messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy);
+						}
+
+						if(mousePressed) {console.log(messages[i]); console.log(dateMax);}
 					}
-
-					if(mousePressed) {console.log(messages[i]); console.log(dateMax);}
 				}
 			}
-			
+
 			noStroke();
 			fill(messages[i].couleur,150);
 			ellipse(messages[i].timelinePosX,messages[i].timelinePosY,8,8);
@@ -215,3 +245,11 @@ void displayAllSeurons(){
 	}
 }
 
+
+void drawThreads(){
+	////////////////////////DRAW THREADS
+	for (int i = 0; threads[i]; i++){
+		//display threads
+		threads[i].display();
+	}
+}
