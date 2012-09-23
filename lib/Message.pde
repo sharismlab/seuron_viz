@@ -42,7 +42,8 @@ class Message {
 		seconds = Date.parse(date);
 		if(seconds<dateMin){
 			dateMin = seconds;
-			console.log("dateMin: " + dateMin);
+			// console.log(date);
+			// console.log("dateMin: " + dateMin);
 		}
 		else if( seconds>dateMax ){ 
 			dateMax = seconds;
