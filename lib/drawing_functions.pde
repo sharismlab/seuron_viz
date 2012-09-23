@@ -106,10 +106,12 @@ void drawTimeline(){
 
 					for (int k = 0;  messages[index].interactions[k]; k++){	
 
-						stroke( messages[index].interactions[k].couleur );
-
-						if(messages[index].interactions[k].synapse.seuronA.id==seurons[i].id || messages[index].interactions[k].synapse.seuronB.id==seurons[i].id)   line(seurons[i].cx, seurons[i].cy, messages[index].timelinePosX, messages[index].timelinePosY);
-
+						if(messages[index].interactions[k].synapse.seuronA.id==seurons[i].id || messages[index].interactions[k].synapse.seuronB.id==seurons[i].id){
+							stroke( messages[index].interactions[k].couleur );
+							strokeWeight(2);
+							noFill();
+							bezier(seurons[i].cx, seurons[i].cy,seurons[i].cx, seurons[i].cy+150, messages[index].timelinePosX, messages[index].timelinePosY-150,messages[index].timelinePosX, messages[index].timelinePosY);
+						}
 					}
 
 				}
