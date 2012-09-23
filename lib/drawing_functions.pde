@@ -32,11 +32,7 @@ void draw() {
 	// DRAW DADDY
 	if( displayDaddy == true) daddy.display();
 
-<<<<<<< HEAD
 	if(frameCount%1==0 && msgDispCount<messages.length){
-=======
-	if(frameCount%15==0 && msgDispCount<messages.length){
->>>>>>> 12330bd635f33e83eeb3bf97c79ab4fa7eb9f380
 		msgDispCount++;
 		// console.log(msgDispCount);
 	}
@@ -91,11 +87,14 @@ void drawTimeline(){
 		popMatrix();
 
 	////////////////////////DRAW SEURONS
-		
+	
 		for (int i=0; seurons[i]; i++){// seurons[0] is daddy so begin at 1
-			if(dist(mouseX, mouseY, seurons[i].cx, seurons[i].cy)<seurons[i].radius/2 || mousePressed) {
-				for(int j=0; seurons[i].messageIds[j], j++){
-					int index = getMessageIndex(seurons[i].messageIds[j]);
+			// console.log(i);
+			if(dist(mouseX, mouseY, seurons[i].cx, seurons[i].cy)<seurons[i].radius/2 ) {
+				for(int j=0; seurons[i].messageIds[j]; j++){
+					
+					int index = messageIds.indexOf(seurons[i].messageIds[j]);
+					console.log(index);
 					stroke( messages[index].interactions[j].couleur );
 					bezier(seurons[i].cx, seurons[i].cy, messages[index].timelinePosX, messages[index].timelinePosY);
 				}
@@ -107,11 +106,12 @@ void drawTimeline(){
 			}
 
 		}
-		if(dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {
+		if( dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {
 			daddy.isSelected = true;
 			// console.log("daddy.isSelected = true")
 		}
 		else daddy.isSelected = false;
+		
 		
 
 	////////////////////////DRAW MESSAGES

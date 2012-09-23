@@ -154,6 +154,8 @@ void analyzeRT( int _from, Object tweet ){
 
 	// add message to seuron from
 	if( seurons[_from].messageIds.indexOf(tweet.id) ==-1 ) seurons[_from].messageIds.push(tweet.id);
+	seurons[rtFrom].messageIds.push(tweet.id);
+
 
 	// deal with other users that has been quoted in the message
 	if(tweet.entities.user_mentions.length>0 ){
@@ -226,6 +228,9 @@ void analyzeReply(  int _from, Object tweet ){
 
 	// add message to seuron from
 	if(seurons[_from].messageIds.indexOf(tweet.id) ==-1 ) seurons[_from].messageIds.push(tweet.id);
+	if(seurons[replyFrom].messageIds.indexOf(tweet.id) ==-1 ) seurons[replyFrom].messageIds.push(tweet.id);
+	
+
 
 	// createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 3, tweet );
 
@@ -280,7 +285,7 @@ void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) 
 			}
 			
 			messages[messageIds.indexOf( data.id )].interactions.push( new Interaction( seurons[_from].synapses[synapse], 4 ) );
-
+			if(seurons[at].messageIds.indexOf(data.id) ==-1 ) seurons[at].messageIds.push(data.id);
 			// createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 4, data );
 
 		}

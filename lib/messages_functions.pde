@@ -40,8 +40,10 @@ void sortMessages() {
 
 void getMessageIndex(int messageId) {
 	for (int i = 0; messageIds[i]; i++){
+		
 		// console.log(threads[i]);
 		if(messageIds[i] == messageId) return i;
+		
 	}
 	return null
 }
