@@ -38,44 +38,51 @@ void drawForce() {
 	for (int i = 0; nodes[i]; i++){
 	
 		if( dispIds.indexOf( seurons[i].id ) != -1) g.addNode(nodes[i]);
-		if(seurons[i].isSelected) seurons[i].showName();
 
 		if(dist(mouseX, mouseY, seurons[i].cx, seurons[i].cy)<seurons[i].radius/2) {
 			seurons[i].isSelected = true;
+			seurons[i].showInfoBox();
+			seurons[i].showName();
+
 		}
 		else {
-				seurons[i].isSelected=false;
+			
+			seurons[i].isSelected=false;
+
 		}
 
 		if( dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {
 			daddy.isSelected = true;
 			// console.log("daddy.isSelected = true")
 			daddy.showName();
-			showInfoBox();
+			daddy.showInfoBox();
 		}
 		else daddy.isSelected = false;
 	}
 
 	// link nodes
-	// console.log(interactionIds);
-	for (int i = 0; messages[i]; i++){
+	for (int i = 0; i<msgDispCount; i++){
+
+		messages[i].showInfoBox();
 
 		for (int j = 0; messages[i].interactions[j]; j++){
-	  		
-			// if(messages[i].interactions[j].synapse.seuronA.id != daddy.id && messages[i].interactions[j].synapse.seuronB.id != daddy.id ){
-				
+
 				// add all interactions to seurons force graph
 				int indexA = getNodeIndex(messages[i].interactions[j].synapse.seuronA.id);
 				int indexB = getNodeIndex(messages[i].interactions[j].synapse.seuronB.id);
-				// console.log(g);
-				g.linkNodes( nodes[indexA], nodes[indexB] );}
+				
+				nodes[indexA].couleur = messages[i].interactions[j].couleur;
+				nodes[indexB].couleur = messages[i].interactions[j].couleur;
+				
+				g.linkNodes( nodes[indexA], nodes[indexB] );
 
-		// }
+		}
 		
 	}
 
 	if(g!=null){
 	    boolean done = g.reflow();
+	    // boolean done = false;
 	    g.draw();
 	    if(!done) { loop(); } else { noLoop(); }
 	}

@@ -35,8 +35,8 @@ void draw() {
 
 		for (int i = 0; nodes[i]; i++){
 
-			if( dispIds.indexOf( seurons[i].id ) != -1) seurons[i].cx = nodes[i].x;
-			if( dispIds.indexOf( seurons[i].id ) != -1) seurons[i].cy = nodes[i].y;
+			if( dispIds.indexOf( seurons[i].id ) != -1) seurons[i].cx = seurons[i].ease(seurons[i].cx, nodes[i].x, 0.8);
+			if( dispIds.indexOf( seurons[i].id ) != -1) seurons[i].cy = seurons[i].ease(seurons[i].cx, nodes[i].y, 0.8);
 			if( dispIds.indexOf( seurons[i].id ) != -1)  seurons[i].display();	
 
 		}

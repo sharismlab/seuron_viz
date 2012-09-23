@@ -10,6 +10,7 @@ class Node
   ArrayList<Node> inlinks = new ArrayList<Node>();
   ArrayList<Node> outlinks = new ArrayList<Node>();;
   String label;
+  color couleur = 30;
   
   Node(String _label, int _x, int _y) {
     label=_label; x=_x; y=_y; r1=5; r2=5; }
@@ -66,8 +67,8 @@ class Node
     r1=_r1; r2=_r2; }
 
   void draw() {
-    stroke(30);
-    fill(30);
+    stroke(couleur);
+    fill(couleur);
     for(Node o: outlinks) {
       drawArrow(x,y,o.x,o.y); }
     // ellipse(x,y,r1*2,r2*2);
