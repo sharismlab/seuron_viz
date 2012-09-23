@@ -87,16 +87,20 @@ void drawTimeline(){
 		popMatrix();
 
 	////////////////////////DRAW SEURONS
-	
+
+		for (int i = 0; seurons[i]; i++){
+			seurons[i].isSelected=false;
+		}
+
+
 		for (int i=0; seurons[i]; i++){// seurons[0] is daddy so begin at 1
-			// console.log(i);
-			if(dist(mouseX, mouseY, seurons[i].cx, seurons[i].cy)<seurons[i].radius/2 ) {
+			if(dist(mouseX, mouseY, seurons[i].cx, seurons[i].cy)<seurons[i].radius/2) {
 				for(int j=0; seurons[i].messageIds[j]; j++){
-					
-					int index = messageIds.indexOf(seurons[i].messageIds[j]);
-					console.log(index);
-					stroke( messages[index].interactions[j].couleur );
-					bezier(seurons[i].cx, seurons[i].cy, messages[index].timelinePosX, messages[index].timelinePosY);
+					int index = getMessageIndex(i, seurons[i].messageIds[j] );
+					for (int k = 0;  messages[index].interactions[k]; k++){	
+						stroke( messages[index].interactions[k].couleur );
+						if(messages[index].interactions[k].synapse.seuronA.id==seurons[i].id || messages[index].interactions[k].synapse.seuronB.id==seurons[i].id)   line(seurons[i].cx, seurons[i].cy, messages[index].timelinePosX, messages[index].timelinePosY);
+					}
 				}
 				
 				seurons[i].isSelected = true;
@@ -116,9 +120,7 @@ void drawTimeline(){
 
 	////////////////////////DRAW MESSAGES
 		// console.log(dateMin + "    " +  dateMax);
-		for (int i = 0; seurons[i]; i++){
-			seurons[i].isSelected=false;
-		}
+		
 
 		for (int i = 0; i<msgDispCount; i++){
 			

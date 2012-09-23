@@ -38,12 +38,11 @@ void sortMessages() {
 	// console.log(messages );
 }
 
-void getMessageIndex(int messageId) {
-	for (int i = 0; messageIds[i]; i++){
-		
+
+void getMessageIndex(int seuron, int messageId) {
+	for (int i = 0; seurons[seuron].messageIds[i]; i++){
 		// console.log(threads[i]);
-		if(messageIds[i] == messageId) return i;
-		
+		if(seurons[seuron].messageIds[i] == messageId) return i;
 	}
 	return null
 }
