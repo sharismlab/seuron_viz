@@ -86,8 +86,9 @@ void setup(){
 	loadData();
 
 	sortMessages();
+	createForceGraph();
+	// console.log(daddy);
 
-	console.log(daddy);
 
 	/*
 	for (int i = 0; seurons[i]; i++){

@@ -10,8 +10,8 @@ var captions = [
 // ------------------------------- MAIN DRAWING FUNCTION
 int msgDispCount=0;
 var dispIds = [];
-boolean viewChangeable = false;
-int view = 2;
+boolean viewChangeable = true;
+int view = 3;
 void draw() {
 	////////////////////////////////////////////////////////////////
 
@@ -41,15 +41,20 @@ void draw() {
 
 	if(msgDispCount==10){
 		viewChangeable = true;
-		console.log(viewChangeable);
+		// console.log(viewChangeable);
 	}
 
 	if(viewChangeable) {
 		if(mouseX>15 && mouseX<90 && mouseY>height/2-15 && mouseY<height/2+15){
 			fill(200);
 			if(mousePressed){
-				if(view==1) view=2;
+				
+				console.log(view);
+
+				if(view==1 ) view=2;
+				else if(view==2) view=3;
 				else view=1;
+				
 				fill(150);
 			}
 		}
@@ -65,6 +70,12 @@ void draw() {
 	}
 
 	if(view==2) drawThreads();
+
+	if(view==3) {
+		
+		drawForce();
+	}
+
 }
 
 void drawCaptions(){
