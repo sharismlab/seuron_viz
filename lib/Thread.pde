@@ -4,7 +4,7 @@ class Thread
 	var messageIds = []; // only ids
 	boolean displayable = false;
 
-	float posX=20, posY=50, prevPosX;
+	float posX=60, posY=50, prevPosX;
 
 	//--------------------------------------
 	//  CONSTRUCTOR
@@ -39,16 +39,16 @@ class Thread
 					
 					// console.log(index);
 					stroke(messages[j].couleur);
-					line(prevPosX, posY, posX+i*(width-100)/(messageIds.length-1),posY);
-					prevPosX = posX+i*(width-100)/(messageIds.length-1);
+					line(prevPosX, posY, posX+i*(width-150)/(messageIds.length-1),posY);
+					prevPosX = posX+i*(width-150)/(messageIds.length-1);
 					var angle = TWO_PI/messages[j].interactions.length;
 
 					for(int k=0; messages[j].interactions[k]; k++){
-						var x = posX+i*(width-100)/(messageIds.length-1)+ cos(angle*k+.65)*((messages[j].interactions.length+1)*5+5);
+						var x = posX+i*(width-150)/(messageIds.length-1)+ cos(angle*k+.65)*((messages[j].interactions.length+1)*5+5);
 						var y = posY + sin(angle*k+.65)*((messages[j].interactions.length+1)*5+5);
 						
 						stroke(messages[j].interactions[k].couleur);
-						line(posX+i*(width-100)/(messageIds.length-1),posY,x,y);
+						line(posX+i*(width-150)/(messageIds.length-1),posY,x,y);
 						fill(messages[j].interactions[k].couleur);
 						ellipse(x,y,5,5); 
 					}
@@ -61,11 +61,11 @@ class Thread
 				if(messages[j].id==messageIds[i]){
 					fill(messages[j].couleur);
 					noStroke();
-					ellipse(posX+i*(width-100)/(messageIds.length-1),posY, (messages[j].interactions.length+1)*5,(messages[j].interactions.length+1)*5 );
+					ellipse(posX+i*(width-150)/(messageIds.length-1),posY, (messages[j].interactions.length+1)*5,(messages[j].interactions.length+1)*5 );
 					if( dist( 
 						mouseX, 
 						mouseY, 
-						posX+i*(width-100)/(messageIds.length-1), 
+						posX+i*(width-150)/(messageIds.length-1), 
 						posY ) < (messages[j].interactions.length+1)*5 ) 
 						 {
 						messages[j].showInfoBox();
