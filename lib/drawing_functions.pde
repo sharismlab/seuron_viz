@@ -153,7 +153,13 @@ void drawTimeline(){
 
 					noFill();
 					strokeWeight(2);
-					stroke(messages[i].interactions[j].couleur);
+
+					// if(messages[i].interactions[j].action == 2) console.log(messages[i].interactions[j].couleur);
+					// console.log("aaaaa");
+					// stroke(0);
+					stroke( messages[i].interactions[j].couleur );
+					// fill( messages[i].interactions[j].couleur );
+
 					bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy+150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy);
 					bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy+150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy);
 					if(mousePressed) console.log(messages[i]);

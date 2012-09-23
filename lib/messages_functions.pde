@@ -31,3 +31,9 @@ void isInThread(int messageId) {
 	}
 	return null
 }
+
+void sortMessages() {
+	// console.log(messages);
+	messages  = messages.sort(function(a,b) { return parseFloat(a.seconds) - parseFloat(b.seconds) } );
+	// console.log(messages );
+}

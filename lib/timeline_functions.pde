@@ -169,7 +169,7 @@ void analyzeRT( int _from, Object tweet ){
 			}
 			if(!mentionExist) tempMentions.push(tweet.retweeted_status.entities.user_mentions[j]);
 		}
-		analyzeMentions( _from, tempMentions, tweet.in_reply_to_user_id, tweet );
+		analyzeMentions( _from, tempMentions, tweet.retweeted_status.user.id, tweet );
 	}
 
 	// Now we can process the original message, as the data is inside

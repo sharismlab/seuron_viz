@@ -85,5 +85,14 @@ void setup(){
 
 	loadData();
 
+	sortMessages();
+
+	/*for (int j = 0; messages[j]; j++){
+		for (int i = 0; messages[j].interactions[i]; i++){
+			// console.log(messages[j].interactions[i]);
+			if(messages[j].interactions[i].action == 2) console.log(messages[j].interactions[i]);
+		}
+	}*/
+
 	
 }
