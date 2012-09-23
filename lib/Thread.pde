@@ -62,12 +62,7 @@ class Thread
 					fill(messages[j].couleur);
 					noStroke();
 					ellipse(posX+i*(width-150)/(messageIds.length-1),posY, (messages[j].interactions.length+1)*5,(messages[j].interactions.length+1)*5 );
-					if( dist( 
-						mouseX, 
-						mouseY, 
-						posX+i*(width-150)/(messageIds.length-1), 
-						posY ) < (messages[j].interactions.length+1)*5 ) 
-						 {
+					if( dist(mouseX, mouseY, posX+i*(width-150)/(messageIds.length-1), posY+map(scrollY,0, height-173, 0, +3*height) ) < (messages[j].interactions.length+1)*5 ) {
 						messages[j].showInfoBox();
 					}
 				}

@@ -317,6 +317,7 @@ void mouseReleased(){
 
 	if(viewChangeable){
 		if(view==1) view=2;
+		else if (view==2) view=3;
 		else view=1;
 		viewChangeable=false;
 	}
