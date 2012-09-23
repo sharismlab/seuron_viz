@@ -11,7 +11,7 @@ var captions = [
 int msgDispCount=0;
 var dispIds = [];
 boolean viewChangeable = false;
-int view = 1;
+int view = 2;
 void draw() {
 	////////////////////////////////////////////////////////////////
 
@@ -23,7 +23,7 @@ void draw() {
 		ctx.fillRect( 0, 0, width, height ); 
 
 	 // draw caption
-	drawCaptions();
+	if( view == 1) drawCaptions();
 
 	// DRAW TIMELINE
 	drawTimeline();
@@ -129,7 +129,7 @@ void drawTimeline(){
 				for(int j=0; seurons[i].messageIds[j]; j++){
 					// console.log(seurons[i].messageIds[j]);
 
-					int index = getMessageIndex(i, seurons[i].messageIds[j] );
+					int index = getMessageIndex(seurons[i].messageIds[j] );
 					console.log( messages[index].interactions );
 
 					for (int k = 0;  messages[index].interactions[k]; k++){	
@@ -204,8 +204,8 @@ void drawTimeline(){
 			ellipse(messages[i].timelinePosX,messages[i].timelinePosY,8,8);
 
 			for (int j = 0; messages[i].interactions[j]; j++){
-				if(dispIds.indexOf(messages[i].interactions[j].synapse.seuronA.id)) dispIds.push(messages[i].interactions[j].synapse.seuronA.id);
-				if(dispIds.indexOf(messages[i].interactions[j].synapse.seuronB.id)) dispIds.push(messages[i].interactions[j].synapse.seuronB.id);
+				if( dispIds.indexOf( messages[i].interactions[j].synapse.seuronA.id ) == -1) dispIds.push(messages[i].interactions[j].synapse.seuronA.id);
+				if( dispIds.indexOf( messages[i].interactions[j].synapse.seuronB.id) == -1 ) dispIds.push(messages[i].interactions[j].synapse.seuronB.id);
 			}
 		}
 
@@ -248,8 +248,39 @@ void displayAllSeurons(){
 
 void drawThreads(){
 	////////////////////////DRAW THREADS
+	float countThreads;
+	float step;
 	for (int i = 0; threads[i]; i++){
-		//display threads
-		threads[i].display();
+		if(threads[i].messageIds.length>1) countThreads++;
 	}
+	// console.log(countThreads);
+	step=(height-50)/countThreads;
+	
+	countThreads=0;
+	pushMatrix();
+	for (int i = 0; threads[i]; i++){
+		threads[i].displayable=false;
+		//display threads
+		if(threads[i].messageIds.length>1){
+
+			countThreads++;
+
+			threads[i].posY= 25+countThreads*step;
+			translate(25,0);
+			// threads[i].posX= 25+dispIds.length*10;
+
+			for (int j = 0; threads[i].messageIds[j]; j++){
+				// console.log( threads[i].messageIds[j] );
+				// console.log( dispIds.indexOf( threads[i].messageIds[j] ) !=-1 );
+				for (int k = 0; messageIds[k] && k<msgDispCount; k++){
+
+					if( messageIds[k] == threads[i].messageIds[j] )threads[i].displayable=true;
+					
+				}
+				
+			}
+			if(threads[i].displayable) threads[i].display();
+		}
+	}
+	popMatrix();
 }

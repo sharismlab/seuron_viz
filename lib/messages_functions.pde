@@ -6,8 +6,6 @@ void createMessage( Transmitter service, int id, Object tweet ) {
 	messages.push( m );
 	messageIds.push( id );
 }
-
-
 void createThread( int id ) {
 	// create thread
 	Thread t = new Thread();
@@ -38,8 +36,7 @@ void sortMessages() {
 	// console.log(messages );
 }
 
-
-void getMessageIndex(int seuron, int messageId) {
+void getMessageIndex(int messageId) {
 
 	for (int i = 0; messages[i].id; i++){
 		// console.log(threads[i]);
