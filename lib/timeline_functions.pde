@@ -151,10 +151,11 @@ void analyzeRT( int _from, Object tweet ){
 
 	// Now create our new interaction and add it to our message
 	messages[messageIds.indexOf( tweet.id )].interactions.push( new Interaction( seurons[_from].synapses[synapse], 2 ) );
+	seurons[rtFrom].messageIds.push(tweet.id);
 
 	// add message to seuron from
 	if( seurons[_from].messageIds.indexOf(tweet.id) ==-1 ) seurons[_from].messageIds.push(tweet.id);
-	seurons[rtFrom].messageIds.push(tweet.id);
+	
 
 
 	// deal with other users that has been quoted in the message
@@ -227,8 +228,8 @@ void analyzeReply(  int _from, Object tweet ){
 	messages[messageIds.indexOf( tweet.id )].interactions.push( new Interaction( seurons[_from].synapses[synapse], 3 ) );
 
 	// add message to seuron from
+	seurons[replyFrom].messageIds.push(tweet.id);
 	if(seurons[_from].messageIds.indexOf(tweet.id) ==-1 ) seurons[_from].messageIds.push(tweet.id);
-	if(seurons[replyFrom].messageIds.indexOf(tweet.id) ==-1 ) seurons[replyFrom].messageIds.push(tweet.id);
 	
 
 
@@ -284,7 +285,9 @@ void analyzeMentions( int _from, Object mentions, int exclude_id, Object data ) 
 				// console.log( "fater : " + synapse );
 			}
 			
+			
 			messages[messageIds.indexOf( data.id )].interactions.push( new Interaction( seurons[_from].synapses[synapse], 4 ) );
+			
 			if(seurons[at].messageIds.indexOf(data.id) ==-1 ) seurons[at].messageIds.push(data.id);
 			// createInteraction( twitterTransmitter, seurons[_from].synapses[synapse], 4, data );
 
@@ -324,7 +327,6 @@ void analyzeThread( Object tweet, int prevId ) {
 	 	console.log(threads[isInThread(tweet.id)].messageIds);
 	}*/
 }
-
 
 void getReply(int id) {
 

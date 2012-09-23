@@ -40,6 +40,7 @@ void draw() {
 }
 
 void drawCaptions(){
+
 	textAlign(LEFT);
 	fill(255);
 	text("Press Mouse Button To Show Messages", 15,height-90);
@@ -94,13 +95,23 @@ void drawTimeline(){
 
 
 		for (int i=0; seurons[i]; i++){// seurons[0] is daddy so begin at 1
+
 			if(dist(mouseX, mouseY, seurons[i].cx, seurons[i].cy)<seurons[i].radius/2) {
+
 				for(int j=0; seurons[i].messageIds[j]; j++){
+					// console.log(seurons[i].messageIds[j]);
+
 					int index = getMessageIndex(i, seurons[i].messageIds[j] );
+					console.log( messages[index].interactions );
+
 					for (int k = 0;  messages[index].interactions[k]; k++){	
+
 						stroke( messages[index].interactions[k].couleur );
+
 						if(messages[index].interactions[k].synapse.seuronA.id==seurons[i].id || messages[index].interactions[k].synapse.seuronB.id==seurons[i].id)   line(seurons[i].cx, seurons[i].cy, messages[index].timelinePosX, messages[index].timelinePosY);
+
 					}
+
 				}
 				
 				seurons[i].isSelected = true;
@@ -115,7 +126,6 @@ void drawTimeline(){
 			// console.log("daddy.isSelected = true")
 		}
 		else daddy.isSelected = false;
-		
 		
 
 	////////////////////////DRAW MESSAGES

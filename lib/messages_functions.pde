@@ -40,9 +40,10 @@ void sortMessages() {
 
 
 void getMessageIndex(int seuron, int messageId) {
-	for (int i = 0; seurons[seuron].messageIds[i]; i++){
+
+	for (int i = 0; messages[i].id; i++){
 		// console.log(threads[i]);
-		if(seurons[seuron].messageIds[i] == messageId) return i;
+		if(messages[i].id == messageId) return i;
 	}
 	return null
 }
