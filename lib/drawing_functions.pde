@@ -264,60 +264,115 @@ void displayAllSeurons(){
 float scrollY=0;
 boolean scrollDraggable = false;
 void drawThreads(){
+	////////////////////////CAPTIONS
+		fill(30);
+		noStroke();
+		rect(15,15,165,height-105,8,8);
+		textAlign(LEFT);
+		fill(255);
+		text("MESSAGES:", 30, 40);
+		fill(#8d2eb0);
+		ellipse(30, 60, 10, 10);
+		stroke(#8d2eb0);
+		line(20,60,40,60);
+		noStroke();
+		fill(255);
+		text("TWEET", 55, 65);
+		fill(#d42026);
+		ellipse(30, 90, 10, 10);
+		stroke(#d42026);
+		line(20,90,40,90);
+		noStroke();
+		fill(255);
+		text("RETWEET", 55, 95);
+		fill(#e9e32e);
+		ellipse(30, 120, 10, 10);
+		stroke(#e9e32e);
+		line(20,120,40,120);
+		noStroke();
+		fill(255);
+		text("REPLY", 55, 125);
+		fill(255,80);
+		ellipse(40, 165, 30, 30);
+		ellipse(40, 165, 20, 20);
+		ellipse(40, 165, 10, 10);
+		stroke(255);
+		line(25,165,55,165);
+		noStroke();
+		fill(255);
+		text("INTERACTIONS", 65, 170);
+
+		fill(255);
+		text("INTERACTIONS:", 30, 250);
+		fill(#ee64ff);
+		ellipse(30, 270, 10, 10);
+		fill(255);
+		text("MENTION", 45, 275);
+		fill(#00FF85);
+		ellipse(30, 300, 10, 10);
+		fill(255);
+		text("RETWEET", 45, 305);
+		fill(#ff9000);
+		ellipse(30, 330, 10, 10);
+		fill(255);
+		text("REPLY", 45, 335);
+
+
 	////////////////////////SCROLLBAR
-	fill(30);
-	noStroke();
-	rect(width-32,13,19,height-109,8,8);
-	
-	if(mouseX>width-30 && mouseX<width-15 && mouseY>15+scrollY && mouseY<15+scrollY+60){
-		fill(150);
-		if(mousePressed) scrollDraggable=true;
-	}
-	else fill(80);
+		fill(30);
+		noStroke();
+		rect(width-32,13,19,height-109,8,8);
+		
+		if(mouseX>width-30 && mouseX<width-15 && mouseY>15+scrollY && mouseY<15+scrollY+60){
+			fill(150);
+			if(mousePressed) scrollDraggable=true;
+		}
+		else fill(80);
 
-	if(scrollDraggable){
-		scrollY+=mouseY-pmouseY;
-		scrollY=constrain(scrollY, 0, height-173);
-	}
+		if(scrollDraggable){
+			scrollY+=mouseY-pmouseY;
+			scrollY=constrain(scrollY, 0, height-173);
+		}
 
-	rect(width-30,15+scrollY,15,60,6,6);
+		rect(width-30,15+scrollY,15,60,6,6);
+
 
 	////////////////////////DRAW THREADS
-	float countThreads;
-	float step;
-	for (int i = 0; threads[i]; i++){
-		if(threads[i].messageIds.length>1) countThreads++;
-	}
-	// console.log(countThreads);
-	step=(4*height)/countThreads;
-	
-	countThreads=0;
-	pushMatrix();
-	translate(0,map(scrollY,0, height-173, 0, -4*height));
-	for (int i = 0; threads[i]; i++){
-		threads[i].displayable=false;
-		//display threads
-		if(threads[i].messageIds.length>1){
+		float countThreads;
+		float step;
+		for (int i = 0; threads[i]; i++){
+			if(threads[i].messageIds.length>1) countThreads++;
+		}
+		// console.log(countThreads);
+		step=(4*height)/countThreads;
+		
+		countThreads=0;
+		pushMatrix();
+		translate(0,map(scrollY,0, height-173, 0, -4*height));
+		for (int i = 0; threads[i]; i++){
+			threads[i].displayable=false;
+			//display threads
+			if(threads[i].messageIds.length>1){
 
-			countThreads++;
+				countThreads++;
 
-			threads[i].posY= 25+countThreads*step;
-			// threads[i].posX= 25+dispIds.length*10;
+				threads[i].posY= 25+countThreads*step;
+				// threads[i].posX= 25+dispIds.length*10;
 
-			for (int j = 0; threads[i].messageIds[j]; j++){
-				// console.log( threads[i].messageIds[j] );
-				// console.log( dispIds.indexOf( threads[i].messageIds[j] ) !=-1 );
-				for (int k = 0; messageIds[k] && k<msgDispCount; k++){
+				for (int j = 0; threads[i].messageIds[j]; j++){
+					// console.log( threads[i].messageIds[j] );
+					// console.log( dispIds.indexOf( threads[i].messageIds[j] ) !=-1 );
+					for (int k = 0; messageIds[k] && k<msgDispCount; k++){
 
-					if( messageIds[k] == threads[i].messageIds[j] )threads[i].displayable=true;
+						if( messageIds[k] == threads[i].messageIds[j] )threads[i].displayable=true;
+						
+					}
 					
 				}
-				
+				if(threads[i].displayable) threads[i].display();
 			}
-			if(threads[i].displayable) threads[i].display();
 		}
-	}
-	popMatrix();
+		popMatrix();
 }
 
 
