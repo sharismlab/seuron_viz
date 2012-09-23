@@ -289,11 +289,11 @@ void drawThreads(){
 		if(threads[i].messageIds.length>1) countThreads++;
 	}
 	// console.log(countThreads);
-	step=(3.5*height)/countThreads;
+	step=(4*height)/countThreads;
 	
 	countThreads=0;
 	pushMatrix();
-	translate(0,map(scrollY,0, height-173, 0, -3*height));
+	translate(0,map(scrollY,0, height-173, 0, -4*height));
 	for (int i = 0; threads[i]; i++){
 		threads[i].displayable=false;
 		//display threads
