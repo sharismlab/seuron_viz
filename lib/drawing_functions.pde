@@ -18,18 +18,27 @@ void draw() {
 	////////////////////////////////////////////////////////////////
 
 	// DRAW BACKGROUND
-		var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
-		gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
-		gradient.addColorStop(1,'rgba(50, 50, 50, 1)'); 
-		ctx.fillStyle = gradient; 
-		ctx.fillRect( 0, 0, width, height ); 
+	var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
+	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
+	gradient.addColorStop(1,'rgba(50, 50, 50, 1)'); 
+	ctx.fillStyle = gradient; 
+	ctx.fillRect( 0, 0, width, height ); 
 
-	 // draw caption
+	// draw caption
 	if( view == 1) drawCaptions();
 
 	if(view==2) drawThreads();
 
-	if(view ==3) drawForce();
+	if(view ==3) {
+		drawForce();
+		for (int i = 0; nodes[i]; i++){
+			seurons[i].cx = nodes[i].x;
+			seurons[i].cy = nodes[i].y;
+			seurons[i].display();
+		}
+
+			
+	}
 
 	// DRAW TIMELINE
 	drawTimeline();

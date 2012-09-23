@@ -6,6 +6,7 @@ void createForceGraph() {
 	
 	// define a graph
   	g = new DirectedGraph();
+  	
 	// define some nodes
 	for (int i = 0; seurons[i]; i++){
 		nodes.push( new Node( i, seurons[i].tarX, seurons[i].tarY ) );
@@ -37,9 +38,9 @@ void createForceGraph() {
 
 void drawForce() {
 	if(g!=null){
-
+		
 	    boolean done = g.reflow();
-	    g.draw();
+	    // g.draw();
 	    if(!done) { loop(); } else { noLoop(); }
   }
 }
