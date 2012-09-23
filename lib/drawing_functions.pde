@@ -8,6 +8,8 @@ var captions = [
 
 
 // ------------------------------- MAIN DRAWING FUNCTION
+int msgDispCount=0;
+var dispIds = [];
 void draw() {
 	////////////////////////////////////////////////////////////////
 
@@ -29,6 +31,12 @@ void draw() {
 
 	// DRAW DADDY
 	if( displayDaddy == true) daddy.display();
+
+	if(frameCount%5==0 && msgDispCount<messages.length){
+		msgDispCount++;
+		console.log(msgDispCount);
+	}
+
 }
 
 void drawCaptions(){
@@ -138,7 +146,7 @@ void drawTimeline(){
 			seurons[i].isSelected=false;
 		}
 
-		for (int i = 0; messages[i]; i++){
+		for (int i = 0; i<msgDispCount; i++){
 			
 
 			stroke(messages[i].couleur);
@@ -146,7 +154,7 @@ void drawTimeline(){
 			strokeCap(SQUARE);
 			line(messages[i].timelinePosX, height-75, messages[i].timelinePosX, height-16);
 
-			if(dist(mouseX, mouseY, messages[i].timelinePosX, messages[i].timelinePosY)<=5){
+			if(dist(mouseX, mouseY, messages[i].timelinePosX, messages[i].timelinePosY)<=5 || i==msgDispCount-1){
 				messages[i].showInfoBox();
 				for (int j = 0; messages[i].interactions[j]; j++){
 					seurons[seuronExists(messages[i].interactions[j].synapse.seuronA.id)].isSelected = true;
@@ -170,6 +178,11 @@ void drawTimeline(){
 			noStroke();
 			fill(messages[i].couleur,150);
 			ellipse(messages[i].timelinePosX,messages[i].timelinePosY,8,8);
+
+			for (int j = 0; messages[i].interactions[j]; j++){
+				if(dispIds.indexOf(messages[i].interactions[j].synapse.seuronA.id)) dispIds.push(messages[i].interactions[j].synapse.seuronA.id);
+				if(dispIds.indexOf(messages[i].interactions[j].synapse.seuronB.id)) dispIds.push(messages[i].interactions[j].synapse.seuronB.id);
+			}
 		}
 
 	for (int i = 0; threads[i]; i++){
@@ -182,22 +195,22 @@ void displayAllSeurons(){
 
 	// draw close friends
 	for (int i = 0; daddy.close[i]; i++){
-		daddy.close[i].display();
+		if(dispIds.indexOf(daddy.close[i].id)!=-1) daddy.close[i].display();
 	} 
 
 	// draw friends
 	for (int i = 0; daddy.myfriends[i]; i++){
-		daddy.myfriends[i].display();
+		if(dispIds.indexOf(daddy.myfriends[i].id)!=-1) daddy.myfriends[i].display();
 	}
 
 	// draw followers
 	for (int i = 0; daddy.myfollowers[i]; i++){
-		daddy.myfollowers[i].display();
+		if(dispIds.indexOf(daddy.myfollowers[i].id)!=-1) daddy.myfollowers[i].display();
 	}
 
 	// draw unknown
 	for (int i = 0; daddy.unknown[i]; i++){
-		daddy.unknown[i].display();
+		if(dispIds.indexOf(daddy.unknown[i].id)!=-1) daddy.unknown[i].display();
 	}
 
 	//show Seuron's name if isSelected
@@ -206,3 +219,4 @@ void displayAllSeurons(){
 		if(seurons[i].isSelected) seurons[i].showName();
 	}
 }
+

@@ -323,7 +323,7 @@ class Seuron {
 		}
 
 		void setPosition(float x, float y) {
-			tarX
-			tarY
+			tarX=x;
+			tarY=y;
 		}
 }
