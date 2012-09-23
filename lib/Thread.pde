@@ -50,7 +50,15 @@ class Thread
 						stroke(messages[j].interactions[k].couleur);
 						line(posX+i*(width-150)/(messageIds.length-1),posY,x,y);
 						fill(messages[j].interactions[k].couleur);
-						ellipse(x,y,5,5); 
+						ellipse(x,y,5,5);
+						if( dist(mouseX, mouseY, x, y+map(scrollY,0, height-173, 0, -3*height) ) < 2.5 ) {
+							pushMatrix();
+							translate(0,map(scrollY,0, height-173, 0, +3*height));
+							messages[j].interactions[k].synapse.seuronA.showInfoBox();
+							translate(0, 40+messages[j].interactions[k].synapse.seuronA.descHeight*14);
+							messages[j].interactions[k].synapse.seuronB.showInfoBox();
+							popMatrix();
+						}
 					}
 				}
 			}
@@ -62,8 +70,11 @@ class Thread
 					fill(messages[j].couleur);
 					noStroke();
 					ellipse(posX+i*(width-150)/(messageIds.length-1),posY, (messages[j].interactions.length+1)*5,(messages[j].interactions.length+1)*5 );
-					if( dist(mouseX, mouseY, posX+i*(width-150)/(messageIds.length-1), posY+map(scrollY,0, height-173, 0, +3*height) ) < (messages[j].interactions.length+1)*5 ) {
+					if( dist(mouseX, mouseY, posX+i*(width-150)/(messageIds.length-1), posY+map(scrollY,0, height-173, 0, -3*height) ) < (messages[j].interactions.length+1)*5 ) {
+						pushMatrix();
+						translate(0,map(scrollY,0, height-173, 0, +3*height));
 						messages[j].showInfoBox();
+						popMatrix();
 					}
 				}
 			}

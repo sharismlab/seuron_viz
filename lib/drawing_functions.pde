@@ -12,7 +12,7 @@ int msgDispCount=0;
 var dispIds = [];
 
 boolean viewChangeable = true;
-int view = 3;
+int view = 2;
 
 void draw() {
 	////////////////////////////////////////////////////////////////
