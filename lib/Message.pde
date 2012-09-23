@@ -40,14 +40,15 @@ class Message {
 		// console.log(date);
 
 		seconds = Date.parse(date);
-			if(seconds<dateMin){
-				dateMin = seconds;
-				// println("dateMin: " + dateMin);
-			}
-			else if(seconds>dateMax){ 
-				dateMax = seconds;
-				// println("dateMax: " + dateMax);
-			}
+		if(seconds<dateMin){
+			dateMin = seconds;
+			console.log("dateMin: " + dateMin);
+		}
+		else if( seconds>dateMax ){ 
+			dateMax = seconds;
+			console.log(date);
+			console.log("dateMax: " + dateMax);
+		}
 		// console.log(seconds);
 
 		if(data.entities.hashtags.length>0) {

@@ -34,7 +34,7 @@ void draw() {
 
 	if(frameCount%5==0 && msgDispCount<messages.length){
 		msgDispCount++;
-		console.log(msgDispCount);
+		// console.log(msgDispCount);
 	}
 
 }
@@ -139,7 +139,6 @@ void drawTimeline(){
 		else daddy.isSelected = false;
 		*/
 
-
 	////////////////////////DRAW MESSAGES
 		// console.log(dateMin + "    " +  dateMax);
 		for (int i = 0; seurons[i]; i++){
@@ -163,15 +162,11 @@ void drawTimeline(){
 					noFill();
 					strokeWeight(2);
 
-					// if(messages[i].interactions[j].action == 2) console.log(messages[i].interactions[j].couleur);
-					// console.log("aaaaa");
-					// stroke(0);
 					stroke( messages[i].interactions[j].couleur );
-					// fill( messages[i].interactions[j].couleur );
 
 					bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy+150,messages[i].interactions[j].synapse.seuronA.cx,messages[i].interactions[j].synapse.seuronA.cy);
 					bezier(messages[i].timelinePosX, messages[i].timelinePosY,messages[i].timelinePosX, messages[i].timelinePosY-150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy+150,messages[i].interactions[j].synapse.seuronB.cx,messages[i].interactions[j].synapse.seuronB.cy);
-					if(mousePressed) console.log(messages[i]);
+					if(mousePressed) {console.log(messages[i]); console.log(dateMax);}
 				}
 			}
 			
@@ -185,6 +180,7 @@ void drawTimeline(){
 			}
 		}
 
+	////////////////////////DRAW THREADS
 	for (int i = 0; threads[i]; i++){
 		//display threads
 		threads[i].displayTL();
