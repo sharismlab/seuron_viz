@@ -15,21 +15,19 @@ boolean viewChangeable = true;
 int view = 1;
 
 void draw() {
-	////////////////////////////////////////////////////////////////
-
 	// DRAW BACKGROUND
-	var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
-	gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
-	gradient.addColorStop(1,'rgba(50, 50, 50, 1)'); 
-	ctx.fillStyle = gradient; 
-	ctx.fillRect( 0, 0, width, height ); 
+		var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
+		gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
+		gradient.addColorStop(1,'rgba(50, 50, 50, 1)'); 
+		ctx.fillStyle = gradient; 
+		ctx.fillRect( 0, 0, width, height ); 
 
 	// draw caption
-	if( view == 1) drawCaptions();
+	if(view==1) drawCaptions();
 
 	if(view==2) drawThreads();
 
-	if(view ==3) {
+	if(view==3) {
 		
 		// drawThreadsForce();
 		/*
@@ -76,7 +74,6 @@ void draw() {
 		}
 
 		drawForce();
-			
 	}
 
 	// DRAW TIMELINE
@@ -88,6 +85,7 @@ void draw() {
 	// DRAW DADDY
 	if( view == 1 && displayDaddy == true) daddy.display();
 
+	//DISPLAY COUNTER
 	if(frameCount%5==0 && msgDispCount<messages.length){
 		msgDispCount++;
 		// console.log(msgDispCount);
@@ -95,25 +93,23 @@ void draw() {
 
 	
 	//////////////////////////Switch View Button
-	if(mouseX>width-135 && mouseX<width-60 && mouseY>15 && mouseY<45){
+		if(mouseX>width-135 && mouseX<width-60 && mouseY>15 && mouseY<45){
 		fill(150);
 		viewChangeable=true;
-	}
-	else{
-		viewChangeable=false;
-		fill(0);
-	}
-	rectMode(CORNER);
-	noStroke();
-	rect(width-135,15,75,30,5,5);
-	fill(255);
-	textAlign(CENTER);
-	text("Switch View", width-99, 33);
-	if(view ==1) text("Relationship", width-99, 63);
-	else if(view ==2) text("Interactions", width-99, 63);
-	else if(view ==3) text("Connection", width-99, 63);
-
-
+		}
+		else{
+			viewChangeable=false;
+			fill(0);
+		}
+		rectMode(CORNER);
+		noStroke();
+		rect(width-135,15,75,30,5,5);
+		fill(255);
+		textAlign(CENTER);
+		text("Switch View", width-99, 33);
+		if(view ==1) text("Relationship", width-99, 63);
+		else if(view ==2) text("Interactions", width-99, 63);
+		else if(view ==3) text("Connection", width-99, 63);
 }
 
 
@@ -177,19 +173,25 @@ void drawTimeline(){
 
 				for(int j=0; seurons[i].messageIds[j]; j++){
 					// console.log(seurons[i].messageIds[j]);
+					// int threadIndex=isInThread(seurons[i].messageIds[j]);
+					// if(threadIndex==null){
+						int index = getMessageIndex(seurons[i].messageIds[j] );
+						// console.log( messages[index].interactions );
+						if(index<msgDispCount-1){
+							for (int k = 0;  messages[index].interactions[k]; k++){	
 
-					int index = getMessageIndex(seurons[i].messageIds[j] );
-					// console.log( messages[index].interactions );
-
-					for (int k = 0;  messages[index].interactions[k]; k++){	
-
-						if(messages[index].interactions[k].synapse.seuronA.id==seurons[i].id || messages[index].interactions[k].synapse.seuronB.id==seurons[i].id){
-							stroke( messages[index].interactions[k].couleur );
-							strokeWeight(2);
-							noFill();
-							bezier(seurons[i].cx, seurons[i].cy,seurons[i].cx, seurons[i].cy+150, messages[index].timelinePosX, messages[index].timelinePosY-150,messages[index].timelinePosX, messages[index].timelinePosY);
+								if(messages[index].interactions[k].synapse.seuronA.id==seurons[i].id || messages[index].interactions[k].synapse.seuronB.id==seurons[i].id){
+									stroke(messages[index].interactions[k].couleur);
+									strokeWeight(2);
+									noFill();
+									bezier(seurons[i].cx, seurons[i].cy,seurons[i].cx, seurons[i].cy+150, messages[index].timelinePosX, messages[index].timelinePosY-150,messages[index].timelinePosX, messages[index].timelinePosY);
+								}
+							}
 						}
-					}
+					// }
+					// else{
+
+					// }
 
 				}
 				
@@ -198,8 +200,8 @@ void drawTimeline(){
 			else{
 				seurons[i].isSelected=false;
 			}
-
 		}
+
 		if( dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {
 			daddy.isSelected = true;
 			// console.log("daddy.isSelected = true")
@@ -209,11 +211,7 @@ void drawTimeline(){
 
 	////////////////////////DRAW MESSAGES
 		// console.log(dateMin + "    " +  dateMax);
-		
-
 		for (int i = 0; i<msgDispCount; i++){
-			
-
 			stroke(messages[i].couleur);
 			strokeWeight(.5);
 			strokeCap(SQUARE);
@@ -253,23 +251,20 @@ void drawTimeline(){
 			ellipse(messages[i].timelinePosX,messages[i].timelinePosY,8,8);
 
 			for (int j = 0; messages[i].interactions[j]; j++){
-				if( dispIds.indexOf( messages[i].interactions[j].synapse.seuronA.id ) == -1) dispIds.push(messages[i].interactions[j].synapse.seuronA.id);
-				if( dispIds.indexOf( messages[i].interactions[j].synapse.seuronB.id) == -1 ) dispIds.push(messages[i].interactions[j].synapse.seuronB.id);
+				if(dispIds.indexOf(messages[i].interactions[j].synapse.seuronA.id) == -1) dispIds.push(messages[i].interactions[j].synapse.seuronA.id);
+				if(dispIds.indexOf(messages[i].interactions[j].synapse.seuronB.id) == -1) dispIds.push(messages[i].interactions[j].synapse.seuronB.id);
 			}
 		}
 
 	////////////////////////DRAW THREADS
 	for (int i = 0; threads[i]; i++){
 		//display threads
-		/*for(int j=0; j<threads[i].messageIds.length; j++){
-			for(int k=0; k<dispIds.length; k++){
-				if(threads[i].messageIds[j]==dispIds[k]){
-					console.log("rgdrhbb");
-					threads[i].displayTL();
-				}
+		for(int j=0; threads[i].messageIds[j]; j++){
+			if(getMessageIndex(threads[i].messageIds[j])<=msgDispCount-1){
+				threads[i].displayTL();
 			}
-		}*/
-		threads[i].displayTL();
+		}
+		// threads[i].displayTL();
 	}
 }
 

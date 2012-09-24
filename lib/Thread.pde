@@ -61,7 +61,7 @@ class Thread
 						ellipse(posX+(messageIds.length-1-i)*(width-350)/(messageIds.length-1),posY, (messages[j].interactions.length+1)*5,(messages[j].interactions.length+1)*5 );
 						
 
-						if( dist(mouseX, mouseY, x, y+map(scrollY,0, height-173, 0, -4*height) ) < 2.5 ) {
+						if( dist(mouseX, mouseY, x, y+map(scrollY,0, height-173, 0, -4*height))<2.5 && mouseY<height-80) {
 							pushMatrix();
 							translate(0,map(scrollY,0, height-173, 0, +4*height));
 							messages[j].showInfoBox();

@@ -103,6 +103,4 @@ void setup(){
 			if(messages[j].interactions[i].action == 2) console.log(messages[j].interactions[i]);
 		}
 	}*/
-
-	
 }

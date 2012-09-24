@@ -36,10 +36,11 @@ void sortMessages() {
 	// console.log(messages );
 }
 
-void getMessageIndex(int messageId) {
 
-	for (int i = 0; messages[i].id; i++){
-		// console.log(threads[i]);
+//return index of a message inside messages[] by Id of the message
+void getMessageIndex(int messageId) {
+	for (int i = 0; messages[i]; i++){
+		// console.log(messages[i]);
 		if(messages[i].id == messageId) return i;
 	}
 	return null
