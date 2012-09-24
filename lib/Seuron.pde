@@ -327,4 +327,13 @@ class Seuron {
 			tarX=x;
 			tarY=y;
 		}
+
+		void displayMessages() {
+			for (int i = 0; messageIds[i]; i++){
+				int index = getMessageIndex( messageIds[i] );
+				messages[index].display();
+				
+			}
+			
+		}
 }

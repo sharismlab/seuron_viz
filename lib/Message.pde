@@ -6,6 +6,7 @@ class Message {
 	var interactions = [];
 	int seconds;
 	float timelinePosX, timelinePosY;
+	float posX, posY,radius;
 
 	/*
 	1 :		post
@@ -23,6 +24,9 @@ class Message {
 		if( service.name.equals("Twitter") ) {
 				if(data) splitData( data );	
 		}
+		radius = 10;
+		posX = random(50,width-50);
+		posY = random(200, height-200);
 	}
 	
 	var hashtags = [];
@@ -104,6 +108,23 @@ class Message {
 						(type==2)? height-75 + 30 :
 						height-75 + 45;
 	
+	}
+
+	void display() {
+		radius = interactions.length;
+		fill(couleur);
+		posX = timelinePosX;
+		ellipse(posX,posY,radius*10,radius*10);
+
+
+		for (int i = 0; interactions[i]; i++){
+
+			// interactions[i].display();
+			
+			stroke(interactions[i].couleur);
+			line( interactions[i].synapse.seuronA.cx, interactions[i].synapse.seuronA.cy, interactions[i].synapse.seuronB.cx, interactions[i].synapse.seuronB.cy)
+			// line(x1, y1, z1, x2);
+		}
 	}
 
 }

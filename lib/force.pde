@@ -81,12 +81,11 @@ void drawForce() {
 	}
 
 	if(g!=null){
-	    boolean done = g.reflow();
-	    // boolean done = false;
+	    // boolean done = g.reflow();
+	    boolean done = false;
 	    g.draw();
 	    if(!done) { loop(); } else { noLoop(); }
 	}
-
 }
 
 /*

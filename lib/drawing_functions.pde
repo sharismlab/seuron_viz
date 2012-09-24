@@ -12,7 +12,7 @@ int msgDispCount=0;
 var dispIds = [];
 
 boolean viewChangeable = true;
-int view = 1;
+int view = 3;
 
 void draw() {
 	////////////////////////////////////////////////////////////////
@@ -32,16 +32,48 @@ void draw() {
 	if(view ==3) {
 		
 		// drawThreadsForce();
+		daddy.displayMessages();
 
-		for (int i = 0; nodes[i]; i++){
-
-			if( dispIds.indexOf( seurons[i].id ) != -1) seurons[i].cx = seurons[i].ease(seurons[i].cx, nodes[i].x, 0.8);
-			if( dispIds.indexOf( seurons[i].id ) != -1) seurons[i].cy = seurons[i].ease(seurons[i].cx, nodes[i].y, 0.8);
-			if( dispIds.indexOf( seurons[i].id ) != -1)  seurons[i].display();	
-
+		for (int i = 0; messages[i]; i++){
+			messages[i].radius = messages[i].interactions.length*10;
+			// console.log(messages[i].radius);
+			if( dist(mouseX, mouseY, messages[i].posX, messages[i].posY) < messages[i].radius/2) {
+			
+				messages[i].showInfoBox();
+				for (int j = 0; messages[i].interactions[j]; j++){
+					messages[i].interactions[j].display();
+				}
+			}	
 		}
 
-		drawForce();
+
+		
+
+		/*for (int i = 0; threads[i]; i++){
+			stroke(255);
+
+			beginShape();
+			for (int j = 0; threads[i].messageIds[j]; j++){
+				// threads[i].display();
+				
+				stroke(255);
+				// int index = getMessageIndex( threads[i].messageIds[j] );
+				// console.log(messages[index].posX);
+				// vertex( messages[index].posX, messages[index].posY);
+			}
+			endShape();
+			
+		}*/
+
+		/*for (int i = 0; nodes[i]; i++){
+
+			/*if( dispIds.indexOf( seurons[i].id ) != -1) seurons[i].cx = seurons[i].ease(seurons[i].cx, nodes[i].x, 0.8);
+			if( dispIds.indexOf( seurons[i].id ) != -1) seurons[i].cy = seurons[i].ease(seurons[i].cy, nodes[i].y, 0.8);
+			if( dispIds.indexOf( seurons[i].id ) != -1)  seurons[i].display();	*/
+
+		//}
+
+		//drawForce();
 			
 	}
 
@@ -145,7 +177,7 @@ void drawTimeline(){
 					// console.log(seurons[i].messageIds[j]);
 
 					int index = getMessageIndex(seurons[i].messageIds[j] );
-					console.log( messages[index].interactions );
+					// console.log( messages[index].interactions );
 
 					for (int k = 0;  messages[index].interactions[k]; k++){	
 
