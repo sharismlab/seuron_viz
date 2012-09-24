@@ -93,23 +93,32 @@ void draw() {
 
 	
 	//////////////////////////Switch View Button
-		if(mouseX>width-135 && mouseX<width-60 && mouseY>15 && mouseY<45){
+		pushMatrix();
+		// if(view!=2) translate(50, 0);
+		if(mouseX>width-150+(view==2?0:40) && mouseX<width-60+(view==2?0:40) && mouseY>45 && mouseY<75){
 		fill(150);
 		viewChangeable=true;
 		}
 		else{
 			viewChangeable=false;
-			fill(0);
+			fill(80);
 		}
 		rectMode(CORNER);
-		noStroke();
-		rect(width-135,15,75,30,5,5);
+		// noStroke();
+		stroke(0);
+		rect(width-150+(view==2?0:40),15,90,60,5,5);
 		fill(255);
 		textAlign(CENTER);
-		text("Switch View", width-99, 33);
-		if(view ==1) text("Relationship", width-99, 63);
-		else if(view ==2) text("Interactions", width-99, 63);
-		else if(view ==3) text("Connection", width-99, 63);
+		text("Switch View", width-105+(view==2?0:40), 63);
+
+		fill(0);
+		rect(width-150+(view==2?0:40),15,90,30,5,5);
+		fill(255);
+		textAlign(CENTER);
+		if(view ==1) text("Relationships", width-105+(view==2?0:40), 33);
+		else if(view ==2) text("Interactions", width-105+(view==2?0:40), 33);
+		else if(view ==3) text("Connections", width-105+(view==2?0:40), 33);
+		popMatrix();
 }
 
 
@@ -161,53 +170,53 @@ void drawTimeline(){
 		popMatrix();
 
 	////////////////////////DRAW SEURONS
-	if( view == 1){
-		for (int i = 0; seurons[i]; i++){
-			seurons[i].isSelected=false;
-		}
-
-
-		for (int i=0; seurons[i]; i++){// seurons[0] is daddy so begin at 1
-
-			if(dist(mouseX, mouseY, seurons[i].cx, seurons[i].cy)<seurons[i].radius/2) {
-
-				for(int j=0; seurons[i].messageIds[j]; j++){
-					// console.log(seurons[i].messageIds[j]);
-					// int threadIndex=isInThread(seurons[i].messageIds[j]);
-					// if(threadIndex==null){
-						int index = getMessageIndex(seurons[i].messageIds[j] );
-						// console.log( messages[index].interactions );
-						if(index<msgDispCount-1){
-							for (int k = 0;  messages[index].interactions[k]; k++){	
-
-								if(messages[index].interactions[k].synapse.seuronA.id==seurons[i].id || messages[index].interactions[k].synapse.seuronB.id==seurons[i].id){
-									stroke(messages[index].interactions[k].couleur);
-									strokeWeight(2);
-									noFill();
-									bezier(seurons[i].cx, seurons[i].cy,seurons[i].cx, seurons[i].cy+150, messages[index].timelinePosX, messages[index].timelinePosY-150,messages[index].timelinePosX, messages[index].timelinePosY);
-								}
-							}
-						}
-					// }
-					// else{
-
-					// }
-
-				}
-				
-				seurons[i].isSelected = true;
-			}
-			else{
+		if( view == 1){
+			for (int i = 0; seurons[i]; i++){
 				seurons[i].isSelected=false;
 			}
-		}
 
-		if( dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {
-			daddy.isSelected = true;
-			// console.log("daddy.isSelected = true")
+
+			for (int i=0; seurons[i]; i++){// seurons[0] is daddy so begin at 1
+
+				if(dist(mouseX, mouseY, seurons[i].cx, seurons[i].cy)<seurons[i].radius/2) {
+
+					for(int j=0; seurons[i].messageIds[j]; j++){
+						// console.log(seurons[i].messageIds[j]);
+						// int threadIndex=isInThread(seurons[i].messageIds[j]);
+						// if(threadIndex==null){
+							int index = getMessageIndex(seurons[i].messageIds[j] );
+							// console.log( messages[index].interactions );
+							if(index<msgDispCount-1){
+								for (int k = 0;  messages[index].interactions[k]; k++){	
+
+									if(messages[index].interactions[k].synapse.seuronA.id==seurons[i].id || messages[index].interactions[k].synapse.seuronB.id==seurons[i].id){
+										stroke(messages[index].interactions[k].couleur);
+										strokeWeight(2);
+										noFill();
+										bezier(seurons[i].cx, seurons[i].cy,seurons[i].cx, seurons[i].cy+150, messages[index].timelinePosX, messages[index].timelinePosY-150,messages[index].timelinePosX, messages[index].timelinePosY);
+									}
+								}
+							}
+						// }
+						// else{
+
+						// }
+
+					}
+					
+					seurons[i].isSelected = true;
+				}
+				else{
+					seurons[i].isSelected=false;
+				}
+			}
+
+			if( dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {
+				daddy.isSelected = true;
+				// console.log("daddy.isSelected = true")
+			}
+			else daddy.isSelected = false;
 		}
-		else daddy.isSelected = false;
-	}
 
 	////////////////////////DRAW MESSAGES
 		// console.log(dateMin + "    " +  dateMax);
@@ -257,15 +266,15 @@ void drawTimeline(){
 		}
 
 	////////////////////////DRAW THREADS
-	for (int i = 0; threads[i]; i++){
-		//display threads
-		for(int j=0; threads[i].messageIds[j]; j++){
-			if(getMessageIndex(threads[i].messageIds[j])<=msgDispCount-1){
-				threads[i].displayTL();
+		for (int i = 0; threads[i]; i++){
+			//display threads
+			for(int j=0; threads[i].messageIds[j]; j++){
+				if(getMessageIndex(threads[i].messageIds[j])<=msgDispCount-1){
+					threads[i].displayTL();
+				}
 			}
+			// threads[i].displayTL();
 		}
-		// threads[i].displayTL();
-	}
 }
 
 
