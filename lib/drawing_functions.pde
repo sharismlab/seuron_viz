@@ -54,7 +54,7 @@ void draw() {
 	// DRAW DADDY
 	if( view == 1 && displayDaddy == true) daddy.display();
 
-	if(frameCount%1==0 && msgDispCount<messages.length){
+	if(frameCount%15==0 && msgDispCount<messages.length){
 		msgDispCount++;
 		// console.log(msgDispCount);
 	}
@@ -227,6 +227,14 @@ void drawTimeline(){
 	////////////////////////DRAW THREADS
 	for (int i = 0; threads[i]; i++){
 		//display threads
+		/*for(int j=0; j<threads[i].messageIds.length; j++){
+			for(int k=0; k<dispIds.length; k++){
+				if(threads[i].messageIds[j]==dispIds[k]){
+					console.log("rgdrhbb");
+					threads[i].displayTL();
+				}
+			}
+		}*/
 		threads[i].displayTL();
 	}
 }
@@ -272,35 +280,35 @@ void drawThreads(){
 		fill(255);
 		text("MESSAGES:", 30, 40);
 		fill(#8d2eb0);
-		ellipse(30, 60, 10, 10);
+		ellipse(40, 60, 10, 10);
 		stroke(#8d2eb0);
-		line(20,60,40,60);
+		line(30,60,50,60);
 		noStroke();
 		fill(255);
-		text("TWEET", 55, 65);
+		text("TWEET", 60, 65);
 		fill(#d42026);
-		ellipse(30, 90, 10, 10);
+		ellipse(40, 90, 10, 10);
 		stroke(#d42026);
-		line(20,90,40,90);
+		line(30,90,50,90);
 		noStroke();
 		fill(255);
-		text("RETWEET", 55, 95);
+		text("RETWEET", 60, 95);
 		fill(#e9e32e);
-		ellipse(30, 120, 10, 10);
+		ellipse(40, 120, 10, 10);
 		stroke(#e9e32e);
-		line(20,120,40,120);
+		line(30,120,50,120);
 		noStroke();
 		fill(255);
-		text("REPLY", 55, 125);
+		text("REPLY", 60, 125);
 		fill(255,80);
-		ellipse(40, 165, 30, 30);
-		ellipse(40, 165, 20, 20);
-		ellipse(40, 165, 10, 10);
+		ellipse(45, 165, 30, 30);
+		ellipse(45, 165, 20, 20);
+		ellipse(45, 165, 10, 10);
 		stroke(255);
-		line(25,165,55,165);
+		line(30,165,60,165);
 		noStroke();
 		fill(255);
-		text("INTERACTIONS", 65, 170);
+		text("INTERACTIONS", 70, 170);
 
 		fill(255);
 		text("INTERACTIONS:", 30, 250);
