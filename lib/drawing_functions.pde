@@ -12,7 +12,7 @@ int msgDispCount=0;
 var dispIds = [];
 
 boolean viewChangeable = true;
-int view = 3;
+int view = 1;
 
 void draw() {
 	////////////////////////////////////////////////////////////////
@@ -32,6 +32,7 @@ void draw() {
 	if(view ==3) {
 		
 		// drawThreadsForce();
+		/*
 		daddy.displayMessages();
 
 		for (int i = 0; messages[i]; i++){
@@ -45,6 +46,7 @@ void draw() {
 				}
 			}	
 		}
+		*/
 
 
 		
@@ -65,15 +67,15 @@ void draw() {
 			
 		}*/
 
-		/*for (int i = 0; nodes[i]; i++){
+		for (int i = 0; nodes[i]; i++){
 
-			/*if( dispIds.indexOf( seurons[i].id ) != -1) seurons[i].cx = seurons[i].ease(seurons[i].cx, nodes[i].x, 0.8);
+			if( dispIds.indexOf( seurons[i].id ) != -1) seurons[i].cx = seurons[i].ease(seurons[i].cx, nodes[i].x, 0.8);
 			if( dispIds.indexOf( seurons[i].id ) != -1) seurons[i].cy = seurons[i].ease(seurons[i].cy, nodes[i].y, 0.8);
-			if( dispIds.indexOf( seurons[i].id ) != -1)  seurons[i].display();	*/
+			if( dispIds.indexOf( seurons[i].id ) != -1)  seurons[i].display();
 
-		//}
+		}
 
-		//drawForce();
+		drawForce();
 			
 	}
 
