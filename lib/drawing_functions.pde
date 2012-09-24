@@ -86,7 +86,7 @@ void draw() {
 	// DRAW DADDY
 	if( view == 1 && displayDaddy == true) daddy.display();
 
-	if(frameCount%15==0 && msgDispCount<messages.length){
+	if(frameCount%5==0 && msgDispCount<messages.length){
 		msgDispCount++;
 		// console.log(msgDispCount);
 	}
