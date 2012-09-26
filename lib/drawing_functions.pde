@@ -227,7 +227,7 @@ void drawTimeline(){
 			line(messages[i].timelinePosX, height-75, messages[i].timelinePosX, height-16);
 
 			if( view == 1){
-				if(dist(mouseX, mouseY, messages[i].timelinePosX, messages[i].timelinePosY)<=5  || i==msgDispCount-1){
+				if(dist(mouseX, mouseY, messages[i].timelinePosX, messages[i].timelinePosY)<=5  || (i==msgDispCount-1 && msgDispCount!=messages.length)){
 					messages[i].showInfoBox();
 					for (int j = 0; messages[i].interactions[j]; j++){
 						seurons[seuronExists(messages[i].interactions[j].synapse.seuronA.id)].isSelected = true;
@@ -390,11 +390,11 @@ void drawThreads(){
 			if(threads[i].messageIds.length>1) countThreads++;
 		}
 		// console.log(countThreads);
-		step=(4*height)/countThreads;
+		step=(threads.length*30)/countThreads;
 		
 		countThreads=0;
 		pushMatrix();
-		translate(0,map(scrollY,0, height-173, 0, -4*height));
+		translate(0,map(scrollY,0, height-173, 0, -threads.length*30));
 		for (int i = 0; threads[i]; i++){
 			threads[i].displayable=false;
 			//display threads
@@ -402,7 +402,7 @@ void drawThreads(){
 
 				countThreads++;
 
-				threads[i].posY= 25+countThreads*step;
+				threads[i].posY= 30+countThreads*step;
 				// threads[i].posX= 25+dispIds.length*10;
 
 				for (int j = 0; threads[i].messageIds[j]; j++){
