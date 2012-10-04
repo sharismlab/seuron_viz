@@ -26,7 +26,7 @@ function launchForceViz (data) {
 
 		// console.log($(window).height());
 		var width = window.innerWidth*95/100,
-			height = window.innerHeight,
+			height = window.innerHeight*95/100,
 			path,
 			node,
 			trans=[0,0],
