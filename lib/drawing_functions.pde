@@ -23,15 +23,16 @@ void draw() {
 		ctx.fillRect( 0, 0, width, height );
 		
 	// draw caption
-	if(view==1) drawCaptions();
+	if(view==1){
+		drawCaptions();
+		$("#force").hide();
+	}
 
 	if(view==2) drawThreads();
 
 	if(view==3) {
-		if(!displayForce){
-			$("#force").toggle();
-			displayForce=true;
-		}
+		$("#force").show();
+
 		for (int i = 0; seurons[i]; i++){
 			if(seurons[i].isSelected) seurons[i].showInfoBox();
 

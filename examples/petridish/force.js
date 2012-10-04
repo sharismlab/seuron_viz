@@ -70,7 +70,6 @@ function launchForceViz (data) {
 		        .linkStrength( function(d) { return (1/(1+d.strength)) } )
 		        .start();
 
-
 			path = svg.append("svg:g").selectAll("path")
 				.data(force.links())
 			  	.enter().append("svg:path")
@@ -98,9 +97,15 @@ function launchForceViz (data) {
 			node.append("svg:circle")
 				.attr("r", function(d) { return 10; })
 				.call(force.drag)
+<<<<<<< HEAD
 				.on("mouseover", fade(1,true) )
     			.on("mouseout", fade(.5,false) )
     			// .on("click", function(d) { click(d) })
+=======
+				.on("mouseover", fade(1,true))
+    			.on("mouseout", fade(.1,false))
+    			.on("click", function(d) { click(d) })
+>>>>>>> f3a21f348711947f45a57bad182961cd6aa339ad
     			// .style("fill", function(d) { return colors[d.strength]-2; })
     			// .style("stroke", function(d) { return d3.rgb(color(d.strength)).darker();})
 		        .style("fill" , function(d){ return d.color; })
@@ -112,7 +117,7 @@ function launchForceViz (data) {
 				.attr("dx", ".05em")
 				.attr("dy", "-.35em")
 				.style("font-size", 14)
-				.style("fill" , "#000000")
+				.style("fill" , "#ff0000")
 				.style("font-family" , "Arial, sans")
 				.text(function(d) { return d.name })
 				.call(force.drag);
@@ -150,7 +155,10 @@ function launchForceViz (data) {
 
 		function fade(opacity,selected) {
 			return function(d) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> f3a21f348711947f45a57bad182961cd6aa339ad
 				seurons[d.index].isSelected=selected;
 
 				node.style("fill-opacity", function(o) {
@@ -159,10 +167,16 @@ function launchForceViz (data) {
 					
 				});
 
+<<<<<<< HEAD
 				path.style("fill-opacity",opacity).style("stroke-opacity", function(o) {
 				 	return o.source === d || o.target === d ? opacity : .1 ;
 				});
 
+=======
+				path.style("stroke-opacity", function(o) {
+				 	return (o.source === d || o.target === d) ? opacity : .1;
+				});
+>>>>>>> f3a21f348711947f45a57bad182961cd6aa339ad
 			};
 		}
 
