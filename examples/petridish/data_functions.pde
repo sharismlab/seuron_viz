@@ -36,6 +36,8 @@ void loadData(){
 
 	Object daddyTimeline = getTimeline( "makio135" );
 	analyzeTimeline(daddyTimeline);
+
+	
 	
 	
 	// console.log("threads.length : "+threads.length);
@@ -64,7 +66,7 @@ void lookupUsers() {
 
 	// console.log( url );
 
-	//	console.log("looking for users : " + toLookup.length);
+	// console.log("looking for users : " + toLookup.length);
 	//	console.log(toLookup);
 
 	var aaa;

@@ -8,6 +8,13 @@ var forceData = {};
 forceData.nodes = [];
 forceData.links = [];
 
+var interactionClasses = [
+			"unknown", 
+			"post",
+			"RT",
+			"answer",
+			"at"
+];
 
 // get our data
 console.log(forceData);
@@ -21,8 +28,8 @@ function launchForceViz (data) {
 
 		// console.log(data);
 
-		var selectingColor = "blue";
-		var selectedColor = "green";
+		// var selectingColor = "blue";
+		// var selectedColor = "green";
 
 		// console.log($(window).height());
 		var width = window.innerWidth*95/100,
@@ -30,7 +37,7 @@ function launchForceViz (data) {
 			path,
 			node,
 			trans=[0,0],
-			scale=1;;
+			scale=1;
 
 		var color = d3.scale.category20();
 
@@ -39,7 +46,7 @@ function launchForceViz (data) {
 			.append("svg:svg")
 				.attr("width", width)
 				.attr("height", height)
-				.call(d3.behavior.zoom().on("zoom", redraw));
+				// .call(d3.behavior.zoom().on("zoom", redraw));
 
 		force = d3.layout.force()
 			.size([width, height])
@@ -70,19 +77,31 @@ function launchForceViz (data) {
 		        .linkStrength( function(d) { return (1/(1+d.strength)) } )
 		        .start();
 
-			path = svg.append("svg:g").selectAll("path")
-				.data(force.links())
-			  	.enter().append("svg:path")
-			    .attr("class", function(d) { return "link "+d.class })
-			    .attr("fill", "none")
-			    .attr("stroke-width", 2)
-			    .attr("stroke", function(d) { return d.color })
-			    // .attr("fill-opacity", .1)
-			    .attr("stroke-opacity", .1);
+		    
+		    // Per-type markers, as they don't inherit styles.
+			markers = svg.append("svg:defs").selectAll("marker")
+			    .data(interactionClasses)
+			  .enter().append("svg:marker")
+			    .attr("id", String)
+			    .attr("viewBox", "0 -5 10 10")
+			    .attr("refX", 30)
+			    .attr("refY", -1.5)
+			    .attr("markerWidth", 6)
+			    .attr("markerHeight", 6)
+			    .attr("orient", "auto")
+			  .append("svg:path")
+			    .attr("fill", function(d) { return d.color })
+			    .attr("fill-opacity", .1)
+			    .attr("d", "M0,-5L10,0L0,5");
 
-			path.append("svg:path")
-				.attr("fill", function (d) { return d.color })
-				.attr("d", "M0,-5L10,0L0,5");
+			path = svg.append("svg:g").selectAll("path")
+			    .data(force.links())
+			  .enter().append("svg:path")
+			    .attr("class", function(d) { return "link " + d.class; })
+			    .attr("marker-end", function(d) { return "url(#" + d.class + ")"; })
+			    .attr("stroke", function(d) { return d.color })
+				.attr("fill", "none")
+			    .attr("stroke-opacity", .1);
 
 			// Update the nodes
 			node = svg.selectAll("g.node")
@@ -117,18 +136,18 @@ function launchForceViz (data) {
 				.call(force.drag);
 
 			var n = data.nodes.length;
-			console.log(n);
-			// force.start();
+			// console.log(n);
+			force.start();
 			for (var i = n; i > 0; --i) force.tick();
 			force.stop();
 		}
 		
 		function tick() {
-			path.attr("d", function(d) {
-				var dx = d.target.x - d.source.x,
-					dy = d.target.y - d.source.y,
-					dr = Math.sqrt(dx * dx + dy * dy);
-				return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
+			 path.attr("d", function(d) {
+			    var dx = d.target.x - d.source.x,
+			        dy = d.target.y - d.source.y,
+			        dr = Math.sqrt(dx * dx + dy * dy);
+			    return "M" + d.source.x + "," + d.source.y + "A" + dr + "," + dr + " 0 0,1 " + d.target.x + "," + d.target.y;
 			});
 			if(!node.selected) {
 				node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
@@ -159,6 +178,10 @@ function launchForceViz (data) {
 
 				path.style("stroke-opacity", function(o) {
 				 	return (o.source === d || o.target === d) ? opacity : .1;
+				});
+
+				markers.style("fill-opacity", function(o) {
+				 	return (o.source === d || o.target === d) ? opacity : .5;
 				});
 
 			};

@@ -6,13 +6,13 @@ var captions = [
 		"Unrelated"
 		];
 
-
+boolean forceDataCreated = false; 
 // ------------------------------- MAIN DRAWING FUNCTION
 int msgDispCount=0;
 var dispIds = [];
 
 boolean viewChangeable = true;
-int view = 3;
+int view = 1;
 
 void draw() {
 	// DRAW BACKGROUND
@@ -37,41 +37,6 @@ void draw() {
 			if(seurons[i].isSelected) seurons[i].showInfoBox();
 
 		}
-		// mouseForce();
-		
-		// drawThreadsForce();
-		/*
-		daddy.displayMessages();
-
-		for (int i = 0; messages[i]; i++){
-			messages[i].radius = messages[i].interactions.length*10;
-			// console.log(messages[i].radius);
-			if( dist(mouseX, mouseY, messages[i].posX, messages[i].posY) < messages[i].radius/2) {
-			
-				messages[i].showInfoBox();
-				for (int j = 0; messages[i].interactions[j]; j++){
-					messages[i].interactions[j].display();
-				}
-			}	
-		}
-		*/
-
-
-		/*for (int i = 0; threads[i]; i++){
-			stroke(255);
-
-			beginShape();
-			for (int j = 0; threads[i].messageIds[j]; j++){
-				// threads[i].display();
-				
-				stroke(255);
-				// int index = getMessageIndex( threads[i].messageIds[j] );
-				// console.log(messages[index].posX);
-				// vertex( messages[index].posX, messages[index].posY);
-			}
-			endShape();
-			
-		}*/
 
 	}
 
@@ -80,6 +45,12 @@ void draw() {
 
 	// DISPLAY OUR GUYS
 	if( view ==1 && displaySeuron == true) displayAllSeurons();
+
+	if( view ==3 && displaySeuron == true && forceDataCreated == false){
+		console.log(seurons);
+		createForceData(); 
+		forceDataCreated = true;
+	}
 
 	// DRAW DADDY
 	if( view == 1 && displayDaddy == true) daddy.display();

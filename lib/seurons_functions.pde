@@ -62,7 +62,7 @@ void addToLookup( int id ) {
 void parseUser( Object userData) {
 
 	i = seuronIds.indexOf( userData.id );
-	// console.log(i);
+	 // console.log(i);
 	if( i != -1  ) {
 
 		// tell seuron parser that data is a user profile
