@@ -3,34 +3,36 @@
 	<head>
 		<title>Social Neuron</title>
 	</head>
-	<body style="background-color: #000; text-align: center;">
+	<body style="background:#333">
+		<canvas id="seuron" data-processing-sources="
+			seuron-twitter.pde					
+			data_functions.pde
+			../../lib/force.pde 
+			../../lib/drawing_functions.pde 
+			../../lib/timeline_functions.pde 
+			../../lib/seurons_functions.pde 
+			../../lib/messages_functions.pde 
+			../../lib/Seuron.pde 
+			../../lib/Synapse.pde 
+			../../lib/Interaction.pde 
+			../../lib/Message.pde 
+			../../lib/Thread.pde 
+			../../lib/Transmitter.pde
+			graphs/Node.pde					
+			graphs/Tree.pde
+			graphs/FlowAlgorithm.pde
+			graphs/CircleFlowAlgorithm.pde
+			graphs/TreeFlowAlgorithm.pde
+			graphs/ForceDirectedFlowAlgorithm.pde
+			graphs/DirectedGraph.pde
+			graphs/universal.pde
+			" 
+			style="position: absolute; top:0; left:0; width:100%; height100%; outline: 0;">
+		</canvas>
 
-			<div>
-				<canvas id="seuron" data-processing-sources="
-					seuron-twitter.pde					
-					data_functions.pde
-					../../lib/force.pde 
-					../../lib/drawing_functions.pde 
-					../../lib/timeline_functions.pde 
-					../../lib/seurons_functions.pde 
-					../../lib/messages_functions.pde 
-					../../lib/Seuron.pde 
-					../../lib/Synapse.pde 
-					../../lib/Interaction.pde 
-					../../lib/Message.pde 
-					../../lib/Thread.pde 
-					../../lib/Transmitter.pde
-					graphs/Node.pde					
-					graphs/Tree.pde
-					graphs/FlowAlgorithm.pde
-					graphs/CircleFlowAlgorithm.pde
-					graphs/TreeFlowAlgorithm.pde
-					graphs/ForceDirectedFlowAlgorithm.pde
-					graphs/DirectedGraph.pde
-					graphs/universal.pde
-					" 
-					style="position: absolute; top:0; left:0; width:100%;height100%; outline: 0;"></canvas>
-			</div>
+		<div id="force" style="display:none; position: absolute; top:0; left:0; width:100%; height100%; outline: 0;">
+			
+		</div>
 
 		<script type="text/javascript" src="jquery-1.7.1.min.js "></script>
 		<script type="text/javascript" src="processing.js"></script>
