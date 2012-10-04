@@ -78,7 +78,7 @@ function launchForceViz (data) {
 			    .attr("stroke-width", 2)
 			    .attr("stroke", function(d) { return d.color })
 			    // .attr("fill-opacity", .1)
-			    .attr("stroke-opacity", .1);
+			    .attr("stroke-opacity", .05);
 
 			path.append("svg:path")
 				.attr("fill", function (d) { return d.color })
@@ -158,7 +158,9 @@ function launchForceViz (data) {
 				});
 
 				path.style("stroke-opacity", function(o) {
-				 	return (o.source === d || o.target === d) ? opacity : .1;
+				 	return 	d.index == 0 ? .3 :
+				 			(o.source === d || o.target === d) ? opacity :
+				 			.05;
 				});
 
 			};
