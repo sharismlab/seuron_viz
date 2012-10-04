@@ -50,11 +50,8 @@ void analyzeTimeline( Array timeline ) {
 	// console.log("mentions.length : " +timelineMentions.length );
 
 	for(int i; timeline[i]; i++ ) {
-		
-
 		currentThreadIndex = null;
 		analyzeTweet( timeline[i] );
-
 	}
 
 	// set position for all messages on the timeline

@@ -14,7 +14,7 @@
 	  |__ \ / __ <  /__ \
 	  __/ // / / / /__/ /
 	 / __// /_/ / // __/ 
-	/____/\____/_//____/ 
+	/____/\____/_//____ 
 	                     
 	processing + twitter + jquery 
 */
@@ -22,7 +22,7 @@
 var cnvs, ctx;
 
 PFont font;
-
+/*
 // A global array to store all seurons, including unactive
 var seurons = [];
 
@@ -45,7 +45,7 @@ var threads = [];
 
 // messages to be looked up
 var messagesLookup = [];
-
+*/
 // THE Only boss of all.
 Seuron daddy;
 boolean displayDaddy = false;

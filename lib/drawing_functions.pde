@@ -12,7 +12,7 @@ int msgDispCount=0;
 var dispIds = [];
 
 boolean viewChangeable = true;
-int view = 3;
+int view = 1;
 
 void draw() {
 	// DRAW BACKGROUND
@@ -28,7 +28,10 @@ void draw() {
 	if(view==2) drawThreads();
 
 	if(view==3) {
-		$("#force").toggle;
+		if(!displayForce){
+			$("#force").toggle();
+			displayForce=true;
+		}
 		
 		// drawThreadsForce();
 		/*
