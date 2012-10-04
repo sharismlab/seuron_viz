@@ -66,8 +66,8 @@ void analyzeTimeline( Array timeline ) {
 	daddy.setNetworkPos();
 
 	createForceData();
-	console.log(forceData);
-
+	// console.log(forceData);
+	
 	displaySeuron = true
 
 	// API twitter lookup users for toLookup<100

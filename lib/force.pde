@@ -21,9 +21,10 @@ void createForceData() {
 			var link = {};
 
 			// add all interactions to seurons force graph
-			link.source = messages[i].interactions[j].synapse.seuronA.id;
-			link.target = messages[i].interactions[j].synapse.seuronB.id;
-				
+			link.source = seuronExists(messages[i].interactions[j].synapse.seuronA.id);
+			link.target = seuronExists(messages[i].interactions[j].synapse.seuronB.id);
+			
+			// console.log (link.source + " -- " + link.target);
 			link.couleur = messages[i].interactions[j].couleur;
 			
 			forceData.links.push(link);
@@ -31,7 +32,8 @@ void createForceData() {
 		}
 	}
 
-	console.log(forceData);
+	// console.log(forceData);
+	launchForceViz(forceData);
 
 }
 

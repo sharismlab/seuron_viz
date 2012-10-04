@@ -11,7 +11,7 @@ forceData.links = [];
 
 // get our data
 console.log(forceData);
-launchForceViz(forceData);
+// launchForceViz(forceData);
 
 ///////////// START D3 VIZ
 function launchForceViz (data) {
@@ -19,15 +19,15 @@ function launchForceViz (data) {
 
 	///////////// SETUP INIT
 
-		var json = data;
-		// console.log(json);
+		// var data = data;
+		// console.log(data);
 
 		var selectingColor = "blue";
 		var selectedColor = "green";
 
 		// console.log($(window).height());
 		var width = 1060,
-		    height = $(window).height(),
+		    height = 800,
 		    path,
 		    node,
 	    	trans=[0,0],
@@ -52,8 +52,8 @@ function launchForceViz (data) {
 			.append("svg:svg")
 			    .attr("width", width)
 			    .attr("height", height)
-			.append('svg:g')
-		    	.attr('class', 'brush') 
+			// .append('svg:g')
+		 //    	.attr('class', 'brush') 
 		    	//.call(brush.x(brushX).y(brushY))
 		    	.call(d3.behavior.zoom().on("zoom", redraw));
 
@@ -122,8 +122,8 @@ function launchForceViz (data) {
 
 			// Restart the force layout.
 			force
-			    .nodes(json.nodes)
-				.links(json.links)
+			    .nodes(data.nodes)
+				.links(data.links)
 			    .charge(-130)
 			    .linkDistance(320)
 			    .gravity(.05)
@@ -132,7 +132,7 @@ function launchForceViz (data) {
 
 			// Per-type markers, as they don't inherit styles.
 			markers = svg.append("svg:defs").selectAll("marker")
-				.data(json.links.types).enter()
+				// .data(data.links.types).enter()
 				.append("svg:marker")
 					.attr("id", String)
 				    .attr("viewBox", "0 -5 10 10")
@@ -147,12 +147,12 @@ function launchForceViz (data) {
 			path = svg.append("svg:g").selectAll("path")
 			    .data(force.links())
 			  .enter().append("svg:path")
-			    .attr("class", function(d) { return "link " + d.type; })
-			    .attr("marker-end", function(d) { return "url(#" + d.type + ")"; });
+			     .attr("class", function(d) { return "link " + d.type; })
+			     .attr("marker-end", function(d) { return "url(#" + d.type + ")"; });
 
 			// Update the nodes
 			node = svg.selectAll("g.node")
-			    .data(json.nodes);
+			    .data(data.nodes);
 
 			// Enter any new nodes.
 			node.enter()
@@ -160,11 +160,11 @@ function launchForceViz (data) {
 		    	.attr("class", "node");
 
 			node.append("svg:circle")
-				.attr("r", function(d) { return d.children.length*1.2; })
+				.attr("r", function(d) { return 10; })
 				.call(force.drag)
 				.on("mouseover", fade(.1))
     			.on("mouseout", fade(1))
-    			// .on("click", function(d) { click(d) })
+    			.on("click", function(d) { click(d) })
     			.style("fill", function(d) { return color(d.color); })
     			.style("stroke", function(d) { return d3.rgb(color(d.color)).darker();});
 
@@ -175,10 +175,10 @@ function launchForceViz (data) {
 		        .style("font-size", 14)
 		        .style("fill" , "#000000")
 		        .style("font-family" , "Arial, sans")
-		        .text(function(d) { return d.name })
+		        // .text(function(d) { return d.name })
 				.call(force.drag);
 
-			var n = json.nodes.length;
+			var n = data.nodes.length;
 			console.log(n);
 			force.start();
 			for (var i = n; i > 0; --i) force.tick();
@@ -205,7 +205,7 @@ function launchForceViz (data) {
 
 		// get all elements associated to a specific node 
 	    var linkedByIndex = {};
-	    json.links.forEach(function(d) {
+	    data.links.forEach(function(d) {
 	        linkedByIndex[d.source.index + "," + d.target.index] = 1;
 	    });
 
