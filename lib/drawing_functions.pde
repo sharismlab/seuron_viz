@@ -13,6 +13,7 @@ var dispIds = [];
 
 boolean viewChangeable = true;
 int view = 1;
+boolean forceDataCreated = false;
 
 void draw() {
 	// DRAW BACKGROUND
@@ -44,7 +45,13 @@ void draw() {
 	drawTimeline();
 
 	// DISPLAY OUR GUYS
-	if( view ==1 && displaySeuron == true) displayAllSeurons();
+	if( view ==1 && displaySeuron == true){
+		displayAllSeurons();
+		if(!forceDataCreated){
+			createForceData();
+			forceDataCreated=true;
+		}
+	}
 
 	if( view ==3 && displaySeuron == true && forceDataCreated == false){
 		console.log(seurons);

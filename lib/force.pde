@@ -27,9 +27,7 @@ void createForceData() {
 
 		node.name = seurons[i].screen_name;
 
-		console.log(seurons[i].lookedUp);
-		// console.log(node.name);
-
+		node.name = seurons[i].name;
 		//add nodes to graph data
 		forceData.nodes.push( node );
 	}

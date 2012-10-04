@@ -61,9 +61,6 @@ void analyzeTimeline( Array timeline ) {
 	}
 
 	daddy.setNetworkPos();
-
-	
-	// console.log(forceData);
 	
 	displaySeuron = true
 
