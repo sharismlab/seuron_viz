@@ -70,19 +70,6 @@ function launchForceViz (data) {
 		        .linkStrength( function(d) { return (1/(1+d.strength)) } )
 		        .start();
 
-			// Per-type markers, as they don't inherit styles.
-			/*markers = svg.append("svg:defs").selectAll("marker")
-				// .data(data.links.types).enter()
-				.append("svg:marker")
-					.attr("id", String)
-					.attr("viewBox", "0 -5 10 10")
-					.attr("refX", 15)
-					.attr("refY", -1.5)
-					.attr("markerWidth", 6)
-					.attr("markerHeight", 6)
-					.attr("orient", "auto");
-					*/
-
 			path = svg.append("svg:g").selectAll("path")
 				.data(force.links())
 			  .enter().append("svg:path")
@@ -110,8 +97,8 @@ function launchForceViz (data) {
 			node.append("svg:circle")
 				.attr("r", function(d) { return 10; })
 				.call(force.drag)
-				.on("mouseover", fade(.1,true))
-    			.on("mouseout", fade(1,false))
+				.on("mouseover", fade(1,true))
+    			.on("mouseout", fade(.1,false))
     			.on("click", function(d) { click(d) })
     			// .style("fill", function(d) { return colors[d.strength]-2; })
     			// .style("stroke", function(d) { return d3.rgb(color(d.strength)).darker();})
@@ -123,7 +110,7 @@ function launchForceViz (data) {
 				.attr("dx", ".05em")
 				.attr("dy", "-.35em")
 				.style("font-size", 14)
-				.style("fill" , "#000000")
+				.style("fill" , "#ff0000")
 				.style("font-family" , "Arial, sans")
 				.text(function(d) { return d.name })
 				.call(force.drag);
@@ -156,13 +143,11 @@ function launchForceViz (data) {
 		});
 
 		function isConnected(a, b) {
-		return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
+			return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
 		}
 
 		function fade(opacity,selected) {
 			return function(d) {
-				// var p5 = Processing.getInstanceById("seuron");
-				// console.log(p5.seurons[0]);
 				seurons[d.index].isSelected=selected;
 
 				node.style("stroke-opacity", function(o) {
@@ -171,13 +156,9 @@ function launchForceViz (data) {
 					return thisOpacity;
 				});
 
-				path.style("stroke-opacity", opacity).style("fill-opacity", function(o) {
-				 	return o.source === d || o.target === d ? 1 : opacity;
+				path.style("stroke-opacity", function(o) {
+				 	return (o.source === d || o.target === d) ? opacity : .1;
 				});
-
-				// markers.style("stroke-opacity", opacity).style("fill-opacity", function(o) {
-				// 	return o.source === d || o.target === d ? 1 : opacity;
-				// });
 			};
 		}
 
