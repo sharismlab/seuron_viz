@@ -124,9 +124,9 @@ function launchForceViz (data) {
 			force
 			    .nodes(data.nodes)
 				.links(data.links)
-			    .charge(-130)
-			    .linkDistance(320)
-			    .gravity(.05)
+			    .charge(-230)
+			    .linkDistance(150)
+			    .gravity(.06)
 		        // .distance(100)
 		        .start();
 
@@ -148,7 +148,8 @@ function launchForceViz (data) {
 			    .data(force.links())
 			  .enter().append("svg:path")
 			     .attr("class", function(d) { return "link " + d.type; })
-			     .attr("marker-end", function(d) { return "url(#" + d.type + ")"; });
+			     .attr("marker-end", function(d) { return "url(#" + d.type + ")"; })
+			     .attr("linkStrength", function(d) { return d.strength*100; });
 
 			// Update the nodes
 			node = svg.selectAll("g.node")

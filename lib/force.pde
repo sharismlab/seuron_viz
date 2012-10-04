@@ -23,6 +23,9 @@ void createForceData() {
 			// add all interactions to seurons force graph
 			link.source = seuronExists(messages[i].interactions[j].synapse.seuronA.id);
 			link.target = seuronExists(messages[i].interactions[j].synapse.seuronB.id);
+			// if( link.source == seuronExists(daddy.id) ) 
+
+			link.strength = messages[i].interactions[j].synapse.level+1;
 			
 			// console.log (link.source + " -- " + link.target);
 			link.couleur = messages[i].interactions[j].couleur;
