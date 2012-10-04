@@ -97,15 +97,9 @@ function launchForceViz (data) {
 			node.append("svg:circle")
 				.attr("r", function(d) { return 10; })
 				.call(force.drag)
-<<<<<<< HEAD
 				.on("mouseover", fade(1,true) )
     			.on("mouseout", fade(.5,false) )
     			// .on("click", function(d) { click(d) })
-=======
-				.on("mouseover", fade(1,true))
-    			.on("mouseout", fade(.1,false))
-    			.on("click", function(d) { click(d) })
->>>>>>> f3a21f348711947f45a57bad182961cd6aa339ad
     			// .style("fill", function(d) { return colors[d.strength]-2; })
     			// .style("stroke", function(d) { return d3.rgb(color(d.strength)).darker();})
 		        .style("fill" , function(d){ return d.color; })
@@ -155,28 +149,18 @@ function launchForceViz (data) {
 
 		function fade(opacity,selected) {
 			return function(d) {
-<<<<<<< HEAD
 
-=======
->>>>>>> f3a21f348711947f45a57bad182961cd6aa339ad
 				seurons[d.index].isSelected=selected;
 
 				node.style("fill-opacity", function(o) {
 					return isConnected(d, o) ? opacity : .5;
-					// this.setAttribute('fill-opacity', thisOpacity);
 					
 				});
 
-<<<<<<< HEAD
-				path.style("fill-opacity",opacity).style("stroke-opacity", function(o) {
-				 	return o.source === d || o.target === d ? opacity : .1 ;
-				});
-
-=======
 				path.style("stroke-opacity", function(o) {
 				 	return (o.source === d || o.target === d) ? opacity : .1;
 				});
->>>>>>> f3a21f348711947f45a57bad182961cd6aa339ad
+
 			};
 		}
 
