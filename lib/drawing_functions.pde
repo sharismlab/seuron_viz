@@ -20,8 +20,8 @@ void draw() {
 		gradient.addColorStop(0,'rgba(80, 80, 80, 1)');
 		gradient.addColorStop(1,'rgba(50, 50, 50, 1)'); 
 		ctx.fillStyle = gradient; 
-		ctx.fillRect( 0, 0, width, height ); 
-
+		ctx.fillRect( 0, 0, width, height );
+		
 	// draw caption
 	if(view==1) drawCaptions();
 
