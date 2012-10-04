@@ -28,7 +28,10 @@ void draw() {
 	if(view==2) drawThreads();
 
 	if(view==3) {
-		$("#force").toggle;
+		if(!displayForce){
+			$("#force").toggle();
+			displayForce=true;
+		}
 		
 		// drawThreadsForce();
 		/*
