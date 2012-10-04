@@ -12,8 +12,8 @@ int msgDispCount=0;
 var dispIds = [];
 
 boolean viewChangeable = true;
-int view = 3;
-
+int view = 1;
+boolean forceDataCreated = false;
 void draw() {
 	// DRAW BACKGROUND
 		var gradient = ctx.createRadialGradient( width/2, height/2, 0, width/2, height/2, width*0.5); 
@@ -79,7 +79,13 @@ void draw() {
 	drawTimeline();
 
 	// DISPLAY OUR GUYS
-	if( view ==1 && displaySeuron == true) displayAllSeurons();
+	if( view ==1 && displaySeuron == true){
+		displayAllSeurons();
+		if(!forceDataCreated){
+			createForceData();
+			forceDataCreated=true;
+		}
+	}
 
 	// DRAW DADDY
 	if( view == 1 && displayDaddy == true) daddy.display();

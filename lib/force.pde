@@ -31,6 +31,7 @@ void createForceData() {
 		}
 
 		node.name = seurons[i].name;
+		console.log(seurons[i].name+"  :  "+node.name+"  :  "+seurons[i].lookedUp);
 
 		//add nodes to graph data
 		forceData.nodes.push( node );
