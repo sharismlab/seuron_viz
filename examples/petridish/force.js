@@ -70,33 +70,20 @@ function launchForceViz (data) {
 		        .linkStrength( function(d) { return (1/(1+d.strength)) } )
 		        .start();
 
-			// Per-type markers, as they don't inherit styles.
-			/*markers = svg.append("svg:defs").selectAll("marker")
-				// .data(data.links.types).enter()
-				.append("svg:marker")
-					.attr("id", String)
-					.attr("viewBox", "0 -5 10 10")
-					.attr("refX", 15)
-					.attr("refY", -1.5)
-					.attr("markerWidth", 6)
-					.attr("markerHeight", 6)
-					.attr("orient", "auto");
-					*/
 
 			path = svg.append("svg:g").selectAll("path")
 				.data(force.links())
-			  .enter().append("svg:path")
+			  	.enter().append("svg:path")
 			    .attr("class", function(d) { return "link "+d.class })
 			    .attr("fill", "none")
 			    .attr("stroke-width", 2)
 			    .attr("stroke", function(d) { return d.color })
-			    .attr("fill-opacity", 0.1)
-			    .attr("stroke-opacity", 0.1)
-			    ;
+			    // .attr("fill-opacity", .1)
+			    .attr("stroke-opacity", .1);
 
-			  // .append("svg:path")
-					// .attr("fill", function (d) { return d.color })
-					// .attr("d", "M0,-5L10,0L0,5");
+			path.append("svg:path")
+				.attr("fill", function (d) { return d.color })
+				.attr("d", "M0,-5L10,0L0,5");
 
 			// Update the nodes
 			node = svg.selectAll("g.node")
@@ -105,17 +92,19 @@ function launchForceViz (data) {
 			// Enter any new nodes.
 			node.enter()
 				.append("svg:g")
-				.attr("class", "node");
+				.attr("class", "node")
+				.style("fill-opacity", .5);
 
 			node.append("svg:circle")
 				.attr("r", function(d) { return 10; })
 				.call(force.drag)
-				.on("mouseover", fade(.1,true))
-    			.on("mouseout", fade(1,false))
-    			.on("click", function(d) { click(d) })
+				.on("mouseover", fade(1,true) )
+    			.on("mouseout", fade(.5,false) )
+    			// .on("click", function(d) { click(d) })
     			// .style("fill", function(d) { return colors[d.strength]-2; })
     			// .style("stroke", function(d) { return d3.rgb(color(d.strength)).darker();})
-		        .style("fill" , function(d){ return d.color; });
+		        .style("fill" , function(d){ return d.color; })
+		        ;
 
 
 			node.append("svg:text")
@@ -130,7 +119,7 @@ function launchForceViz (data) {
 
 			var n = data.nodes.length;
 			console.log(n);
-			force.start();
+			// force.start();
 			for (var i = n; i > 0; --i) force.tick();
 			force.stop();
 		}
@@ -156,28 +145,24 @@ function launchForceViz (data) {
 		});
 
 		function isConnected(a, b) {
-		return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
+			return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
 		}
 
 		function fade(opacity,selected) {
 			return function(d) {
-				// var p5 = Processing.getInstanceById("seuron");
-				// console.log(p5.seurons[0]);
+
 				seurons[d.index].isSelected=selected;
 
-				node.style("stroke-opacity", function(o) {
-					thisOpacity = isConnected(d, o) ? 1 : opacity;
-					this.setAttribute('fill-opacity', thisOpacity);
-					return thisOpacity;
+				node.style("fill-opacity", function(o) {
+					return isConnected(d, o) ? opacity : .5;
+					// this.setAttribute('fill-opacity', thisOpacity);
+					
 				});
 
-				path.style("stroke-opacity", opacity).style("fill-opacity", function(o) {
-				 	return o.source === d || o.target === d ? 1 : opacity;
+				path.style("fill-opacity",opacity).style("stroke-opacity", function(o) {
+				 	return o.source === d || o.target === d ? opacity : .1 ;
 				});
 
-				// markers.style("stroke-opacity", opacity).style("fill-opacity", function(o) {
-				// 	return o.source === d || o.target === d ? 1 : opacity;
-				// });
 			};
 		}
 
