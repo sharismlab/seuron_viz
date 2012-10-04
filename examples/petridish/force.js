@@ -101,7 +101,7 @@ function launchForceViz (data) {
 			    .attr("marker-end", function(d) { return "url(#" + d.class + ")"; })
 			    .attr("stroke", function(d) { return d.color })
 				.attr("fill", "none")
-			    .attr("stroke-opacity", .1);
+			    .attr("stroke-opacity", .05);
 
 			// Update the nodes
 			node = svg.selectAll("g.node")
@@ -177,7 +177,9 @@ function launchForceViz (data) {
 				});
 
 				path.style("stroke-opacity", function(o) {
-				 	return (o.source === d || o.target === d) ? opacity : .1;
+				 	return 	d.index == 0 ? .3 :
+				 			(o.source === d || o.target === d) ? opacity :
+				 			.05;
 				});
 
 				markers.style("fill-opacity", function(o) {
