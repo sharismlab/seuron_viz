@@ -65,11 +65,14 @@ void analyzeTimeline( Array timeline ) {
 
 	daddy.setNetworkPos();
 
+	createForceData();
+	console.log(forceData);
 
 	displaySeuron = true
 
 	// API twitter lookup users for toLookup<100
 	if( toLookup.length >0 ) lookupUsers( toLookup );
+
 }
 
 void analyzeTweet( Object tweet ) {

@@ -107,7 +107,6 @@ class Message {
 		timelinePosY = (type==3)? height-75 + 15 :
 						(type==2)? height-75 + 30 :
 						height-75 + 45;
-	
 	}
 
 	void display() {
