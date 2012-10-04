@@ -51,8 +51,6 @@ void draw() {
 		*/
 
 
-		
-
 		/*for (int i = 0; threads[i]; i++){
 			stroke(255);
 
