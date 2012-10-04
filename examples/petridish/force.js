@@ -71,7 +71,7 @@ function launchForceViz (data) {
 		        .start();
 
 			// Per-type markers, as they don't inherit styles.
-			markers = svg.append("svg:defs").selectAll("marker")
+			/*markers = svg.append("svg:defs").selectAll("marker")
 				// .data(data.links.types).enter()
 				.append("svg:marker")
 					.attr("id", String)
@@ -80,21 +80,23 @@ function launchForceViz (data) {
 					.attr("refY", -1.5)
 					.attr("markerWidth", 6)
 					.attr("markerHeight", 6)
-					.attr("orient", "auto")
-				.append("svg:path")
-					.attr("fill", function (d) { return d.color
-					})
-					.attr("d", "M0,-5L10,0L0,5");
+					.attr("orient", "auto");
+					*/
 
 			path = svg.append("svg:g").selectAll("path")
 				.data(force.links())
 			  .enter().append("svg:path")
-			    .attr("class", function(d) { return "link " })
-			     // .attr("marker-end", function(d) { return "url(#" + d.strength + ")"; })
-			     
-			     .attr("fill", "none")
-			     .attr("stroke-width", 2)
-			     .attr("stroke", function(d) { return d.color });
+			    .attr("class", function(d) { return "link "+d.class })
+			    .attr("fill", "none")
+			    .attr("stroke-width", 2)
+			    .attr("stroke", function(d) { return d.color })
+			    .attr("fill-opacity", 0.1)
+			    .attr("stroke-opacity", 0.1)
+			    ;
+
+			  // .append("svg:path")
+					// .attr("fill", function (d) { return d.color })
+					// .attr("d", "M0,-5L10,0L0,5");
 
 			// Update the nodes
 			node = svg.selectAll("g.node")
@@ -162,19 +164,20 @@ function launchForceViz (data) {
 				// var p5 = Processing.getInstanceById("seuron");
 				// console.log(p5.seurons[0]);
 				seurons[d.index].isSelected=selected;
+
 				node.style("stroke-opacity", function(o) {
 					thisOpacity = isConnected(d, o) ? 1 : opacity;
 					this.setAttribute('fill-opacity', thisOpacity);
 					return thisOpacity;
 				});
 
-				path.style("stroke-opacity", opacity).style("stroke-opacity", function(o) {
-					return o.source === d || o.target === d ? 1 : opacity;
+				path.style("stroke-opacity", opacity).style("fill-opacity", function(o) {
+				 	return o.source === d || o.target === d ? 1 : opacity;
 				});
 
-				markers.style("stroke-opacity", opacity).style("fill-opacity", function(o) {
-					return o.source === d || o.target === d ? 1 : opacity;
-				});
+				// markers.style("stroke-opacity", opacity).style("fill-opacity", function(o) {
+				// 	return o.source === d || o.target === d ? 1 : opacity;
+				// });
 			};
 		}
 
