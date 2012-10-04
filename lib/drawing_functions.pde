@@ -12,7 +12,7 @@ int msgDispCount=0;
 var dispIds = [];
 
 boolean viewChangeable = true;
-int view = 1;
+int view = 3;
 
 void draw() {
 	// DRAW BACKGROUND
@@ -32,6 +32,11 @@ void draw() {
 			$("#force").toggle();
 			displayForce=true;
 		}
+		for (int i = 0; seurons[i]; i++){
+			if(seurons[i].isSelected) seurons[i].showInfoBox();
+
+		}
+		// mouseForce();
 		
 		// drawThreadsForce();
 		/*

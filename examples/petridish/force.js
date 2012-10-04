@@ -19,7 +19,6 @@ function launchForceViz (data) {
 
 	///////////// SETUP INIT
 
-		// var data = data;
 		// console.log(data);
 
 		var selectingColor = "blue";
@@ -35,77 +34,18 @@ function launchForceViz (data) {
 
 		var color = d3.scale.category20();
 
-		// use a d3 brush to make things selectable
-		/*
-		var brush = d3.svg.brush();
-			.on("brushstart", brushstart)
-			.on("brush", brushing)
-			.on("brushend", brushend);
-		
-
-		//set brush constraints to full width 
-		brushX=d3.scale.linear().range([0, width]), 
-		brushY=d3.scale.linear().range([0, height]);
-		*/
 
 		var svg = d3.select("#force")
 			.append("svg:svg")
 				.attr("width", width)
 				.attr("height", height)
-				// .append('svg:g')
-				// .attr('class', 'brush') 
-				//.call(brush.x(brushX).y(brushY))
 				.call(d3.behavior.zoom().on("zoom", redraw));
 
 		force = d3.layout.force()
 			.size([width, height])
 			.on("tick",tick);
 
-	/////////////// BRUSH FUNCTIONS
-		/*
-		// colors selected nodes in red
-		function color_node(node) {
-			if (node.selected) { return selectedColor; }
-			else { return color(node.color);}
-		}
-
-		function brushstart() {
-			// do whatever you want on brush start
-		}
-
-		function brushing() {
-		  	var e = brush.extent();
-			svg.selectAll("circle").style("fill", function(d) {
-				 truth = e[0][0] <= brushX.invert(d.x) && brushX.invert(d.x) <= e[1][0]
-					  && e[0][1] <= brushY.invert(d.y) && brushY.invert(d.y) <= e[1][1];
-				 value = truth ? "#cc0000" : color_node(d);
-				 return value;
-			})
-			.attr("stroke-opacity"), function(d) {
-				thisOpacity = isConnected(d, o) ? 1 : opacity;
-				this.setAttribute('fill-opacity', thisOpacity);
-				return thisOpacity;
-			};
-		}
-
-		function brushend() {
-		  var e = brush.extent();
-		  // empty brush deselect all nodes
-		  if (brush.empty()) svg.selectAll("circle").attr("class", function(d) {
-			  d.selected=false;
-		  });
-
-		  svg.selectAll("circle")
-		  	.attr("fill", function(d) {
-				truth = e[0][0] <= brushX.invert(d.x) && brushX.invert(d.x) <= e[1][0]
-				&& e[0][1] <= brushY.invert(d.y) && brushY.invert(d.y) <= e[1][1];
-				if (truth) { d.selected = true; }
-				value = truth ? "#cc0000" : color_node(d);
-				value = truth ? "#cc0000" : color_node(d);
-				return value;
-			});
-		}
-	*/
+	
 	///////////// DRAWING FUNCTIONS
 		function redraw() {
 			trans=d3.event.translate;
@@ -142,18 +82,19 @@ function launchForceViz (data) {
 					.attr("markerHeight", 6)
 					.attr("orient", "auto")
 				.append("svg:path")
+					.attr("fill", function (d) { return d.color
+					})
 					.attr("d", "M0,-5L10,0L0,5");
 
 			path = svg.append("svg:g").selectAll("path")
 				.data(force.links())
 			  .enter().append("svg:path")
-			     .attr("class", function(d) { return "link " })
-			     // .attr("marker-end", function(d) { return "url(#" + d.type + ")"; })
+			    .attr("class", function(d) { return "link " })
+			     // .attr("marker-end", function(d) { return "url(#" + d.strength + ")"; })
 			     
 			     .attr("fill", "none")
 			     .attr("stroke-width", 2)
-			     .attr("stroke", function(d) { return d.couleur });
-			     // .attr("linkStrength", function(d) { return d.strength*100; });
+			     .attr("stroke", function(d) { return d.color });
 
 			// Update the nodes
 			node = svg.selectAll("g.node")
@@ -167,9 +108,8 @@ function launchForceViz (data) {
 			node.append("svg:circle")
 				.attr("r", function(d) { return 10; })
 				.call(force.drag)
-				.on("mouseover", fade(.1))
-
-    			.on("mouseout", fade(1))
+				.on("mouseover", fade(.1,true))
+    			.on("mouseout", fade(1,false))
     			.on("click", function(d) { click(d) })
     			// .style("fill", function(d) { return colors[d.strength]-2; })
     			// .style("stroke", function(d) { return d3.rgb(color(d.strength)).darker();})
@@ -183,7 +123,7 @@ function launchForceViz (data) {
 				.style("font-size", 14)
 				.style("fill" , "#000000")
 				.style("font-family" , "Arial, sans")
-				// .text(function(d) { return d.name })
+				.text(function(d) { return d.name })
 				.call(force.drag);
 
 			var n = data.nodes.length;
@@ -217,11 +157,11 @@ function launchForceViz (data) {
 		return linkedByIndex[a.index + "," + b.index] || linkedByIndex[b.index + "," + a.index] || a.index == b.index;
 		}
 
-		function fade(opacity) {
+		function fade(opacity,selected) {
 			return function(d) {
-				var p5 = Processing.getInstanceById("seuron");
-				console.log(p5.seurons[0]);
-				p5.seurons[d.index].isSelected=true;
+				// var p5 = Processing.getInstanceById("seuron");
+				// console.log(p5.seurons[0]);
+				seurons[d.index].isSelected=selected;
 				node.style("stroke-opacity", function(o) {
 					thisOpacity = isConnected(d, o) ? 1 : opacity;
 					this.setAttribute('fill-opacity', thisOpacity);

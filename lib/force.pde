@@ -28,7 +28,10 @@ void createForceData() {
 		if(i!=0) {
 			node.color = hex( colors[seurons[0].synapses[seurons[0].getSynapse( seurons[i].id )].level-1],6) ;
 			// node.color = hex( colors[ synapses[seurons[0].getSynapse( seurons[i].id ).level],6 ] );
-		 }
+		}
+
+		node.name = seurons[i].name;
+
 		//add nodes to graph data
 		forceData.nodes.push( node );
 	}
@@ -54,7 +57,7 @@ void createForceData() {
 				// console.log (link.source + " -- " + link.target);
 
 				link.class = interactionClasses[classes[messages[i].interactions[j].synapse.level]];
-				link.couleur = "#"+hex(messages[i].interactions[j].couleur, 6);
+				link.color = "#"+hex(messages[i].interactions[j].couleur, 6);
 				
 				forceData.links.push(link);
 			// }
@@ -79,34 +82,15 @@ void getNodeIndex( int seuronID ) {
 }
 */
 
-/*
-void drawForce() {
 
-	for (int i = 0; nodes[i]; i++){
 
-		if( seuronIds.indexOf( seurons[i].id ) != -1) seurons[i].cx = seurons[i].ease(seurons[i].cx, nodes[i].x, 0.8);
-		if( seuronIds.indexOf( seurons[i].id ) != -1) seurons[i].cy = seurons[i].ease(seurons[i].cy, nodes[i].y, 0.8);
-		if( seuronIds.indexOf( seurons[i].id ) != -1) seurons[i].display();
-
-	}
-
-	//add caption
-	for(int i=4; i>=0; i--){
-		strokeWeight(.6*i);
-		stroke(30);
-		noFill();
-		// ellipse(width/2, height/2, 75+i*150, 75+i*150);
-		if(i<=3){
-			// line(width/2,height/2-75/2-i*75, width-15,height/2-75/2-i*75);
-			fill(colors[i]);
-			textAlign(RIGHT);
-		 	text(captions[i].toUpperCase(), width-15, height/2-85/2-i*25);
-		}
-	}
+void mouseForce() {
 	
 	//mouse interactions
-	for (int i = 0; nodes[i]; i++){
-		if(dist(mouseX, mouseY, seurons[i].cx, seurons[i].cy)<seurons[i].radius/2) {
+
+
+	/*for (int i = 0; nodes[i]; i++){
+		if(dist(MX, MY, seurons[i].cx, seurons[i].cy)<seurons[i].radius/2) {
 			seurons[i].isSelected = true;
 			seurons[i].showInfoBox();
 			seurons[i].showName();
@@ -118,19 +102,30 @@ void drawForce() {
 
 		}
 
-		if( dist(mouseX,mouseY, daddy.cx, daddy.cy)<daddy.radius/2) {
+		if( dist(MX,MY, daddy.cx, daddy.cy)<daddy.radius/2) {
 			daddy.isSelected = true;
 			// console.log("daddy.isSelected = true")
 			daddy.showName();
 			daddy.showInfoBox();
 		}
 		else daddy.isSelected = false;
-	}
+	}*/
+
+	//add caption
+	/*for(int i=4; i>=0; i--){
+		strokeWeight(.6*i);
+		stroke(30);
+		noFill();
+		// ellipse(width/2, height/2, 75+i*150, 75+i*150);
+		if(i<=3){
+			// line(width/2,height/2-75/2-i*75, width-15,height/2-75/2-i*75);
+			fill(colors[i]);
+			textAlign(RIGHT);
+		 	text(captions[i].toUpperCase(), width-15, height/2-85/2-i*25);
+		}
+	}*/
 
 
-	if(g!=null){
-	    boolean done = g.reflow();
-	    if(!done) { loop(); } else { noLoop(); }
-	}
 }
+/*
 */
