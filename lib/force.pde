@@ -1,4 +1,19 @@
+var classes = [
+		"friendfollow", 
+		"following", 
+		"follower",
+		"unrelated"
+		];
 
+var interactionClasses = [
+			"unknown", 
+			"post",
+			"RT",
+			"answer",
+			"at"
+];
+
+// var colors = [ '#c7eab4', '#7fcebb', '#41b7c5', '#2d7fb9' ];
 //create data for d3.js force graph
 void createForceData() {
 	
@@ -7,8 +22,13 @@ void createForceData() {
 	for (int i = 0; seurons[i]; i++){
 		
 		var node = {};
-		node.color = seurons.couleur;
 		
+		// console.log(colors);
+
+		if(i!=0) {
+			node.color = hex( colors[seurons[0].synapses[seurons[0].getSynapse( seurons[i].id )].level-1],6) ;
+			// node.color = hex( colors[ synapses[seurons[0].getSynapse( seurons[i].id ).level],6 ] );
+		 }
 		//add nodes to graph data
 		forceData.nodes.push( node );
 	}
@@ -20,17 +40,24 @@ void createForceData() {
 
 			var link = {};
 
-			// add all interactions to seurons force graph
-			link.source = seuronExists(messages[i].interactions[j].synapse.seuronA.id);
-			link.target = seuronExists(messages[i].interactions[j].synapse.seuronB.id);
-			// if( link.source == seuronExists(daddy.id) ) 
+			// if(messages[i].interactions[j].synapse.seuronA.id != seurons[0].id) {
 
-			link.strength = messages[i].interactions[j].synapse.level+1;
-			
-			// console.log (link.source + " -- " + link.target);
-			link.couleur = messages[i].interactions[j].couleur;
-			
-			forceData.links.push(link);
+				// add all interactions to seurons force graph
+				link.source = seuronExists(messages[i].interactions[j].synapse.seuronA.id);
+				link.target = seuronExists(messages[i].interactions[j].synapse.seuronB.id);
+				// if( link.source == seuronExists(daddy.id) ) 
+
+				link.level = messages[i].interactions[j].synapse.level+1;
+				link.strength = messages[i].interactions[j].synapse.level+1;
+
+				
+				// console.log (link.source + " -- " + link.target);
+
+				link.class = interactionClasses[classes[messages[i].interactions[j].synapse.level]];
+				link.couleur = "#"+hex(messages[i].interactions[j].couleur, 6);
+				
+				forceData.links.push(link);
+			// }
 
 		}
 	}

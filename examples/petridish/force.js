@@ -128,6 +128,7 @@ function launchForceViz (data) {
 			    .linkDistance(150)
 			    .gravity(.06)
 		        // .distance(100)
+		        .linkStrength( function(d) { return (1/(1+d.strength)) } )
 		        .start();
 
 			// Per-type markers, as they don't inherit styles.
@@ -147,9 +148,13 @@ function launchForceViz (data) {
 			path = svg.append("svg:g").selectAll("path")
 			    .data(force.links())
 			  .enter().append("svg:path")
-			     .attr("class", function(d) { return "link " + d.type; })
-			     .attr("marker-end", function(d) { return "url(#" + d.type + ")"; })
-			     .attr("linkStrength", function(d) { return d.strength*100; });
+			     .attr("class", function(d) { return "link " })
+			     // .attr("marker-end", function(d) { return "url(#" + d.type + ")"; })
+			     
+			     .attr("fill", "none")
+			     .attr("stroke-width", 2)
+			     .attr("stroke", function(d) { return d.couleur });
+			     // .attr("linkStrength", function(d) { return d.strength*100; });
 
 			// Update the nodes
 			node = svg.selectAll("g.node")
@@ -166,15 +171,16 @@ function launchForceViz (data) {
 				.on("mouseover", fade(.1))
     			.on("mouseout", fade(1))
     			.on("click", function(d) { click(d) })
-    			.style("fill", function(d) { return color(d.color); })
-    			.style("stroke", function(d) { return d3.rgb(color(d.color)).darker();});
+    			// .style("fill", function(d) { return colors[d.strength]-2; })
+    			// .style("stroke", function(d) { return d3.rgb(color(d.strength)).darker();})
+		        .style("fill" , function(d){ return d.color; });
 
 			node.append("svg:text")
 		        .attr("class", "nodetext")
 	        	.attr("dx", ".05em")
 	        	.attr("dy", "-.35em")
 		        .style("font-size", 14)
-		        .style("fill" , "#000000")
+		        // .style("fill", function(d) { return colors[d.strength]-2; })
 		        .style("font-family" , "Arial, sans")
 		        // .text(function(d) { return d.name })
 				.call(force.drag);
