@@ -12,7 +12,7 @@ int msgDispCount=0;
 var dispIds = [];
 
 boolean viewChangeable = true;
-int view = 1;
+int view = 3;
 boolean forceDataCreated = false;
 
 void draw() {
@@ -24,6 +24,9 @@ void draw() {
 		ctx.fillRect( 0, 0, width, height );
 		
 	// draw caption
+
+	drawSidebar();
+
 	if(view==1){
 		drawCaptions();
 		$("#force").hide();
@@ -32,6 +35,7 @@ void draw() {
 	if(view==2) drawThreads();
 
 	if(view==3) {
+		// drawCaptions();
 		$("#force").show();
 
 		for (int i = 0; seurons[i]; i++){
@@ -99,24 +103,6 @@ void draw() {
 }
 
 
-void drawCaptions(){
-	textAlign(LEFT);
-	fill(255);
-	// text("Press Mouse Button To Show Messages", 15,height-90);
-
-	for(int i=4; i>=0; i--){
-		strokeWeight(.6*i);
-		stroke(30);
-		noFill();
-		ellipse(width/2, height/2, 75+i*150, 75+i*150);
-		if(i<=3){
-			line(width/2,height/2-75/2-i*75, width-15,height/2-75/2-i*75);
-			fill(colors[i]);
-			textAlign(RIGHT);
-		 	text(captions[i].toUpperCase(), width-15, height/2-85/2-i*75);
-		}
-	}
-}
 
 
 int dateMin = (new Date()).getTime(); // Return the number of milliseconds since 1970/01/01:
@@ -254,7 +240,6 @@ void drawTimeline(){
 		}
 }
 
-
 void displayAllSeurons(){
 	// draw close friends
 	for (int i = 0; daddy.close[i]; i++){
@@ -283,63 +268,100 @@ void displayAllSeurons(){
 	}
 }
 
+////////////////////////CAPTIONS
+void drawCaptions(){
+	textAlign(LEFT);
+	fill(255);
+	// text("Press Mouse Button To Show Messages", 15,height-90);
+
+	for(int i=4; i>=0; i--){
+		strokeWeight(.6*i);
+		stroke(30);
+		noFill();
+		ellipse(width/2, height/2, 75+i*150, 75+i*150);
+		if(i<=3){
+			line(width/2,height/2-75/2-i*75, width-15,height/2-75/2-i*75);
+			fill(colors[i]);
+			textAlign(RIGHT);
+		 	text(captions[i].toUpperCase(), width-15, height/2-85/2-i*75);
+		}
+	}
+}
+
+void drawSidebar() {
+	fill(30);
+	noStroke();
+	rect(15,15,165,height-105,8,8);
+	textAlign(LEFT);
+	fill(255);
+	text("MESSAGES:", 30, 40);
+	fill(#8d2eb0);
+	ellipse(40, 60, 10, 10);
+	stroke(#8d2eb0);
+	line(30,60,50,60);
+	noStroke();
+	fill(255);
+	text("TWEET", 60, 65);
+	fill(#d42026);
+	ellipse(40, 90, 10, 10);
+	stroke(#d42026);
+	line(30,90,50,90);
+	noStroke();
+	fill(255);
+	text("RETWEET", 60, 95);
+	fill(#e9e32e);
+	ellipse(40, 120, 10, 10);
+	stroke(#e9e32e);
+	line(30,120,50,120);
+	noStroke();
+	fill(255);
+	text("REPLY", 60, 125);
+	fill(255,80);
+	ellipse(45, 165, 30, 30);
+	ellipse(45, 165, 20, 20);
+	ellipse(45, 165, 10, 10);
+	stroke(255);
+	line(30,165,60,165);
+	noStroke();
+	fill(255);
+	text("INTERACTIONS", 70, 170);
+
+	fill(255);
+	text("INTERACTIONS:", 30, 250);
+	fill(#ee64ff);
+	ellipse(30, 270, 10, 10);
+	fill(255);
+	text("MENTION", 45, 275);
+	fill(#00FF85);
+	ellipse(30, 300, 10, 10);
+	fill(255);
+	text("RETWEET", 45, 305);
+	fill(#ff9000);
+	ellipse(30, 330, 10, 10);
+	fill(255);
+	text("REPLY", 45, 335);
+
+	
+	fill(255);
+	text("RELATIONSHIPS", 30, 390);
+
+	for(int i=4; i>=0; i--){
+		// strokeWeight(.6*i);
+		// stroke(30);
+		noFill();
+		// ellipse(width/2, height/2, 75+i*150, 75+i*150);
+		if(i<=3){
+			// line(width/2,height/2-75/2-i*75, width-15,height/2-75/2-i*75);
+			fill(colors[i]);
+			ellipse(30, 410+i*30, 10, 10);
+		 	text(captions[i].toUpperCase(), 45, 415+i*30);
+		}
+	}
+}
 
 float scrollY=0;
 boolean scrollDraggable = false;
 void drawThreads(){
-	////////////////////////CAPTIONS
-		fill(30);
-		noStroke();
-		rect(15,15,165,height-105,8,8);
-		textAlign(LEFT);
-		fill(255);
-		text("MESSAGES:", 30, 40);
-		fill(#8d2eb0);
-		ellipse(40, 60, 10, 10);
-		stroke(#8d2eb0);
-		line(30,60,50,60);
-		noStroke();
-		fill(255);
-		text("TWEET", 60, 65);
-		fill(#d42026);
-		ellipse(40, 90, 10, 10);
-		stroke(#d42026);
-		line(30,90,50,90);
-		noStroke();
-		fill(255);
-		text("RETWEET", 60, 95);
-		fill(#e9e32e);
-		ellipse(40, 120, 10, 10);
-		stroke(#e9e32e);
-		line(30,120,50,120);
-		noStroke();
-		fill(255);
-		text("REPLY", 60, 125);
-		fill(255,80);
-		ellipse(45, 165, 30, 30);
-		ellipse(45, 165, 20, 20);
-		ellipse(45, 165, 10, 10);
-		stroke(255);
-		line(30,165,60,165);
-		noStroke();
-		fill(255);
-		text("INTERACTIONS", 70, 170);
-
-		fill(255);
-		text("INTERACTIONS:", 30, 250);
-		fill(#ee64ff);
-		ellipse(30, 270, 10, 10);
-		fill(255);
-		text("MENTION", 45, 275);
-		fill(#00FF85);
-		ellipse(30, 300, 10, 10);
-		fill(255);
-		text("RETWEET", 45, 305);
-		fill(#ff9000);
-		ellipse(30, 330, 10, 10);
-		fill(255);
-		text("REPLY", 45, 335);
-
 
 	////////////////////////SCROLLBAR
 		fill(30);
