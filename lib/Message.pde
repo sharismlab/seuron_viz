@@ -41,9 +41,11 @@ class Message {
 		message = data.text;
 		
 		date = parseTwitterDate(data.created_at);
+
 		// console.log(date);
 		// console.log("dateMax: " + dateMax);
 		// console.log("dateMin: " + dateMin);
+		
 		seconds = Date.parse(date);
 		// console.log("seconds : " + seconds);
 		// if(seconds < dateMin) console.log("true");
