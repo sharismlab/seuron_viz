@@ -2,7 +2,7 @@ int nbNeurons=1;
 Neuron[] neurons;
 
 void setup() {
-	size(800, 800, P2D);
+	size(600, 600, P2D);
 	smooth();
 	noStroke();
 	neurons=new Neuron[nbNeurons];
