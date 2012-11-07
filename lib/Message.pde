@@ -1,3 +1,7 @@
+/*
+	Class containing all informations relative to a Message
+*/
+
 class Message {
 
 	int id;
